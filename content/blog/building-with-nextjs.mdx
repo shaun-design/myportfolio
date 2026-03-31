@@ -1,0 +1,46 @@
+---
+title: "Why I Chose Next.js for My Portfolio"
+date: "2024-04-02"
+description: "A look at why Next.js 15 with the App Router is an excellent foundation for a personal site."
+tags: ["next.js", "web development", "react"]
+---
+
+When I sat down to rebuild my portfolio, I had a short list of requirements: fast, simple to maintain, easy to author, and deployable in one command. Next.js with the App Router checks every box.
+
+## The Requirements
+
+1. **Fast** — static generation where possible, no runtime overhead for content pages
+2. **Simple** — minimal configuration, no extra tooling
+3. **Content-friendly** — easy to write and update posts and case studies
+4. **Deployable** — `git push` and it's live
+
+## Why the App Router
+
+The App Router introduced some patterns that genuinely simplify how I think about layouts and data fetching.
+
+### Layouts Without Boilerplate
+
+The `layout.tsx` convention means I define my header and footer once and they automatically wrap every page in that directory. No manually importing a `<Layout>` component on every page.
+
+### Server Components by Default
+
+Pages that read from local MDX files are Server Components — they run at build time, produce pure HTML, and ship zero JavaScript for the page content itself. That's exactly what you want for a blog.
+
+### Route Handlers for Lightweight APIs
+
+The `app/api/contact/route.ts` file gives me a POST endpoint for my contact form without spinning up a separate server. Perfect for a simple use case like this.
+
+## MDX for Content
+
+I considered a headless CMS, but it felt like overkill for a personal site where I'm the only author. MDX files in the repo means:
+
+- Content lives with the code in version control
+- I can write in any editor
+- No API keys, no third-party dependency at runtime
+- Easy to migrate later if I ever need to
+
+The tradeoff is that publishing requires a deploy. For my use case, that's perfectly fine.
+
+## Final Thoughts
+
+Next.js 15 is a joy to work with. If you're building a portfolio or blog and comfortable with React, the App Router is worth the learning curve. The patterns are sensible, the performance is great out of the box, and Vercel's deployment experience is seamless.

@@ -1,0 +1,49 @@
+---
+title: "Web App Redesign"
+date: "2024"
+description: "End-to-end redesign of a consumer productivity app — research, UI overhaul, and frontend implementation."
+tags: ["Product Design", "React", "User Research"]
+featured: true
+---
+
+## Overview
+
+A consumer productivity app had strong retention among power users but terrible activation for new ones. My task was to redesign the onboarding flow and core UI to improve first-week engagement without alienating the existing base.
+
+## The Challenge
+
+The app had been built incrementally over three years by engineers without a dedicated designer. The result was a UI that was powerful but difficult to learn — new users churned within days, before experiencing the features that made existing users loyal.
+
+## Process
+
+### Research
+
+I conducted 12 user interviews split evenly between new signups (within the first 7 days) and long-term users (6+ months). The patterns were clear:
+
+- New users didn't know where to start or what to do first
+- The information hierarchy was inconsistent across the app
+- Key actions were buried in nested menus that power users had memorized
+
+### Design
+
+I used the research to drive a focused redesign with three priorities:
+
+1. **Simplified navigation** — collapsed secondary nav, surfaced the 4 most common actions at the top level
+2. **Progressive disclosure** — hid advanced features behind progressive entry points rather than showing everything upfront
+3. **Improved empty states** — replaced generic empty screens with contextual prompts that guided users toward their first meaningful action
+
+I worked in Figma, iterating on high-fidelity prototypes before any code was written. We tested with 8 users across two rounds before locking the design.
+
+### Implementation
+
+I worked directly in the codebase using React and Tailwind, shipping the redesign over six weeks alongside a small engineering team. Having designers who can ship code dramatically shortened the feedback loop.
+
+## Results
+
+- 7-day activation rate improved by 34%
+- Support tickets related to navigation dropped by 45%
+- Average session length increased from 4.2 to 6.8 minutes
+
+## Takeaways
+
+The biggest win wasn't a specific design decision — it was tightening the loop between design and engineering. When the designer is also shipping pull requests, you stop playing telephone and start solving problems directly.
