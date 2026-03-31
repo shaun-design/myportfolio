@@ -6,10 +6,10 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const navLinks = [
-  { label: "Work", href: "/work" },
-  { label: "Blog", href: "/blog" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "About", href: "/" },
+  { label: "Resume", href: "/resume" },
+  { label: "Portfolio", href: "/work" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/shaunrherron/" },
 ];
 
 export function Header() {
@@ -22,23 +22,27 @@ export function Header() {
           href="/"
           className="text-sm font-semibold tracking-tight hover:opacity-80 transition-opacity"
         >
-          Your Name
+          Simple Shaun
         </Link>
 
         <nav className="flex items-center gap-1">
           {navLinks.map((link) => {
+            const isExternal = link.href.startsWith("http");
             const isActive =
-              pathname === link.href ||
-              (link.href !== "/" && pathname.startsWith(link.href));
+              !isExternal &&
+              (pathname === link.href ||
+                (link.href !== "/" && pathname.startsWith(link.href)));
             return (
               <Link
                 key={link.href}
                 href={link.href}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
                 className={cn(
-                  "rounded-md px-3 py-2 text-sm transition-colors",
+                  "rounded-full px-3 py-2 text-sm transition-colors",
                   isActive
-                    ? "font-medium text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "bg-foreground font-medium text-background dark:bg-muted dark:text-foreground"
+                    : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
                 )}
               >
                 {link.label}

@@ -9,11 +9,11 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: {
-    default: "Your Name — Designer & Developer",
-    template: "%s | Your Name",
+    default: "Simple Shaun — Designer & Developer",
+    template: "%s | Simple Shaun",
   },
   description:
-    "Portfolio and blog of Your Name — designer, developer, and builder of thoughtful digital products.",
+    "Portfolio and blog of Simple Shaun — designer, developer, and builder of thoughtful digital products.",
 };
 
 export default function RootLayout({
