@@ -85,7 +85,8 @@ export default function HomePage() {
           <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-white">
             SELECTED WORK
           </h2>
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="flex justify-center">
+            <div className="grid gap-6 lg:grid-cols-2 max-w-4xl w-full">
             <article className="overflow-hidden rounded-2xl bg-card text-card-foreground">
               <div className="relative h-48 border-b bg-[#5A2470]">
                 <div className="absolute inset-x-6 bottom-6">
@@ -111,28 +112,6 @@ export default function HomePage() {
             <article className="overflow-hidden rounded-2xl bg-card text-card-foreground">
               <div className="relative h-48 border-b bg-[#F26F63]">
                 <div className="absolute inset-x-6 bottom-6">
-                  <p className="m-0 mb-2 text-sm font-medium uppercase tracking-[0.2em] text-white/75">
-                    Professional Learning System
-                  </p>
-                  <h3 className="m-0 text-2xl font-semibold text-white">
-                    TORSH Platform
-                  </h3>
-                </div>
-              </div>
-              <div className="px-6 pb-14 pt-6 text-center">
-                <p className="m-0 text-base leading-7 text-muted-foreground">
-                  End-to-end professional learning system for educators
-                  including video coaching, evaluations, and LMS tools
-                </p>
-                <p className="m-0 mt-5 inline-flex items-center gap-1 rounded-full bg-[#2D61A6]/10 px-4 py-2 text-sm font-medium text-[#2D61A6]">
-                  View Case Study <ChevronsRight className="h-4 w-4" />
-                </p>
-              </div>
-            </article>
-
-            <article className="overflow-hidden rounded-2xl bg-card text-card-foreground">
-              <div className="relative h-48 border-b bg-[#0F4ABF]">
-                <div className="absolute inset-x-6 bottom-6">
                   <p className="m-0 mb-2 text-sm font-medium uppercase tracking-[0.2em] text-white/80">
                     Scalable Multi-Product System
                   </p>
@@ -151,32 +130,113 @@ export default function HomePage() {
                 </p>
               </div>
             </article>
+            </div>
           </div>
         </div>
       </section>
 
       <section
         className="flex min-h-[25vh] items-center border-b"
-        style={{ backgroundColor: "#D9D9D9" }}
+        style={{ backgroundColor: "#FFFFFF" }}
       >
         <div className="container py-12 md:py-16">
           <div>
             <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-foreground">
-              How I Work
+              HOW I DESIGN
             </h2>
-            <ul className="grid gap-4 pb-12 md:grid-cols-2 xl:grid-cols-4">
-              <li className="rounded-xl border border-black/10 bg-white px-5 pb-14 pt-10 text-center text-base text-foreground shadow-md shadow-black/5">
-                I define the problem before designing the solution
+            <p className="mx-auto mb-10 max-w-2xl text-center text-lg text-muted-foreground">
+              Design thinking is how I turn ambiguity into clear, validated direction. It keeps teams focused on the right problem, explores multiple solutions, and ensures what we build delivers real value.
+            </p>
+            <ul className="grid gap-4 pb-12 md:grid-cols-3">
+              <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#F3EDF5" }}>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#471B59]">Understand</p>
+                <h3 className="mb-2 font-semibold text-base">1. Empathize</h3>
+                <p className="mb-4 text-xs italic text-muted-foreground">Know your user</p>
+                <p className="mb-4 text-muted-foreground">
+                  Understand who you're designing for before solving anything.
+                </p>
+                <p className="mb-2 font-semibold text-xs">Ask:</p>
+                <ul className="mb-4 space-y-1 text-xs text-muted-foreground">
+                  <li>• Who are they and what matters to them?</li>
+                  <li>• Where do they struggle?</li>
+                </ul>
+                <p className="mb-2 font-semibold text-xs">How:</p>
+                <p className="text-xs text-muted-foreground">Interviews, personas, journey maps</p>
               </li>
-              <li className="rounded-xl border border-black/10 bg-white px-5 pb-14 pt-10 text-center text-base text-foreground shadow-md shadow-black/5">
-                I align product, design, and engineering early to reduce rework
+              <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#EEF3FD" }}>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#0F4ABF]">Understand</p>
+                <h3 className="mb-2 font-semibold text-base">2. Define</h3>
+                <p className="mb-4 text-xs italic text-muted-foreground">Clarify the problem</p>
+                <p className="mb-4 text-muted-foreground">
+                  Turn insights into a clear, focused problem.
+                </p>
+                <p className="mb-2 font-semibold text-xs">Ask:</p>
+                <ul className="mb-4 space-y-1 text-xs text-muted-foreground">
+                  <li>• What problem are we solving?</li>
+                  <li>• What does success look like?</li>
+                </ul>
+                <p className="mb-2 font-semibold text-xs">How:</p>
+                <p className="text-xs text-muted-foreground">Problem statement, brief, KPIs</p>
               </li>
-              <li className="rounded-xl border border-black/10 bg-white px-5 pb-14 pt-10 text-center text-base text-foreground shadow-md shadow-black/5">
-                I design systems that scale across teams, not just individual
-                screens
+              <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#FDEDEC" }}>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#D96257]">Explore</p>
+                <h3 className="mb-2 font-semibold text-base">3. Ideate</h3>
+                <p className="mb-4 text-xs italic text-muted-foreground">Explore options</p>
+                <p className="mb-4 text-muted-foreground">
+                  Generate a range of possible solutions.
+                </p>
+                <p className="mb-2 font-semibold text-xs">Ask:</p>
+                <ul className="mb-4 space-y-1 text-xs text-muted-foreground">
+                  <li>• What are all the ways to solve this?</li>
+                  <li>• What can we learn from existing solutions?</li>
+                </ul>
+                <p className="mb-2 font-semibold text-xs">How:</p>
+                <p className="text-xs text-muted-foreground">Brainstorming, sketching, research</p>
               </li>
-              <li className="rounded-xl border border-black/10 bg-white px-5 pb-14 pt-10 text-center text-base text-foreground shadow-md shadow-black/5">
-                I use AI as a tool to accelerate thinking, not replace it
+              <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#EDF7F2" }}>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#2E7D5B]">Explore</p>
+                <h3 className="mb-2 font-semibold text-base">4. Prototype</h3>
+                <p className="mb-4 text-xs italic text-muted-foreground">Make it real</p>
+                <p className="mb-4 text-muted-foreground">
+                  Create something quick and testable.
+                </p>
+                <p className="mb-2 font-semibold text-xs">Ask:</p>
+                <ul className="mb-4 space-y-1 text-xs text-muted-foreground">
+                  <li>• What's the simplest version we can test?</li>
+                  <li>• Is it clear enough to interact with?</li>
+                </ul>
+                <p className="mb-2 font-semibold text-xs">How:</p>
+                <p className="text-xs text-muted-foreground">Wireframes, low fidelity prototypes</p>
+              </li>
+              <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#FDF6E9" }}>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#C9972E]">Materialize</p>
+                <h3 className="mb-2 font-semibold text-base">5. Test</h3>
+                <p className="mb-4 text-xs italic text-muted-foreground">Learn from users</p>
+                <p className="mb-4 text-muted-foreground">
+                  Observe real interactions and gather feedback.
+                </p>
+                <p className="mb-2 font-semibold text-xs">Ask:</p>
+                <ul className="mb-4 space-y-1 text-xs text-muted-foreground">
+                  <li>• Where did users struggle?</li>
+                  <li>• What should we improve?</li>
+                </ul>
+                <p className="mb-2 font-semibold text-xs">How:</p>
+                <p className="text-xs text-muted-foreground">Usability testing, observation</p>
+              </li>
+              <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#EDF5FD" }}>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#1E82D9]">Materialize</p>
+                <h3 className="mb-2 font-semibold text-base">6. Implement</h3>
+                <p className="mb-4 text-xs italic text-muted-foreground">Ship it</p>
+                <p className="mb-4 text-muted-foreground">
+                  Deliver a solution that can be built and used.
+                </p>
+                <p className="mb-2 font-semibold text-xs">Ask:</p>
+                <ul className="mb-4 space-y-1 text-xs text-muted-foreground">
+                  <li>• Can the team build this clearly?</li>
+                  <li>• Does it improve the experience?</li>
+                </ul>
+                <p className="mb-2 font-semibold text-xs">How:</p>
+                <p className="text-xs text-muted-foreground">High fidelity designs, specs</p>
               </li>
             </ul>
           </div>

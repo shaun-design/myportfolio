@@ -1,9 +1,6 @@
 import Link from "next/link";
 
-const socialLinks = [
-  { label: "Portfolio", href: "/work" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/shaunrherron/" },
-];
+const socialLinks = [];
 
 export function Footer() {
   return (

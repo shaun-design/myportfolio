@@ -5,9 +5,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { label: "About", href: "/" },
   { label: "Resume", href: "/resume" },
-  { label: "Portfolio", href: "/work" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/shaunrherron/" },
 ];
 

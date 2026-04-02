@@ -23,6 +23,7 @@ export interface WorkMeta {
   tags?: string[];
   coverImage?: string;
   featured?: boolean;
+  url?: string;
 }
 
 export interface Post extends PostMeta {
@@ -77,13 +78,23 @@ export function getPostBySlug(slug: string): Post | null {
   };
 }
 
-// ─── Work ─────────────────────────────────────────────────────────────────────
+// ─── Work (Legacy) ────────────────────────────────────────────────────────────
 
 export function getAllWork(): WorkMeta[] {
-  return getMdxFiles("work")
+  return getAllPortfolio();
+}
+
+export function getWorkBySlug(slug: string): Work | null {
+  return getPortfolioBySlug(slug);
+}
+
+// ─── Portfolio ────────────────────────────────────────────────────────────────
+
+export function getAllPortfolio(): WorkMeta[] {
+  return getMdxFiles("portfolio")
     .map((file) => {
       const slug = file.replace(".mdx", "");
-      const raw = fs.readFileSync(path.join(contentDir, "work", file), "utf-8");
+      const raw = fs.readFileSync(path.join(contentDir, "portfolio", file), "utf-8");
       const { data } = matter(raw);
       return {
         slug,
@@ -93,13 +104,14 @@ export function getAllWork(): WorkMeta[] {
         tags: data.tags ?? [],
         coverImage: data.coverImage,
         featured: data.featured ?? false,
+        url: data.url,
       } satisfies WorkMeta;
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-export function getWorkBySlug(slug: string): Work | null {
-  const fullPath = path.join(contentDir, "work", `${slug}.mdx`);
+export function getPortfolioBySlug(slug: string): Work | null {
+  const fullPath = path.join(contentDir, "portfolio", `${slug}.mdx`);
   if (!fs.existsSync(fullPath)) return null;
   const raw = fs.readFileSync(fullPath, "utf-8");
   const { data, content } = matter(raw);
@@ -111,6 +123,7 @@ export function getWorkBySlug(slug: string): Work | null {
     tags: data.tags ?? [],
     coverImage: data.coverImage,
     featured: data.featured ?? false,
+    url: data.url,
     content,
   };
 }
