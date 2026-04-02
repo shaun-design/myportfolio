@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 const navLinks = [
   { label: "About", href: "/" },
@@ -41,7 +40,7 @@ export function Header() {
                 className={cn(
                   "rounded-full px-3 py-2 text-sm transition-colors",
                   isActive
-                    ? "bg-foreground font-medium text-background dark:bg-muted dark:text-foreground"
+                    ? "bg-[#3F83BF] font-medium text-white dark:bg-[#3F83BF] dark:text-white"
                     : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
                 )}
               >
@@ -49,9 +48,6 @@ export function Header() {
               </Link>
             );
           })}
-          <div className="ml-1">
-            <ThemeToggle />
-          </div>
         </nav>
       </div>
     </header>
