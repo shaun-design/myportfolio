@@ -1,9 +1,21 @@
 import type { Metadata } from "next";
 import { PageContainer } from "@/components/layout/page-container";
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  "https://myportfolio-git-main-shaun-designs-projects.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Resume",
-  description: "Resume of Shaun Herron, Senior Product Designer.",
+  title: "Resume | Shaun Herron",
+  description:
+    "Resume of Shaun Herron, Senior Product Designer specializing in design systems, SaaS platforms, UX leadership, and AI enabled product design.",
+  openGraph: {
+    title: "Resume | Shaun Herron",
+    description:
+      "Resume of Shaun Herron, Senior Product Designer specializing in design systems, SaaS platforms, UX leadership, and AI enabled product design.",
+    url: `${siteUrl}/resume`,
+    type: "website",
+  },
 };
 
 export default function ResumePage() {

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import {
   Boxes,
   ChevronsRight,
@@ -6,6 +7,23 @@ import {
   Sparkles,
   University,
 } from "lucide-react";
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  "https://myportfolio-git-main-shaun-designs-projects.vercel.app";
+
+export const metadata: Metadata = {
+  title: "Shaun Herron | Senior Product Designer",
+  description:
+    "Senior Product Designer with deep experience in design systems, SaaS UX, product strategy, and AI enabled experiences.",
+  openGraph: {
+    title: "Shaun Herron | Senior Product Designer",
+    description:
+      "Senior Product Designer with deep experience in design systems, SaaS UX, product strategy, and AI enabled experiences.",
+    url: siteUrl,
+    type: "website",
+  },
+};
 
 export default function HomePage() {
   return (
@@ -46,28 +64,28 @@ export default function HomePage() {
         className="flex min-h-[25vh] items-center border-b"
         style={{ backgroundColor: "#D9D9D9" }}
       >
-        <div className="container py-12 md:py-16">
+        <div className="container py-20 md:py-28">
           <div>
             <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-foreground">
               IMPACT
             </h2>
-            <ul className="grid gap-4 pb-12 md:grid-cols-2 xl:grid-cols-4">
-              <li className="rounded-xl border border-black/10 bg-white px-5 pb-14 pt-10 text-center text-base text-foreground shadow-md shadow-black/5">
+            <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              <li className="rounded-xl border border-black/10 bg-white px-5 pb-14 pt-10 text-center text-base text-foreground">
                 <Boxes className="mx-auto mb-5 h-6 w-6 text-[#2D61A6]" />
                 Built and led a design system with 120+ reusable components and
                 500+ tokens
               </li>
-              <li className="rounded-xl border border-black/10 bg-white px-5 pb-14 pt-10 text-center text-base text-foreground shadow-md shadow-black/5">
+              <li className="rounded-xl border border-black/10 bg-white px-5 pb-14 pt-10 text-center text-base text-foreground">
                 <University className="mx-auto mb-5 h-6 w-6 text-[#2D61A6]" />
                 Designed products used across 250+ schools and thousands of
                 educators
               </li>
-              <li className="rounded-xl border border-black/10 bg-white px-5 pb-14 pt-10 text-center text-base text-foreground shadow-md shadow-black/5">
+              <li className="rounded-xl border border-black/10 bg-white px-5 pb-14 pt-10 text-center text-base text-foreground">
                 <Sparkles className="mx-auto mb-5 h-6 w-6 text-[#2D61A6]" />
                 Created AI-assisted coaching workflows to improve feedback and
                 development cycles
               </li>
-              <li className="rounded-xl border border-black/10 bg-white px-5 pb-14 pt-10 text-center text-base text-foreground shadow-md shadow-black/5">
+              <li className="rounded-xl border border-black/10 bg-white px-5 pb-14 pt-10 text-center text-base text-foreground">
                 <Handshake className="mx-auto mb-5 h-6 w-6 text-[#2D61A6]" />
                 Partnered closely with product and engineering to ship scalable
                 React-based systems
@@ -81,7 +99,7 @@ export default function HomePage() {
         className="border-b"
         style={{ backgroundColor: "#090740" }}
       >
-        <div className="container py-28 md:py-36">
+        <div className="container py-20 md:py-28">
           <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-white">
             SELECTED WORK
           </h2>
@@ -139,7 +157,7 @@ export default function HomePage() {
         className="flex min-h-[25vh] items-center border-b"
         style={{ backgroundColor: "#FFFFFF" }}
       >
-        <div className="container py-12 md:py-16">
+        <div className="container py-20 md:py-28">
           <div>
             <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-foreground">
               HOW I DESIGN
@@ -147,9 +165,9 @@ export default function HomePage() {
             <p className="mx-auto mb-10 max-w-2xl text-center text-lg text-muted-foreground">
               Design thinking is how I turn ambiguity into clear, validated direction. It keeps teams focused on the right problem, explores multiple solutions, and ensures what we build delivers real value.
             </p>
-            <ul className="grid gap-4 pb-12 md:grid-cols-3">
-              <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#F3EDF5" }}>
-                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#471B59]">Understand</p>
+            <ul className="grid gap-4 md:grid-cols-3">
+              <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#EEF3FD" }}>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#0F4ABF]">Understand</p>
                 <h3 className="mb-2 font-semibold text-base">1. Empathize</h3>
                 <p className="mb-4 text-xs italic text-muted-foreground">Know your user</p>
                 <p className="mb-4 text-muted-foreground">
@@ -163,8 +181,8 @@ export default function HomePage() {
                 <p className="mb-2 font-semibold text-xs">How:</p>
                 <p className="text-xs text-muted-foreground">Interviews, personas, journey maps</p>
               </li>
-              <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#EEF3FD" }}>
-                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#0F4ABF]">Understand</p>
+              <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#EDF5FD" }}>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#1E82D9]">Understand</p>
                 <h3 className="mb-2 font-semibold text-base">2. Define</h3>
                 <p className="mb-4 text-xs italic text-muted-foreground">Clarify the problem</p>
                 <p className="mb-4 text-muted-foreground">
@@ -178,8 +196,8 @@ export default function HomePage() {
                 <p className="mb-2 font-semibold text-xs">How:</p>
                 <p className="text-xs text-muted-foreground">Problem statement, brief, KPIs</p>
               </li>
-              <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#FDEDEC" }}>
-                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#D96257]">Explore</p>
+              <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#EDF7F2" }}>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#2E7D5B]">Explore</p>
                 <h3 className="mb-2 font-semibold text-base">3. Ideate</h3>
                 <p className="mb-4 text-xs italic text-muted-foreground">Explore options</p>
                 <p className="mb-4 text-muted-foreground">
@@ -194,7 +212,7 @@ export default function HomePage() {
                 <p className="text-xs text-muted-foreground">Brainstorming, sketching, research</p>
               </li>
               <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#EDF7F2" }}>
-                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#2E7D5B]">Explore</p>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#296F51]">Explore</p>
                 <h3 className="mb-2 font-semibold text-base">4. Prototype</h3>
                 <p className="mb-4 text-xs italic text-muted-foreground">Make it real</p>
                 <p className="mb-4 text-muted-foreground">
@@ -209,7 +227,7 @@ export default function HomePage() {
                 <p className="text-xs text-muted-foreground">Wireframes, low fidelity prototypes</p>
               </li>
               <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#FDF6E9" }}>
-                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#C9972E]">Materialize</p>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#B58629]">Materialize</p>
                 <h3 className="mb-2 font-semibold text-base">5. Test</h3>
                 <p className="mb-4 text-xs italic text-muted-foreground">Learn from users</p>
                 <p className="mb-4 text-muted-foreground">
@@ -223,8 +241,8 @@ export default function HomePage() {
                 <p className="mb-2 font-semibold text-xs">How:</p>
                 <p className="text-xs text-muted-foreground">Usability testing, observation</p>
               </li>
-              <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#EDF5FD" }}>
-                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#1E82D9]">Materialize</p>
+              <li className="rounded-xl px-5 pb-8 pt-10 text-left text-sm text-foreground" style={{ backgroundColor: "#FDF6E9" }}>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#B58629]">Materialize</p>
                 <h3 className="mb-2 font-semibold text-base">6. Implement</h3>
                 <p className="mb-4 text-xs italic text-muted-foreground">Ship it</p>
                 <p className="mb-4 text-muted-foreground">
