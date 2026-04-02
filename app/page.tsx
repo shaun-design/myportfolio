@@ -121,9 +121,9 @@ export default function HomePage() {
                   AI-powered coaching platform that helps teachers improve
                   through structured feedback and actionable insights
                 </p>
-                <p className="m-0 mt-5 inline-flex items-center gap-1 rounded-full bg-[#2D61A6]/10 px-4 py-2 text-sm font-medium text-[#2D61A6]">
+                <a href="https://teachai.simpleshaun.com" target="_blank" rel="noopener noreferrer" className="m-0 mt-5 inline-flex items-center gap-1 rounded-full bg-[#2D61A6]/10 px-4 py-2 text-sm font-medium text-[#2D61A6] hover:bg-[#2D61A6]/20 transition-colors">
                   View Case Study <ChevronsRight className="h-4 w-4" />
-                </p>
+                </a>
               </div>
             </article>
 
@@ -140,12 +140,11 @@ export default function HomePage() {
               </div>
               <div className="px-6 pb-14 pt-6 text-center">
                 <p className="m-0 text-base leading-7 text-muted-foreground">
-                  Scalable design system built with tokens, MUI, and Storybook
-                  to support multi-product consistency
+                  Scalable design system built with tokens, MUI, and Storybook to ensure consistency and accelerate development across the product
                 </p>
-                <p className="m-0 mt-5 inline-flex items-center gap-1 rounded-full bg-[#2D61A6]/10 px-4 py-2 text-sm font-medium text-[#2D61A6]">
+                <a href="https://designsystem.simpleshaun.com" target="_blank" rel="noopener noreferrer" className="m-0 mt-5 inline-flex items-center gap-1 rounded-full bg-[#2D61A6]/10 px-4 py-2 text-sm font-medium text-[#2D61A6] hover:bg-[#2D61A6]/20 transition-colors">
                   View Case Study <ChevronsRight className="h-4 w-4" />
-                </p>
+                </a>
               </div>
             </article>
             </div>
