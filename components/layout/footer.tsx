@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const socialLinks = [];
+const socialLinks: { label: string; href: string }[] = [];
 
 export function Footer() {
   return (
