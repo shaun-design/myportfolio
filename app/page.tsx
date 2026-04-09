@@ -144,7 +144,7 @@ export default function HomePage() {
                 </p>
                 <div className="min-h-10 flex-1" />
                 <span className="inline-flex items-center justify-center gap-1 rounded-full bg-[#2D61A6]/10 px-4 py-2 text-sm font-medium text-[#2D61A6] transition-colors group-hover:bg-[#2D61A6]/20">
-                  Explore Case Study <ChevronsRight className="h-4 w-4" />
+                  View Case Study <ChevronsRight className="h-4 w-4" />
                 </span>
               </div>
             </a>
