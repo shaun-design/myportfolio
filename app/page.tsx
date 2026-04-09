@@ -153,7 +153,7 @@ export default function HomePage() {
               <div className="relative h-48 border-b bg-[#F26F63] transition-[filter] duration-200 group-hover:brightness-110">
                 <div className="absolute inset-x-6 bottom-6">
                   <p className="m-0 mb-2 text-sm font-medium uppercase tracking-[0.2em] text-white/80">
-                    Scalable Multi-Product System
+                    Scalable Component Architecture
                   </p>
                   <h3 className="m-0 text-2xl font-semibold text-white">
                     Design System
