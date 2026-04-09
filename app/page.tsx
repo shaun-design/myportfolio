@@ -104,9 +104,9 @@ export default function HomePage() {
             SELECTED WORK
           </h2>
           <div className="flex justify-center">
-            <div className="grid gap-6 lg:grid-cols-2 max-w-4xl w-full">
-            <article className="overflow-hidden rounded-2xl bg-card text-card-foreground">
-              <div className="relative h-48 border-b bg-[#5A2470]">
+            <div className="grid gap-6 lg:grid-cols-3 max-w-6xl w-full">
+            <a href="https://teachai.simpleshaun.com" target="_blank" rel="noopener noreferrer" className="group flex flex-col overflow-hidden rounded-2xl bg-card text-card-foreground transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
+              <div className="relative h-48 border-b bg-[#5A2470] transition-[filter] duration-200 group-hover:brightness-110">
                 <div className="absolute inset-x-6 bottom-6">
                   <p className="m-0 mb-2 text-sm font-medium uppercase tracking-[0.2em] text-white/80">
                     AI-Powered Coaching Platform
@@ -116,19 +116,41 @@ export default function HomePage() {
                   </h3>
                 </div>
               </div>
-              <div className="px-6 pb-14 pt-6 text-center">
+              <div className="flex flex-1 flex-col px-6 pb-10 pt-7 text-center">
                 <p className="m-0 text-base leading-7 text-muted-foreground">
-                  AI-powered coaching platform that helps teachers improve
-                  through structured feedback and actionable insights
+                  AI-powered coaching platform that helps teachers improve through structured feedback, guided reflection, and clear next steps.
                 </p>
-                <a href="https://teachai.simpleshaun.com" target="_blank" rel="noopener noreferrer" className="m-0 mt-5 inline-flex items-center gap-1 rounded-full bg-[#2D61A6]/10 px-4 py-2 text-sm font-medium text-[#2D61A6] hover:bg-[#2D61A6]/20 transition-colors">
+                <div className="min-h-10 flex-1" />
+                <span className="inline-flex items-center justify-center gap-1 rounded-full bg-[#2D61A6]/10 px-4 py-2 text-sm font-medium text-[#2D61A6] transition-colors group-hover:bg-[#2D61A6]/20">
                   View Case Study <ChevronsRight className="h-4 w-4" />
-                </a>
+                </span>
               </div>
-            </article>
+            </a>
 
-            <article className="overflow-hidden rounded-2xl bg-card text-card-foreground">
-              <div className="relative h-48 border-b bg-[#F26F63]">
+            <a href="https://insightcapture.simpleshaun.com" target="_blank" rel="noopener noreferrer" className="group flex flex-col overflow-hidden rounded-2xl bg-card text-card-foreground transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
+              <div className="relative h-48 border-b bg-[#2D7A56] transition-[filter] duration-200 group-hover:brightness-110">
+                <div className="absolute inset-x-6 bottom-6">
+                  <p className="m-0 mb-2 text-sm font-medium uppercase tracking-[0.2em] text-white/80">
+                    Insights Capture & Research Tool
+                  </p>
+                  <h3 className="m-0 text-2xl font-semibold text-white">
+                    Insight Capture
+                  </h3>
+                </div>
+              </div>
+              <div className="flex flex-1 flex-col px-6 pb-10 pt-7 text-center">
+                <p className="m-0 text-base leading-7 text-muted-foreground">
+                  Capture and organize insights to surface patterns, connect signals across data, and support better teaching and coaching decisions.
+                </p>
+                <div className="min-h-10 flex-1" />
+                <span className="inline-flex items-center justify-center gap-1 rounded-full bg-[#2D61A6]/10 px-4 py-2 text-sm font-medium text-[#2D61A6] transition-colors group-hover:bg-[#2D61A6]/20">
+                  Explore Case Study <ChevronsRight className="h-4 w-4" />
+                </span>
+              </div>
+            </a>
+
+            <a href="https://designsystem.simpleshaun.com" target="_blank" rel="noopener noreferrer" className="group flex flex-col overflow-hidden rounded-2xl bg-card text-card-foreground transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
+              <div className="relative h-48 border-b bg-[#F26F63] transition-[filter] duration-200 group-hover:brightness-110">
                 <div className="absolute inset-x-6 bottom-6">
                   <p className="m-0 mb-2 text-sm font-medium uppercase tracking-[0.2em] text-white/80">
                     Scalable Multi-Product System
@@ -138,15 +160,16 @@ export default function HomePage() {
                   </h3>
                 </div>
               </div>
-              <div className="px-6 pb-14 pt-6 text-center">
+              <div className="flex flex-1 flex-col px-6 pb-10 pt-7 text-center">
                 <p className="m-0 text-base leading-7 text-muted-foreground">
-                  Scalable design system built with tokens, MUI, and Storybook to ensure consistency and accelerate development across the product
+                  Scalable design system built with tokens, MUI, and Storybook to ensure consistency and speed up development across products.
                 </p>
-                <a href="https://designsystem.simpleshaun.com" target="_blank" rel="noopener noreferrer" className="m-0 mt-5 inline-flex items-center gap-1 rounded-full bg-[#2D61A6]/10 px-4 py-2 text-sm font-medium text-[#2D61A6] hover:bg-[#2D61A6]/20 transition-colors">
+                <div className="min-h-10 flex-1" />
+                <span className="inline-flex items-center justify-center gap-1 rounded-full bg-[#2D61A6]/10 px-4 py-2 text-sm font-medium text-[#2D61A6] transition-colors group-hover:bg-[#2D61A6]/20">
                   View Case Study <ChevronsRight className="h-4 w-4" />
-                </a>
+                </span>
               </div>
-            </article>
+            </a>
             </div>
           </div>
         </div>
