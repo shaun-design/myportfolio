@@ -50,8 +50,8 @@ export function MouseStardust() {
         radius: Math.random() * 1.5,
         alpha: Math.random(),
         delta: Math.random() * 0.012,
-        speedX: (Math.random() - 0.5) * 0.3,
-        speedY: (Math.random() - 0.5) * 0.3,
+        speedX: (Math.random() - 0.5) * 0.7,
+        speedY: (Math.random() - 0.5) * 0.7,
         layer: Math.random() * 3 + 1,
         shapeShift: Math.random() > 0.92,
       });

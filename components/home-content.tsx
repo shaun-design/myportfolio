@@ -107,7 +107,7 @@ export function HomeContent() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: reduced ? 0 : 0.8, ease, delay: reduced ? 0 : 0.2 }}
                 >
-                  I design the AI products and systems teams actually build on.
+                  I design products powered by AI — and use AI to design and ship them faster.
                 </motion.p>
                 <motion.div
                   className="mb-10 flex flex-wrap gap-2"
