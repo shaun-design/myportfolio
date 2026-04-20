@@ -76,7 +76,7 @@ export default function ResumePage() {
             <div>
               <h3 className="text-lg font-semibold">AI-Assisted Product Design</h3>
               <p className="text-muted-foreground">
-                AI-Assisted Design Workflows • Claude • Figma Make
+                AI-Assisted Design Workflows • Claude Code • Figma Make
               </p>
             </div>
 
