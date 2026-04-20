@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healthcare Certification Comparison</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+      --color-text-primary: #0f172a;
+      --color-text-secondary: #475569;
+      --color-text-tertiary: #94a3b8;
+      --color-border-secondary: #cbd5e1;
+      --color-border-tertiary: #e2e8f0;
+      --color-background-primary: #ffffff;
+      --color-background-secondary: #f8fafc;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --color-text-primary: #f1f5f9;
+        --color-text-secondary: #94a3b8;
+        --color-text-tertiary: #64748b;
+        --color-border-secondary: #334155;
+        --color-border-tertiary: #1e293b;
+        --color-background-primary: #0f172a;
+        --color-background-secondary: #080f1a;
+      }
+    }
+
+    [data-theme="dark"] {
+      --color-text-primary: #f1f5f9;
+      --color-text-secondary: #94a3b8;
+      --color-text-tertiary: #64748b;
+      --color-border-secondary: #334155;
+      --color-border-tertiary: #1e293b;
+      --color-background-primary: #0f172a;
+      --color-background-secondary: #080f1a;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--color-background-secondary);
+      font-family: var(--font-sans);
+      color: var(--color-text-primary);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .page-outer {
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 14px;
+      right: 16px;
+      z-index: 100;
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--color-border-secondary);
+      background: var(--color-background-primary);
+      color: var(--color-text-secondary);
+      font-size: 12px;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+
+    .theme-toggle:hover { color: var(--color-text-primary); }
+    .theme-toggle:focus-visible { outline: 2px solid #185FA5; outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">☀ Light</button>
+
+  <div class="page-outer">
+
+<h2 class="sr-only">Healthcare certification comparison — 9 certifications, no degree required. Each row shows acronym, full name, time to earn, salary, remote percentage, and AI risk. Click any row to expand training details, salary breakdown, AI analysis, career path, and enrollment links.</h2>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#185FA5;--accent-dark:#0C447C;--teal:#0F6E56;--ok-bg:#E1F5EE;--ok-text:#085041;--warn-bg:#FAEEDA;--warn-text:#633806;--danger-bg:#FCEBEB;--danger-text:#791F1F;--info-bg:#E6F1FB;--info-text:#042C53}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.wrap{padding:1rem 0 2.5rem;font-family:var(--font-sans);max-width:1180px}
+.page-intro{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(280px,.8fr);gap:14px;margin:0 0 1rem}
+.hero-card,.method-card,.rec-box,.summary-card{border-radius:14px;border:1px solid var(--color-border-tertiary);background:var(--color-background-primary)}
+.hero-card{padding:18px 18px 16px}
+.kicker{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:8px}
+.hero-title{font-size:24px;line-height:1.15;letter-spacing:-.02em;color:var(--color-text-primary);font-weight:650;margin-bottom:8px}
+.hero-copy{font-size:14px;line-height:1.6;color:var(--color-text-secondary);max-width:70ch}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.meta-pill,.flag,.mini-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:500;line-height:1.1;border:1px solid var(--color-border-secondary);background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.method-card{padding:16px 16px 14px;background:linear-gradient(180deg,var(--color-background-primary),var(--color-background-secondary))}
+.method-title{font-size:13px;font-weight:650;color:var(--color-text-primary);margin-bottom:8px}
+.method-copy{font-size:12px;line-height:1.6;color:var(--color-text-secondary)}
+.method-list{margin-top:10px;display:grid;gap:8px}
+.method-item{font-size:12px;line-height:1.5;color:var(--color-text-primary)}
+.method-item strong{font-weight:650}
+.summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 1rem}
+.summary-card{padding:14px}
+.summary-label{font-size:10px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.summary-value{font-size:16px;font-weight:650;color:var(--color-text-primary);margin-bottom:4px}
+.summary-copy{font-size:12px;line-height:1.5;color:var(--color-text-secondary)}
+.toolbar{display:flex;flex-direction:column;gap:10px;margin-bottom:1rem;padding:12px;border:1px solid var(--color-border-tertiary);border-radius:12px;background:var(--color-background-secondary)}
+.tb-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.tb-label{font-size:11px;font-weight:600;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.06em;min-width:48px}
+.chip{padding:6px 11px;border-radius:20px;border:1px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer;font-size:12px;font-weight:500;line-height:1;transition:background .12s,color .12s,border-color .12s,transform .12s}
+.chip:hover{background:var(--color-background-secondary);transform:translateY(-1px)}
+.chip:focus-visible,.sort-select:focus-visible,.expand-btn:focus-visible,.quick-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chip.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600}
+.sort-select{font-size:12px;padding:7px 10px;border-radius:8px;border:1px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);cursor:pointer}
+.results-row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.results-copy{font-size:12px;color:var(--color-text-secondary)}
+.quick-links{display:flex;gap:8px;flex-wrap:wrap}
+.quick-link{font-size:12px;font-weight:500;color:var(--accent);text-decoration:none;padding:5px 8px;border-radius:8px}
+.quick-link:hover{text-decoration:underline;background:var(--info-bg)}
+.divider{height:1px;background:var(--color-border-tertiary);margin:2px 0 10px}
+.col-heads{display:grid;grid-template-columns:240px 136px 178px 96px 118px 36px;padding:0 0 6px}
+.ch{font-size:10px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.07em;padding:0 12px}
+.ch:first-child{padding-left:14px}
+.cert-list{display:flex;flex-direction:column;gap:8px}
+.cert-card{border:1px solid var(--color-border-tertiary);border-radius:14px;background:var(--color-background-primary);overflow:hidden;transition:border-color .12s, box-shadow .12s, transform .12s}
+.cert-card:hover{border-color:var(--color-border-secondary);box-shadow:0 8px 24px rgba(0,0,0,.04);transform:translateY(-1px)}
+.cert-row{display:grid;grid-template-columns:240px 136px 178px 96px 118px 36px;align-items:center;cursor:pointer;min-height:68px}
+.cert-row:focus{outline:none}
+.cert-row:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;border-radius:14px}
+.col-id{padding:12px 14px;border-right:1px solid var(--color-border-tertiary)}
+.id-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:5px}
+.org-tag,.spd-tag{font-size:10px;font-weight:600;padding:3px 6px;border-radius:999px;letter-spacing:.02em;line-height:1.2}
+.t-aapc{background:#E6F1FB;color:#0C447C}
+.t-ahima{background:#EEEDFE;color:#3C3489}
+.t-acdis{background:#E1F5EE;color:#085041}
+.s-fast{background:#E1F5EE;color:#085041}
+.s-mid{background:#FAEEDA;color:#633806}
+.id-acronym{font-size:15px;font-weight:700;color:var(--color-text-primary);line-height:1.2;letter-spacing:-.01em}
+.id-full{font-size:11px;color:var(--color-text-secondary);line-height:1.45;margin-top:1px}
+.flag{padding:3px 8px;font-size:10px;border:none}
+.flag-ok{background:var(--ok-bg);color:var(--ok-text)}
+.flag-warn{background:var(--warn-bg);color:var(--warn-text)}
+.flag-danger{background:var(--danger-bg);color:var(--danger-text)}
+.col-cell{padding:10px 12px;border-right:1px solid var(--color-border-tertiary);display:flex;flex-direction:column;justify-content:center;min-height:68px}
+.col-cell:last-of-type{border-right:none}
+.cell-label{font-size:10px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.cell-val{font-size:13px;font-weight:650;color:var(--color-text-primary);line-height:1.3}
+.cell-sub{font-size:11px;color:var(--color-text-secondary);margin-top:2px;line-height:1.35}
+.bar-track{height:4px;border-radius:999px;background:var(--color-border-tertiary);margin-top:6px;overflow:hidden}
+.bar-blue,.bar-teal{height:100%;border-radius:999px}
+.bar-blue{background:var(--accent)}
+.bar-teal{background:var(--teal)}
+.ai-tag{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:600;line-height:1.2;width:max-content}
+.ai-low{background:var(--ok-bg);color:var(--ok-text)}
+.ai-lowmed{background:#EAF3DE;color:#27500A}
+.ai-med{background:var(--warn-bg);color:var(--warn-text)}
+.ai-high{background:var(--danger-bg);color:var(--danger-text)}
+.expand-btn{display:flex;align-items:center;justify-content:center;width:36px;font-size:18px;font-weight:500;color:var(--color-text-tertiary);background:none;border:none;cursor:pointer;border-radius:0 14px 14px 0;align-self:stretch}
+.detail-panel{display:none;border-top:1px solid var(--color-border-tertiary);background:var(--color-background-secondary)}
+.detail-panel.open{display:block}
+.detail-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.d-section{padding:15px;border-right:1px solid var(--color-border-tertiary)}
+.d-section:last-child{border-right:none}
+.d-heading{font-size:10px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.d-field{margin-bottom:10px}
+.d-field:last-child{margin-bottom:0}
+.d-lbl{font-size:11px;font-weight:600;color:var(--color-text-secondary);margin-bottom:2px}
+.d-val{font-size:12px;color:var(--color-text-primary);line-height:1.55}
+.link-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.enroll-link{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--accent);text-decoration:none;padding:4px 0;border-radius:4px;line-height:1.35}
+.enroll-link:hover{color:var(--accent-dark);text-decoration:underline}
+.link-arrow{font-size:11px;flex-shrink:0}
+.link-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.35}
+.rec-box{margin-top:1.5rem;padding:18px;border:2px solid var(--accent);background:var(--info-bg);color:var(--info-text)}
+.rec-heading{font-size:13px;font-weight:650;color:var(--info-text);margin-bottom:12px;line-height:1.5}
+.rec-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.rec-card{background:#ffffff;border-radius:10px;border:1px solid #B5D4F4;padding:14px;color:var(--info-text)}
+.rec-phase{font-size:11px;font-weight:600;color:var(--accent-dark);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.rec-cert{font-size:14px;font-weight:700;color:var(--info-text);margin-bottom:6px;line-height:1.3}
+.rec-why{font-size:13px;color:var(--accent-dark);line-height:1.6}
+.rec-note{font-size:12px;color:var(--info-text);margin-top:12px;line-height:1.65}
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.disclaimer{font-size:12px;line-height:1.6;color:var(--color-text-secondary);margin-top:12px}
+.disclaimer strong{font-weight:650;color:var(--color-text-primary)}
+@media (max-width:1024px){
+  .page-intro,.summary-grid,.rec-grid,.detail-grid{grid-template-columns:1fr}
+  .col-heads{display:none}
+  .cert-row{grid-template-columns:1fr}
+  .col-id,.col-cell{border-right:none;border-bottom:1px solid var(--color-border-tertiary)}
+  .col-cell:last-of-type{border-bottom:none}
+  .expand-btn{width:100%;height:42px;border-top:1px solid var(--color-border-tertiary);border-radius:0}
+}
+@media (max-width:640px){
+  .wrap{padding:.5rem 0 2rem}
+  .hero-title{font-size:20px}
+  .toolbar{padding:10px}
+  .tb-row{align-items:flex-start}
+}
+</style>
+
+<div class="wrap" role="main">
+  <section class="summary-grid" aria-label="Quick takeaways">
+    <div class="summary-card">
+      <div class="summary-label">Best true entry combo</div>
+      <div class="summary-value">CPB + CPC</div>
+      <div class="summary-copy">Solid first move for billing, coding, denials, and revenue cycle roles.</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Best later specialization</div>
+      <div class="summary-value">CRC</div>
+      <div class="summary-copy">Strong fit for data minded people once the coding foundation is in place.</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Most important caution</div>
+      <div class="summary-value">Some rows are not true day one pivots</div>
+      <div class="summary-copy">CHDA, CHPS, CCS, and CCDS all carry practical barriers even if they remain worth listing.</div>
+    </div>
+  </section>
+
+  <div class="toolbar" role="toolbar" aria-label="Filter and sort controls">
+    <div class="tb-row">
+      <span class="tb-label" id="filter-label">Filter</span>
+      <button class="chip on" onclick="setFilter('all',this)" aria-pressed="true">All 9</button>
+      <button class="chip" onclick="setFilter('entry',this)" aria-pressed="false">Best entry paths</button>
+      <button class="chip" onclick="setFilter('aapc',this)" aria-pressed="false">AAPC</button>
+      <button class="chip" onclick="setFilter('ahima',this)" aria-pressed="false">AHIMA</button>
+      <button class="chip" onclick="setFilter('acdis',this)" aria-pressed="false">ACDIS</button>
+      <button class="chip" onclick="setFilter('low-ai',this)" aria-pressed="false">Low AI risk</button>
+      <button class="chip" onclick="setFilter('remote-high',this)" aria-pressed="false">High remote</button>
+    </div>
+    <div class="tb-row">
+      <label class="tb-label" for="sort-select">Sort</label>
+      <select id="sort-select" class="sort-select" onchange="setSort(this.value)">
+        <option value="speed">Fastest to earn</option>
+        <option value="sal-desc">Salary: highest first</option>
+        <option value="sal-asc">Salary: lowest first</option>
+        <option value="ai-asc">AI risk: lowest first</option>
+        <option value="remote-desc">Remote %: highest first</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="results-row">
+    <div class="results-copy" id="results-copy">Showing 9 certifications</div>
+    <div class="quick-links" aria-label="Jump links">
+      <a class="quick-link" href="#recommendation">Jump to recommended path</a>
+    </div>
+  </div>
+
+  <div class="legend" aria-label="Legend">
+    <span class="mini-badge">Beginner friendly</span>
+    <span class="mini-badge">Experience recommended</span>
+    <span class="mini-badge">Clinical barrier</span>
+  </div>
+
+  <div class="divider" role="separator"></div>
+
+  <div class="col-heads" role="row" aria-hidden="true">
+    <div class="ch">Certification</div>
+    <div class="ch">Time to earn</div>
+    <div class="ch">Mid career salary</div>
+    <div class="ch">Remote</div>
+    <div class="ch">AI risk</div>
+    <div class="ch"></div>
+  </div>
+
+  <div class="cert-list" id="cert-list" role="list"></div>
+
+  <div class="rec-box" id="recommendation" role="region" aria-label="Personalized recommendation">
+    <div class="rec-heading">Recommended path for a career changer with a data or systems background who wants income within 6 months and stronger upside within 2 to 3 years</div>
+    <div class="rec-grid">
+      <div class="rec-card">
+        <div class="rec-phase">Phase 1 • months 0 to 6</div>
+        <div class="rec-cert">CPB + CPC</div>
+        <div class="rec-why">Fastest practical entry path with no formal degree required. CPC often takes 4 to 6 months. CPB can be added in roughly 1 to 2 more months. A more realistic first year target is around the low to mid 50s, with stronger upside after experience.</div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-phase">Phase 2 • months 6 to 18</div>
+        <div class="rec-cert">CRC</div>
+        <div class="rec-why">Strong follow on specialization once you have coding fundamentals. Risk adjustment work rewards pattern recognition, hierarchy logic, and comfort with structured data.</div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-phase">Phase 3 • year 2 to 3</div>
+        <div class="rec-cert">RCM analyst or specialist track</div>
+        <div class="rec-why">This is where process improvement, dashboards, denial trends, and systems thinking become more valuable. It is a better place to aim for higher compensation than trying to force a first year salary estimate too high.</div>
+      </div>
+    </div>
+    <div class="rec-note"><strong>Important nuance:</strong> CPB and CPC are real entry options. CRC is a stronger second move. CHDA, CHPS, CCS, and especially CCDS are better understood as later stage options because of experience or clinical barriers.</div>
+    <div class="disclaimer"><strong>Note:</strong> Salary, remote percentages, and AI risk labels are best treated as directional estimates. Hiring market, geography, apprenticeship status, and employer mix can move these up or down materially.</div>
+  </div>
+</div>
+
+<script>
+const certs=[
+{id:'CPB',org:'aapc',acronym:'CPB',full:'Certified Professional Biller',speed:'fast',spd:'Fastest',time:'3–5 months',fmt:'Online only',cost:'$800–1,400',prereqs:'None required',pathType:'entry',entryFlag:'Beginner friendly',entryFlagClass:'flag-ok',sal_entry:'$50k',sal_mid:'$57k',sal_senior:'$68k',sal_tx:'$54–62k (Austin)',remote:78,growth:7,growth_lbl:'7% (BLS 2024–2034)',ai:'High',ai_reason:'Claim submission, denial processing, and payment posting are rule based workflows and are prime automation targets. Human value shifts toward exception handling, follow through, and appeals strategy.',best_for:'Detail oriented career changers comfortable with insurance process logic. Strong in pattern recognition and process follow through.',path:'CPB → CPC → COC or CRC → RCM Analyst → RCM Manager',fasttrack:'AAPC study bundles are available. Four months is possible with aggressive study, but many learners take longer.',links:[{label:'AAPC — official CPB exam & study materials',url:'https://www.aapc.com/billing/cpb.html',desc:'Exam registration, practice tests, and study guides'},{label:'AAPC online training courses',url:'https://www.aapc.com/medical-coding/medical-coding-training.html',desc:'Self paced and instructor led options'}]},
+{id:'CPC',org:'aapc',acronym:'CPC',full:'Certified Professional Coder',speed:'fast',spd:'Fastest',time:'4–6 months',fmt:'Online only',cost:'$1,200–2,500',prereqs:'No degree required. Full credential usually matures with experience.',pathType:'entry',entryFlag:'Beginner friendly',entryFlagClass:'flag-ok',sal_entry:'$52k',sal_mid:'$59k',sal_senior:'$73k',sal_tx:'$55–70k (Austin)',remote:66,growth:7,growth_lbl:'7% (BLS 2024–2034)',ai:'Medium',ai_reason:'AI can suggest CPT and ICD codes from notes, but ambiguous documentation, compliance edge cases, and audit quality still need human judgment.',best_for:'Anyone entering healthcare admin who is comfortable with structured rules, detailed reading, and pattern recognition.',path:'CPC → COC or CRC → CPMA → Coding Manager',fasttrack:'An intensive four month path is possible. First year pay often trails the headline mid career numbers.',links:[{label:'AAPC — official CPC exam & enrollment',url:'https://www.aapc.com/certification/cpc/',desc:'Exam info, study guides, and practice tests'},{label:'Penn Foster — medical coding certificate',url:'https://www.pennfoster.edu/programs/healthcare/medical-billing-coding-career-diploma',desc:'Affordable self paced program'}]},
+{id:'COC',org:'aapc',acronym:'COC',full:'Certified Outpatient Coder',speed:'fast',spd:'Fastest',time:'4–6 months',fmt:'Online only',cost:'$1,200–2,500',prereqs:'CPC strongly recommended first. Outpatient coding experience helps.',pathType:'later',entryFlag:'Experience recommended',entryFlagClass:'flag-warn',sal_entry:'$54k',sal_mid:'$64k',sal_senior:'$76k',sal_tx:'$56–72k (Austin)',remote:65,growth:7,growth_lbl:'7% (BLS 2024–2034)',ai:'Medium',ai_reason:'Outpatient facility coding is more specialized than standard professional coding. AI helps, but facility compliance still rewards experienced coders.',best_for:'Existing CPC holders wanting a hospital outpatient or ambulatory surgery specialization.',path:'CPC → COC → CCS → Coding Director',fasttrack:'If you already hold CPC, COC can be added with focused prep.',links:[{label:'AAPC — official COC exam & study materials',url:'https://www.aapc.com/certification/coc/',desc:'Exam registration and prep resources'}]},
+{id:'CRC',org:'aapc',acronym:'CRC',full:'Certified Risk Adjustment Coder',speed:'fast',spd:'Fastest',time:'4–6 months',fmt:'Online only',cost:'$1,200–2,500',prereqs:'CPC recommended first. HCC knowledge helps.',pathType:'later',entryFlag:'Experience recommended',entryFlagClass:'flag-warn',sal_entry:'$58k',sal_mid:'$70k',sal_senior:'$99k',sal_tx:'$62–78k (Austin)',remote:80,growth:12,growth_lbl:'12% (high demand)',ai:'Low–Med',ai_reason:'Risk adjustment requires condition hierarchy logic, documentation nuance, and payer specific compliance awareness. This is one reason it holds up better against automation.',best_for:'Data oriented professionals and tech savvy career changers after they build a coding foundation.',path:'CPC → CRC → Risk Adjustment Analyst → RA Manager',fasttrack:'Best viewed as a second move after CPC, not the very first move.',links:[{label:'AAPC — official CRC exam & enrollment',url:'https://www.aapc.com/certification/crc/',desc:'Exam registration, HCC training, and study guides'}]},
+{id:'RCM',org:'aapc',acronym:'RCM Spec.',full:'Revenue Cycle Management Specialist',speed:'fast',spd:'Fastest',time:'3–6 months',fmt:'Online only',cost:'$500–1,500',prereqs:'No formal barrier, but CPC or CPB gives the track more substance.',pathType:'entry',entryFlag:'Beginner friendly',entryFlagClass:'flag-ok',sal_entry:'$55k',sal_mid:'$65k',sal_senior:'$90k+',sal_tx:'$65k avg (Texas)',remote:72,growth:9,growth_lbl:'9% (growing field)',ai:'Medium',ai_reason:'Transactional revenue cycle work is automating, but analyst and management roles that monitor workflows, denials, and KPIs still benefit from human oversight.',best_for:'Operations minded people with project management or analytics instincts.',path:'RCM Specialist → RCM Analyst → RCM Director → VP Revenue Cycle',fasttrack:'Best payoff comes when paired with real billing or coding knowledge.',links:[{label:'HFMA — revenue cycle certification (CRCR)',url:'https://www.hfma.org/certifications/crcr/',desc:'HFMA Certified Revenue Cycle Representative'},{label:'AAPC revenue cycle training',url:'https://www.aapc.com/medical-coding/medical-coding-training.html',desc:'RCM courses and training bundles'}]},
+{id:'CCS',org:'ahima',acronym:'CCS',full:'Certified Coding Specialist',speed:'mid',spd:'Mid range',time:'6–12 months',fmt:'Online',cost:'$1,500–3,500',prereqs:'Inpatient coding experience is strongly favored. Better after CPC and work exposure.',pathType:'later',entryFlag:'Experience recommended',entryFlagClass:'flag-warn',sal_entry:'$60k',sal_mid:'$70k',sal_senior:'$86k',sal_tx:'$62–80k (Austin)',remote:65,growth:7,growth_lbl:'7% (BLS 2024–2034)',ai:'Medium',ai_reason:'Hospital inpatient coding is complex enough that AI still misses important context. Experienced CCS holders often move toward audits and quality review.',best_for:'Coders who want stronger inpatient and hospital advancement options.',path:'CPC or CCS → CDIP → HIM Director → CDI Manager',fasttrack:'A realistic path usually follows coding experience, not a cold start.',links:[{label:'AHIMA — official CCS exam & enrollment',url:'https://www.ahima.org/certification-careers/certifications-overview/ccs/',desc:'Exam registration, eligibility, and study resources'}]},
+{id:'CHDA',org:'ahima',acronym:'CHDA',full:'Certified Health Data Analyst',speed:'mid',spd:'Mid range',time:'6–12 months after prereqs',fmt:'Online',cost:'$1,500–3,000 + exam fee',prereqs:'RHIT or RHIA, or 5+ years HIM experience. High practical barrier for beginners.',pathType:'later',entryFlag:'Experience recommended',entryFlagClass:'flag-warn',sal_entry:'$70k',sal_mid:'$90k',sal_senior:'$120k+',sal_tx:'$72–100k (Austin)',remote:60,growth:15,growth_lbl:'15%+ (analytics boom)',ai:'Low',ai_reason:'These roles interpret outputs, design quality checks, and advise leadership. That human interpretation layer gives the work more durability.',best_for:'Healthcare professionals moving into analytics or analysts entering healthcare through an HIM path.',path:'Coding credential → CHDA → Health Data Analyst → Director of Analytics',fasttrack:'Attractive long term, but usually not a direct first step for a new entrant.',links:[{label:'AHIMA — official CHDA exam & enrollment',url:'https://www.ahima.org/certification-careers/certifications-overview/chda/',desc:'Exam registration and eligibility details'}]},
+{id:'CHPS',org:'ahima',acronym:'CHPS',full:'Certified in Healthcare Privacy & Security',speed:'mid',spd:'Mid range',time:'6–12 months after prereqs',fmt:'Online',cost:'$1,500–3,000 + exam fee',prereqs:'RHIT, RHIA, or 5+ years healthcare privacy, security, or HIM experience.',pathType:'later',entryFlag:'Experience recommended',entryFlagClass:'flag-warn',sal_entry:'$65k',sal_mid:'$85k',sal_senior:'$115k',sal_tx:'$68–95k (Austin)',remote:55,growth:13,growth_lbl:'13% (privacy demand)',ai:'Low',ai_reason:'HIPAA governance, breach response, and stakeholder communication remain human heavy even as tooling improves.',best_for:'IT or security professionals with relevant experience who want a healthcare privacy path.',path:'CHPS → Privacy Officer → Compliance Director → Chief Privacy Officer',fasttrack:'Best viewed as a pivot for someone with adjacent background, not a general entry point.',links:[{label:'AHIMA — official CHPS exam & enrollment',url:'https://www.ahima.org/certification-careers/certifications-overview/chps/',desc:'Exam registration, study guide, and eligibility'}]},
+{id:'CCDS',org:'acdis',acronym:'CCDS',full:'Certified Clinical Documentation Specialist',speed:'mid',spd:'Mid range',time:'6–12 months',fmt:'Online + workshops',cost:'$1,500–3,000 + exam fee',prereqs:'Clinical credential usually needed in practice. High barrier for non clinicians.',pathType:'clinical',entryFlag:'Clinical barrier',entryFlagClass:'flag-danger',sal_entry:'$65k',sal_mid:'$80k',sal_senior:'$110k+',sal_tx:'$68–90k (Austin)',remote:38,growth:10,growth_lbl:'10% (CDI field)',ai:'Low',ai_reason:'Clinical review, physician queries, and documentation quality work depend on judgment that is hard to automate well.',best_for:'RNs and other clinicians who want to move out of bedside work.',path:'RN or MD → CCDS → CDI Lead → CDI Director',fasttrack:'Worth listing, but not a realistic first move for most non clinical career changers.',links:[{label:'ACDIS — official CCDS exam & enrollment',url:'https://acdis.org/certification',desc:'Exam registration, eligibility, and prep resources'}]}
+];
+
+let activeFilter='all',activeSort='speed';
+const aiMap={high:'ai-high',medium:'ai-med','low–med':'ai-lowmed',low:'ai-low'};
+const orgMap={aapc:'t-aapc',ahima:'t-ahima',acdis:'t-acdis'};
+const spdMap={fast:'s-fast',mid:'s-mid'};
+const spdOrd={fast:0,mid:1};
+const aiOrd={low:0,'low–med':1,medium:2,high:3};
+
+function aiClass(r){return aiMap[r.toLowerCase()]||'ai-med'}
+
+function buildCard(c){
+  const linkHtml=c.links.map(l=>`<div class="d-field"><a class="enroll-link" href="${l.url}" target="_blank" rel="noopener noreferrer" aria-label="${l.label} — opens in new tab"><span>${l.label}</span><span class="link-arrow" aria-hidden="true">↗</span></a><div class="link-desc">${l.desc}</div></div>`).join('');
+  return `
+<article class="cert-card" role="listitem" aria-label="${c.acronym} — ${c.full}">
+  <div class="cert-row" role="button" tabindex="0" aria-expanded="false" aria-controls="detail-${c.id}" onclick="toggleCard('${c.id}',this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCard('${c.id}',this)}">
+    <div class="col-id">
+      <div class="id-top">
+        <span class="org-tag ${orgMap[c.org]}">${c.org.toUpperCase()}</span>
+        <span class="spd-tag ${spdMap[c.speed]}">${c.spd}</span>
+        <span class="flag ${c.entryFlagClass}">${c.entryFlag}</span>
+      </div>
+      <div class="id-acronym">${c.acronym}</div>
+      <div class="id-full">${c.full}</div>
+    </div>
+    <div class="col-cell">
+      <div class="cell-label">Time to earn</div>
+      <div class="cell-val">${c.time}</div>
+      <div class="cell-sub">${c.fmt}</div>
+    </div>
+    <div class="col-cell">
+      <div class="cell-label">Mid career salary</div>
+      <div class="cell-val">${c.sal_mid} national</div>
+      <div class="cell-sub">Austin TX: ${c.sal_tx}</div>
+    </div>
+    <div class="col-cell">
+      <div class="cell-label">Remote jobs</div>
+      <div class="cell-val">${c.remote}%</div>
+      <div class="bar-track" role="presentation"><div class="bar-blue" style="width:${c.remote}%"></div></div>
+    </div>
+    <div class="col-cell">
+      <div class="cell-label">AI risk</div>
+      <span class="ai-tag ${aiClass(c.ai)}">${c.ai}</span>
+    </div>
+    <button class="expand-btn" aria-expanded="false" aria-controls="detail-${c.id}" tabindex="-1" aria-label="Toggle details for ${c.acronym}">+</button>
+  </div>
+  <div class="detail-panel" id="detail-${c.id}" role="region" aria-label="${c.acronym} details">
+    <div class="detail-grid">
+      <div class="d-section">
+        <div class="d-heading">Training</div>
+        <div class="d-field"><div class="d-lbl">Cost range</div><div class="d-val">${c.cost}</div></div>
+        <div class="d-field"><div class="d-lbl">Prerequisites</div><div class="d-val">${c.prereqs}</div></div>
+        <div class="d-field"><div class="d-lbl">Best suited for</div><div class="d-val">${c.best_for}</div></div>
+      </div>
+      <div class="d-section">
+        <div class="d-heading">Salary context</div>
+        <div class="d-field"><div class="d-lbl">Entry level</div><div class="d-val">${c.sal_entry}</div></div>
+        <div class="d-field"><div class="d-lbl">Mid career</div><div class="d-val">${c.sal_mid}</div></div>
+        <div class="d-field"><div class="d-lbl">Senior / top earners</div><div class="d-val">${c.sal_senior}</div></div>
+        <div class="d-field"><div class="d-lbl">Job growth</div><div class="d-val">${c.growth_lbl}<div class="bar-track" style="margin-top:4px" role="presentation"><div class="bar-teal" style="width:${Math.min(c.growth*5,100)}%"></div></div></div></div>
+      </div>
+      <div class="d-section">
+        <div class="d-heading">AI & career path</div>
+        <div class="d-field"><span class="ai-tag ${aiClass(c.ai)}">${c.ai} risk</span></div>
+        <div class="d-field" style="margin-top:8px"><div class="d-val">${c.ai_reason}</div></div>
+        <div class="d-field" style="margin-top:6px"><div class="d-lbl">Career path</div><div class="d-val">${c.path}</div></div>
+        <div class="d-field"><div class="d-lbl">Fast track note</div><div class="d-val">${c.fasttrack}</div></div>
+      </div>
+      <div class="d-section">
+        <div class="d-heading">Official links</div>
+        <div class="link-list" role="list">${linkHtml}</div>
+      </div>
+    </div>
+  </div>
+</article>`;
+}
+
+function toggleCard(id,rowEl){
+  const panel=document.getElementById('detail-'+id);
+  const btn=rowEl.closest('.cert-card').querySelector('.expand-btn');
+  const isOpen=panel.classList.contains('open');
+  panel.classList.toggle('open');
+  const next=isOpen?'false':'true';
+  rowEl.setAttribute('aria-expanded',next);
+  btn.setAttribute('aria-expanded',next);
+  btn.textContent=isOpen?'+':'−';
+}
+
+function setFilter(val,btn){
+  activeFilter=val;
+  document.querySelectorAll('.chip').forEach(b=>{b.classList.remove('on');b.setAttribute('aria-pressed','false')});
+  btn.classList.add('on');
+  btn.setAttribute('aria-pressed','true');
+  render();
+}
+
+function setSort(val){activeSort=val;render()}
+
+function render(){
+  let d=[...certs];
+  if(activeFilter==='entry') d=d.filter(c=>c.pathType==='entry');
+  else if(activeFilter==='aapc') d=d.filter(c=>c.org==='aapc');
+  else if(activeFilter==='ahima') d=d.filter(c=>c.org==='ahima');
+  else if(activeFilter==='acdis') d=d.filter(c=>c.org==='acdis');
+  else if(activeFilter==='low-ai') d=d.filter(c=>c.ai==='Low'||c.ai==='Low–Med');
+  else if(activeFilter==='remote-high') d=d.filter(c=>c.remote>=60);
+
+  if(activeSort==='speed') d.sort((a,b)=>spdOrd[a.speed]-spdOrd[b.speed]);
+  else if(activeSort==='sal-desc') d.sort((a,b)=>parseInt(b.sal_mid)-parseInt(a.sal_mid));
+  else if(activeSort==='sal-asc') d.sort((a,b)=>parseInt(a.sal_mid)-parseInt(b.sal_mid));
+  else if(activeSort==='ai-asc') d.sort((a,b)=>(aiOrd[a.ai.toLowerCase()]||0)-(aiOrd[b.ai.toLowerCase()]||0));
+  else if(activeSort==='remote-desc') d.sort((a,b)=>b.remote-a.remote);
+
+  document.getElementById('cert-list').innerHTML=d.map(c=>buildCard(c)).join('');
+  document.getElementById('results-copy').textContent=`Showing ${d.length} certification${d.length===1?'':'s'}`;
+}
+
+render();
+</script>
+
+<script>
+(function() {
+  const stored = localStorage.getItem('hc-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDark = stored ? stored === 'dark' : prefersDark;
+  if (isDark) document.documentElement.setAttribute('data-theme', 'dark');
+  updateToggleLabel(isDark);
+
+  function updateToggleLabel(dark) {
+    const btn = document.getElementById('theme-toggle');
+    if (btn) btn.textContent = dark ? '☀ Light' : '☾ Dark';
+  }
+
+  window.toggleTheme = function() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('hc-theme', next);
+    updateToggleLabel(next === 'dark');
+  };
+})();
+</script>
+  </div>
+</body>
+</html>
