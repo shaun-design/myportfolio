@@ -249,6 +249,7 @@ export function HomeContent() {
                 category: "Scalable Component Architecture",
                 title: "Design System",
                 desc: "Eliminated visual drift across a contractor-heavy codebase — then used AI to transform design tokens into Storybook components directly.",
+                open: true,
               },
             ].map((card) => (
               <StaggerItem key={card.title}>
@@ -266,9 +267,11 @@ export function HomeContent() {
                       <span className="rounded-full bg-white/10 px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/60">
                         {card.badge}
                       </span>
-                      <span className="rounded-full border border-white/15 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/50">
-                        Protected
-                      </span>
+                      {!card.open && (
+                        <span className="rounded-full border border-white/15 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/50">
+                          Protected
+                        </span>
+                      )}
                     </div>
                     <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/40">
                       {card.category}
@@ -284,13 +287,17 @@ export function HomeContent() {
                       >
                         View Case Study →
                       </a>
-                      <span className="text-white/20">·</span>
-                      <a
-                        href={`mailto:simpleshaundesign@gmail.com?subject=${encodeURIComponent(`Case study access: ${card.title}`)}&body=${encodeURIComponent(`Hi Shaun,\n\nI'd like to request access to your "${card.title}" case study.\n\nThanks!`)}`}
-                        className="text-white/55 transition-colors hover:text-white"
-                      >
-                        Request Access ↗
-                      </a>
+                      {!card.open && (
+                        <>
+                          <span className="text-white/20">·</span>
+                          <a
+                            href={`mailto:simpleshaundesign@gmail.com?subject=${encodeURIComponent(`Case study access: ${card.title}`)}&body=${encodeURIComponent(`Hi Shaun,\n\nI'd like to request access to your "${card.title}" case study.\n\nThanks!`)}`}
+                            className="text-white/55 transition-colors hover:text-white"
+                          >
+                            Request Access ↗
+                          </a>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
