@@ -7,6 +7,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { personSchema, websiteSchema } from "@/lib/structured-data";
 import { Analytics } from "@vercel/analytics/next";
+import { MouseStardust } from "@/components/mouse-stardust";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -107,6 +108,7 @@ export default function RootLayout({
             <Footer />
           </div>
         </Providers>
+        <MouseStardust />
         <Analytics />
       </body>
     </html>
