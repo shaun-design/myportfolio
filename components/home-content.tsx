@@ -291,7 +291,7 @@ export function HomeContent() {
               The Rigor of Craft
             </h2>
             <p className="mx-auto mb-16 max-w-xl text-center text-[15px] leading-[1.7] text-black/50">
-              Design thinking is how I turn ambiguity into clear, validated direction. It keeps teams focused on the right problem, explores multiple solutions, and ensures what we build delivers real value.
+              A validated framework for turning ambiguity into clear direction — now accelerated with AI at each step to move faster without lowering the bar.
             </p>
           </FadeUp>
 
@@ -303,16 +303,22 @@ export function HomeContent() {
             </FadeUp>
             <StaggerChildren className="mb-6 grid gap-4 md:grid-cols-3">
               {[
-                { step: "01 · Empathize", title: "In-Depth Discovery", desc: "Stakeholder interviews and user shadowing to uncover the 'why' behind the friction points.", accent: "bg-[#4F6AF5]" },
-                { step: "02 · Define", title: "Strategic Synthesis", desc: "Mapping user journeys and defining core success metrics for the design solution.", accent: "bg-[#4F6AF5]" },
-                { step: "03 · Ideate", title: "Rapid Iteration", desc: "Low-fidelity exploration to validate interaction models without high-fidelity distractions.", accent: "bg-[#4F6AF5]" },
+                { step: "01 · Empathize", title: "In-Depth Discovery", desc: "Stakeholder interviews and user shadowing to uncover the 'why' behind the friction points.", ai: "Claude and ChatGPT transcribe and cluster interview themes across dozens of conversations in minutes.", accent: "bg-[#4F6AF5]" },
+                { step: "02 · Define", title: "Strategic Synthesis", desc: "Mapping user journeys and defining core success metrics for the design solution.", ai: "LLMs distill raw research into tight problem statements and jobs-to-be-done hypotheses.", accent: "bg-[#4F6AF5]" },
+                { step: "03 · Ideate", title: "Rapid Iteration", desc: "Low-fidelity exploration to validate interaction models without high-fidelity distractions.", ai: "Generate divergent solution concepts and edge cases to expand the solution space faster.", accent: "bg-[#4F6AF5]" },
               ].map((card) => (
                 <StaggerItem key={card.step}>
-                  <div className="rounded-xl bg-white px-6 pb-10 pt-6">
+                  <div className="flex h-full flex-col rounded-xl bg-white px-6 pb-6 pt-6">
                     <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.15em] text-black/40">{card.step}</p>
                     <div className={`mb-5 h-[2px] w-6 ${card.accent}`} />
                     <h3 className="mb-3 text-[17px] font-bold text-black">{card.title}</h3>
-                    <p className="text-[13px] leading-[1.7] text-black/50">{card.desc}</p>
+                    <p className="mb-6 text-[13px] leading-[1.7] text-black/50">{card.desc}</p>
+                    <div className="mt-auto border-t border-black/10 pt-4">
+                      <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-black/40">
+                        <span className="text-[#4F6AF5]">◆</span> AI Assist
+                      </p>
+                      <p className="text-[12px] leading-[1.6] text-black/55">{card.ai}</p>
+                    </div>
                   </div>
                 </StaggerItem>
               ))}
@@ -325,16 +331,22 @@ export function HomeContent() {
             </FadeUp>
             <StaggerChildren className="grid gap-4 md:grid-cols-3">
               {[
-                { step: "04 · Prototype", title: "Living Systems", desc: "High-fidelity functional prototypes built with production-ready design tokens.", accent: "bg-black" },
-                { step: "05 · Test", title: "User Validation", desc: "Rigorous usability testing to ensure the interface meets cognitive and accessibility standards.", accent: "bg-black" },
-                { step: "06 · Implement", title: "Precision Handoff", desc: "Collaborating with engineering to ensure 1:1 fidelity from design to production.", accent: "bg-black" },
+                { step: "04 · Prototype", title: "Living Systems", desc: "High-fidelity functional prototypes built with production-ready design tokens.", ai: "Figma Make and Claude Code turn flows into coded prototypes in hours instead of days.", accent: "bg-black" },
+                { step: "05 · Test", title: "User Validation", desc: "Rigorous usability testing to ensure the interface meets cognitive and accessibility standards.", ai: "AI summarizes usability recordings and surfaces behavior patterns across participants.", accent: "bg-black" },
+                { step: "06 · Implement", title: "Precision Handoff", desc: "Collaborating with engineering to ensure 1:1 fidelity from design to production.", ai: "Generate component docs, acceptance criteria, and release notes from Figma and tokens.", accent: "bg-black" },
               ].map((card) => (
                 <StaggerItem key={card.step}>
-                  <div className="rounded-xl bg-white px-6 pb-10 pt-6">
+                  <div className="flex h-full flex-col rounded-xl bg-white px-6 pb-6 pt-6">
                     <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.15em] text-black/40">{card.step}</p>
                     <div className={`mb-5 h-[2px] w-6 ${card.accent}`} />
                     <h3 className="mb-3 text-[17px] font-bold text-black">{card.title}</h3>
-                    <p className="text-[13px] leading-[1.7] text-black/50">{card.desc}</p>
+                    <p className="mb-6 text-[13px] leading-[1.7] text-black/50">{card.desc}</p>
+                    <div className="mt-auto border-t border-black/10 pt-4">
+                      <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-black/40">
+                        <span className="text-[#4F6AF5]">◆</span> AI Assist
+                      </p>
+                      <p className="text-[12px] leading-[1.6] text-black/55">{card.ai}</p>
+                    </div>
                   </div>
                 </StaggerItem>
               ))}
