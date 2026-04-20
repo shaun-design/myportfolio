@@ -27,8 +27,8 @@
         --color-text-tertiary: #64748b;
         --color-border-secondary: #334155;
         --color-border-tertiary: #1e293b;
-        --color-background-primary: #0f172a;
-        --color-background-secondary: #080f1a;
+        --color-background-primary: #0d1117;
+        --color-background-secondary: #010203;
       }
     }
 
@@ -38,9 +38,76 @@
       --color-text-tertiary: #64748b;
       --color-border-secondary: #334155;
       --color-border-tertiary: #1e293b;
-      --color-background-primary: #0f172a;
-      --color-background-secondary: #080f1a;
+      --color-background-primary: #0d1117;
+      --color-background-secondary: #010203;
     }
+
+    /* Dark mode overrides for hardcoded semantic colors inside the fragment.
+       Applied both via system preference and via explicit [data-theme="dark"] toggle. */
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --is-dark: 1; } }
+    [data-theme="dark"] { --is-dark: 1; }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .t-aapc  { background:#0c1e35; color:#93c5fd; }
+      :root:not([data-theme="light"]) .t-ahima { background:#1a1040; color:#c4b5fd; }
+      :root:not([data-theme="light"]) .t-acdis { background:#052e16; color:#86efac; }
+      :root:not([data-theme="light"]) .s-fast  { background:#052e16; color:#86efac; }
+      :root:not([data-theme="light"]) .s-mid   { background:#2d1600; color:#fcd34d; }
+      :root:not([data-theme="light"]) .flag-ok      { background:#052e16; color:#86efac; }
+      :root:not([data-theme="light"]) .flag-warn    { background:#2d1600; color:#fcd34d; }
+      :root:not([data-theme="light"]) .flag-danger  { background:#2d0a0a; color:#fca5a5; }
+      :root:not([data-theme="light"]) .ai-low       { background:#052e16; color:#86efac; }
+      :root:not([data-theme="light"]) .ai-lowmed    { background:#0a2010; color:#6ee7b7; }
+      :root:not([data-theme="light"]) .ai-med       { background:#2d1600; color:#fcd34d; }
+      :root:not([data-theme="light"]) .ai-high      { background:#2d0a0a; color:#fca5a5; }
+      :root:not([data-theme="light"]) .rec-box      { background:#0c1e35; color:#93c5fd; border-color:#2563eb; }
+      :root:not([data-theme="light"]) .rec-heading  { color:#93c5fd; }
+      :root:not([data-theme="light"]) .rec-card     { background:#111f35; border-color:#1e3a5f; color:#93c5fd; }
+      :root:not([data-theme="light"]) .rec-phase    { color:#60a5fa; }
+      :root:not([data-theme="light"]) .rec-cert     { color:#bfdbfe; }
+      :root:not([data-theme="light"]) .rec-why      { color:#93c5fd; }
+      :root:not([data-theme="light"]) .rec-note     { color:#93c5fd; }
+      :root:not([data-theme="light"]) .disclaimer   { color:var(--color-text-secondary); }
+      :root:not([data-theme="light"]) .disclaimer strong { color:var(--color-text-primary); }
+      :root:not([data-theme="light"]) .kicker       { color:#60a5fa; }
+      :root:not([data-theme="light"]) .enroll-link  { color:#60a5fa; }
+      :root:not([data-theme="light"]) .enroll-link:hover { color:#93c5fd; }
+      :root:not([data-theme="light"]) .quick-link   { color:#60a5fa; }
+      :root:not([data-theme="light"]) .quick-link:hover { background:#0c1e35; }
+      :root:not([data-theme="light"]) .bar-blue     { background:#3b82f6; }
+      :root:not([data-theme="light"]) .bar-teal     { background:#34d399; }
+      :root:not([data-theme="light"]) .chip.on      { background:#2563eb; border-color:#2563eb; }
+    }
+
+    [data-theme="dark"] .t-aapc  { background:#0c1e35; color:#93c5fd; }
+    [data-theme="dark"] .t-ahima { background:#1a1040; color:#c4b5fd; }
+    [data-theme="dark"] .t-acdis { background:#052e16; color:#86efac; }
+    [data-theme="dark"] .s-fast  { background:#052e16; color:#86efac; }
+    [data-theme="dark"] .s-mid   { background:#2d1600; color:#fcd34d; }
+    [data-theme="dark"] .flag-ok      { background:#052e16; color:#86efac; }
+    [data-theme="dark"] .flag-warn    { background:#2d1600; color:#fcd34d; }
+    [data-theme="dark"] .flag-danger  { background:#2d0a0a; color:#fca5a5; }
+    [data-theme="dark"] .ai-low       { background:#052e16; color:#86efac; }
+    [data-theme="dark"] .ai-lowmed    { background:#0a2010; color:#6ee7b7; }
+    [data-theme="dark"] .ai-med       { background:#2d1600; color:#fcd34d; }
+    [data-theme="dark"] .ai-high      { background:#2d0a0a; color:#fca5a5; }
+    [data-theme="dark"] .rec-box      { background:#0c1e35; color:#93c5fd; border-color:#2563eb; }
+    [data-theme="dark"] .rec-heading  { color:#93c5fd; }
+    [data-theme="dark"] .rec-card     { background:#111f35; border-color:#1e3a5f; color:#93c5fd; }
+    [data-theme="dark"] .rec-phase    { color:#60a5fa; }
+    [data-theme="dark"] .rec-cert     { color:#bfdbfe; }
+    [data-theme="dark"] .rec-why      { color:#93c5fd; }
+    [data-theme="dark"] .rec-note     { color:#93c5fd; }
+    [data-theme="dark"] .disclaimer   { color:var(--color-text-secondary); }
+    [data-theme="dark"] .disclaimer strong { color:var(--color-text-primary); }
+    [data-theme="dark"] .kicker       { color:#60a5fa; }
+    [data-theme="dark"] .enroll-link  { color:#60a5fa; }
+    [data-theme="dark"] .enroll-link:hover { color:#93c5fd; }
+    [data-theme="dark"] .quick-link   { color:#60a5fa; }
+    [data-theme="dark"] .quick-link:hover { background:#0c1e35; }
+    [data-theme="dark"] .bar-blue     { background:#3b82f6; }
+    [data-theme="dark"] .bar-teal     { background:#34d399; }
+    [data-theme="dark"] .chip.on      { background:#2563eb; border-color:#2563eb; }
 
     html, body {
       margin: 0;
@@ -52,7 +119,7 @@
     }
 
     .page-outer {
-      padding: 2rem 1.5rem 4rem;
+      padding: 4rem 1.5rem 4rem;
     }
 
     .theme-toggle {
@@ -114,7 +181,7 @@
 .chip:hover{background:var(--color-background-secondary);transform:translateY(-1px)}
 .chip:focus-visible,.sort-select:focus-visible,.expand-btn:focus-visible,.quick-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .chip.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600}
-.sort-select{font-size:12px;padding:7px 10px;border-radius:8px;border:1px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);cursor:pointer}
+.sort-select{font-size:12px;padding:7px 34px 7px 10px;border-radius:8px;border:1px solid var(--color-border-secondary);background:var(--color-background-primary) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 10px center;color:var(--color-text-primary);cursor:pointer;appearance:none;-webkit-appearance:none}
 .results-row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
 .results-copy{font-size:12px;color:var(--color-text-secondary)}
 .quick-links{display:flex;gap:8px;flex-wrap:wrap}
@@ -158,7 +225,10 @@
 .ai-lowmed{background:#EAF3DE;color:#27500A}
 .ai-med{background:var(--warn-bg);color:var(--warn-text)}
 .ai-high{background:var(--danger-bg);color:var(--danger-text)}
-.expand-btn{display:flex;align-items:center;justify-content:center;width:36px;font-size:18px;font-weight:500;color:var(--color-text-tertiary);background:none;border:none;cursor:pointer;border-radius:0 14px 14px 0;align-self:stretch}
+.expand-btn{display:flex;align-items:center;justify-content:center;width:36px;font-size:14px;font-weight:600;color:var(--color-text-secondary);background:none;border:none;cursor:pointer;border-radius:0 14px 14px 0;align-self:stretch}
+.expand-btn span{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--color-border-secondary);background:var(--color-background-secondary);transition:background .12s,border-color .12s,color .12s}
+.cert-card:hover .expand-btn span{border-color:var(--color-border-secondary);background:var(--color-background-secondary)}
+.expand-btn:hover span{background:var(--color-border-secondary)!important}
 .detail-panel{display:none;border-top:1px solid var(--color-border-tertiary);background:var(--color-background-secondary)}
 .detail-panel.open{display:block}
 .detail-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
@@ -193,11 +263,13 @@
   .col-cell:last-of-type{border-bottom:none}
   .expand-btn{width:100%;height:42px;border-top:1px solid var(--color-border-tertiary);border-radius:0}
 }
+.tb-break{display:none}
 @media (max-width:640px){
   .wrap{padding:.5rem 0 2rem}
   .hero-title{font-size:20px}
   .toolbar{padding:10px}
   .tb-row{align-items:flex-start}
+  .tb-break{display:block;width:100%;height:0}
 }
 </style>
 
@@ -220,40 +292,37 @@
     </div>
   </section>
 
+  <a href="#recommendation" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:32px;padding:14px 18px;border-radius:12px;background:#083260;color:#fff;text-decoration:none;font-size:14px;font-weight:600;line-height:1.3;transition:background .15s,transform .12s;box-shadow:0 4px 14px rgba(8,50,96,.45)" onmouseover="this.style.background='#052548'" onmouseout="this.style.background='#083260'">
+    <span>
+      <span style="display:block;font-size:11px;font-weight:500;opacity:.8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px">Personalized</span>
+      See the recommended certification path →
+    </span>
+    <span style="font-size:22px;opacity:.85">🎯</span>
+  </a>
+
   <div class="toolbar" role="toolbar" aria-label="Filter and sort controls">
     <div class="tb-row">
-      <span class="tb-label" id="filter-label">Filter</span>
-      <button class="chip on" onclick="setFilter('all',this)" aria-pressed="true">All 9</button>
-      <button class="chip" onclick="setFilter('entry',this)" aria-pressed="false">Best entry paths</button>
-      <button class="chip" onclick="setFilter('aapc',this)" aria-pressed="false">AAPC</button>
-      <button class="chip" onclick="setFilter('ahima',this)" aria-pressed="false">AHIMA</button>
-      <button class="chip" onclick="setFilter('acdis',this)" aria-pressed="false">ACDIS</button>
-      <button class="chip" onclick="setFilter('low-ai',this)" aria-pressed="false">Low AI risk</button>
-      <button class="chip" onclick="setFilter('remote-high',this)" aria-pressed="false">High remote</button>
-    </div>
-    <div class="tb-row">
-      <label class="tb-label" for="sort-select">Sort</label>
       <select id="sort-select" class="sort-select" onchange="setSort(this.value)">
-        <option value="speed">Fastest to earn</option>
-        <option value="sal-desc">Salary: highest first</option>
-        <option value="sal-asc">Salary: lowest first</option>
-        <option value="ai-asc">AI risk: lowest first</option>
-        <option value="remote-desc">Remote %: highest first</option>
+        <option value="speed" data-plain="Fastest to earn">Sort: Fastest to earn</option>
+        <option value="sal-desc" data-plain="Salary highest first">Salary highest first</option>
+        <option value="sal-asc" data-plain="Salary lowest first">Salary lowest first</option>
+        <option value="ai-asc" data-plain="AI risk lowest first">AI risk lowest first</option>
+        <option value="remote-desc" data-plain="Remote % highest first">Remote % highest first</option>
+      </select>
+      <select id="filter-select" class="sort-select" onchange="setFilter(this.value)">
+        <option value="all" data-plain="All 9">Filter: All 9</option>
+        <option value="entry" data-plain="Best Entry Paths">Best Entry Paths</option>
+        <option value="aapc" data-plain="AAPC">AAPC</option>
+        <option value="ahima" data-plain="AHIMA">AHIMA</option>
+        <option value="acdis" data-plain="ACDIS">ACDIS</option>
+        <option value="low-ai" data-plain="Low AI risk">Low AI risk</option>
+        <option value="remote-high" data-plain="High remote">High remote</option>
       </select>
     </div>
   </div>
 
   <div class="results-row">
     <div class="results-copy" id="results-copy">Showing 9 certifications</div>
-    <div class="quick-links" aria-label="Jump links">
-      <a class="quick-link" href="#recommendation">Jump to recommended path</a>
-    </div>
-  </div>
-
-  <div class="legend" aria-label="Legend">
-    <span class="mini-badge">Beginner friendly</span>
-    <span class="mini-badge">Experience recommended</span>
-    <span class="mini-badge">Clinical barrier</span>
   </div>
 
   <div class="divider" role="separator"></div>
@@ -348,7 +417,7 @@ function buildCard(c){
       <div class="cell-label">AI risk</div>
       <span class="ai-tag ${aiClass(c.ai)}">${c.ai}</span>
     </div>
-    <button class="expand-btn" aria-expanded="false" aria-controls="detail-${c.id}" tabindex="-1" aria-label="Toggle details for ${c.acronym}">+</button>
+    <button class="expand-btn" aria-expanded="false" aria-controls="detail-${c.id}" tabindex="-1" aria-label="Toggle details for ${c.acronym}"><span>+</span></button>
   </div>
   <div class="detail-panel" id="detail-${c.id}" role="region" aria-label="${c.acronym} details">
     <div class="detail-grid">
@@ -389,18 +458,26 @@ function toggleCard(id,rowEl){
   const next=isOpen?'false':'true';
   rowEl.setAttribute('aria-expanded',next);
   btn.setAttribute('aria-expanded',next);
-  btn.textContent=isOpen?'+':'−';
+  btn.querySelector('span').textContent=isOpen?'+':'−';
 }
 
-function setFilter(val,btn){
-  activeFilter=val;
-  document.querySelectorAll('.chip').forEach(b=>{b.classList.remove('on');b.setAttribute('aria-pressed','false')});
-  btn.classList.add('on');
-  btn.setAttribute('aria-pressed','true');
+function labelSelect(selectEl, prefix) {
+  Array.from(selectEl.options).forEach(o => { o.text = o.dataset.plain; });
+  const sel = selectEl.options[selectEl.selectedIndex];
+  sel.text = prefix + sel.dataset.plain;
+}
+
+function setSort(val){
+  activeSort=val;
+  labelSelect(document.getElementById('sort-select'), 'Sort: ');
   render();
 }
 
-function setSort(val){activeSort=val;render()}
+function setFilter(val){
+  activeFilter=val;
+  labelSelect(document.getElementById('filter-select'), 'Filter: ');
+  render();
+}
 
 function render(){
   let d=[...certs];
