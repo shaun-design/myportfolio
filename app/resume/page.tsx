@@ -118,12 +118,10 @@ export default function ResumePage() {
             Senior Product Designer — Platform UX, Design Systems &amp; AI
           </p>
           <p className="max-w-[620px] text-[16px] leading-[1.7] text-black/80">
-            Senior Product Designer specializing in design systems, complex SaaS
-            platforms, and AI-enabled products. Experienced leading product
-            design across multi-product platforms and translating complex
-            workflows into clear, scalable systems by partnering closely with
-            product managers and engineers to balance user needs, business
-            goals, and technical realities.
+            I lead product design on complex SaaS platforms — building the
+            design systems that keep them consistent and embedding AI into both
+            the products I ship and the way I ship them. Previously at TORSH,
+            RealNetworks, and Microsoft.
           </p>
         </header>
 
