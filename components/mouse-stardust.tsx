@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { useReducedMotion } from "framer-motion";
 
 interface Star {
@@ -22,12 +23,16 @@ interface Shockwave {
   alpha: number;
 }
 
+const DISABLED_PATHS = ["/resume"];
+
 export function MouseStardust() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reduced = useReducedMotion();
+  const pathname = usePathname();
+  const disabled = DISABLED_PATHS.some((p) => pathname?.startsWith(p));
 
   useEffect(() => {
-    if (reduced) return;
+    if (reduced || disabled) return;
 
     const canvas = canvasRef.current as HTMLCanvasElement;
     if (!canvas) return;
@@ -150,9 +155,9 @@ export function MouseStardust() {
       window.removeEventListener("click", onClick);
       cancelAnimationFrame(rafId);
     };
-  }, [reduced]);
+  }, [reduced, disabled]);
 
-  if (reduced) return null;
+  if (reduced || disabled) return null;
 
   return (
     <canvas

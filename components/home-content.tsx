@@ -252,19 +252,22 @@ export function HomeContent() {
               },
             ].map((card) => (
               <StaggerItem key={card.title}>
-                <a
-                  href={card.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex flex-col overflow-hidden rounded-2xl transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/60"
-                >
-                  <div className="transition-[filter] duration-200 group-hover:brightness-110">
+                <div className="group flex flex-col overflow-hidden rounded-2xl transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/60">
+                  <a
+                    href={card.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block transition-[filter] duration-200 group-hover:brightness-110"
+                  >
                     <Image src={card.img} alt={card.alt} width={448} height={458} className="w-full" />
-                  </div>
-                  <div className="flex flex-1 flex-col bg-[#1a1a1a] px-6 pb-12 pt-6">
-                    <div className="mb-4">
+                  </a>
+                  <div className="flex flex-1 flex-col bg-[#1a1a1a] px-6 pb-8 pt-6">
+                    <div className="mb-4 flex flex-wrap items-center gap-2">
                       <span className="rounded-full bg-white/10 px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/60">
                         {card.badge}
+                      </span>
+                      <span className="rounded-full border border-white/15 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/50">
+                        Protected
                       </span>
                     </div>
                     <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/40">
@@ -272,11 +275,25 @@ export function HomeContent() {
                     </p>
                     <h3 className="mb-3 text-[22px] font-bold text-white">{card.title}</h3>
                     <p className="mb-6 text-[14px] leading-[1.6] text-white">{card.desc}</p>
-                    <span className="mt-auto text-[13px] font-semibold text-white transition-colors group-hover:text-white/70">
-                      View Case Study →
-                    </span>
+                    <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] font-semibold">
+                      <a
+                        href={card.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-white transition-colors hover:text-white/60"
+                      >
+                        View Case Study →
+                      </a>
+                      <span className="text-white/20">·</span>
+                      <a
+                        href={`mailto:simpleshaundesign@gmail.com?subject=${encodeURIComponent(`Case study access: ${card.title}`)}&body=${encodeURIComponent(`Hi Shaun,\n\nI'd like to request access to your "${card.title}" case study.\n\nThanks!`)}`}
+                        className="text-white/55 transition-colors hover:text-white"
+                      >
+                        Request Access ↗
+                      </a>
+                    </div>
                   </div>
-                </a>
+                </div>
               </StaggerItem>
             ))}
           </StaggerChildren>

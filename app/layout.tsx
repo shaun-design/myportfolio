@@ -64,7 +64,7 @@ export const metadata: Metadata = {
       "Senior Product Designer specializing in design systems, complex SaaS platforms, UX strategy, and AI enabled product experiences.",
     images: [
       {
-        url: `${siteUrl}/og-image.jpg`,
+        url: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
         alt: "Shaun Herron - Senior Product Designer",
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     description:
       "Senior Product Designer specializing in design systems, complex SaaS platforms, UX strategy, and AI enabled product experiences.",
     creator: "@shaunherron",
-    images: [`${siteUrl}/og-image.jpg`],
+    images: [`${siteUrl}/og-image.png`],
   },
 };
 
