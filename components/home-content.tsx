@@ -342,6 +342,37 @@ export function HomeContent() {
           </div>
         </div>
       </section>
+
+      {/* CTA */}
+      <section style={{ backgroundColor: "#0F0F0F" }} className="px-6 py-24">
+        <FadeUp>
+          <div className="mx-auto flex max-w-6xl flex-col items-center justify-center text-center">
+            <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.08em] text-white/35">
+              Available for Work
+            </p>
+            <h2 className="mb-5 text-[40px] font-bold leading-[1.1] tracking-[-0.03em] text-white md:text-[48px]">
+              Let&apos;s work together.
+            </h2>
+            <p className="mx-auto mb-10 max-w-md text-[16px] leading-[1.5] text-white/50">
+              I&apos;m currently open to Senior Product Design roles, full-time or contract.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <a
+                href="mailto:simpleshaundesign@gmail.com"
+                className="rounded-lg bg-white px-6 py-3 text-[15px] font-semibold text-[#0F0F0F] transition-opacity hover:opacity-90"
+              >
+                Get in Touch
+              </a>
+              <a
+                href="/resume"
+                className="text-[15px] font-semibold text-white/60 transition-colors hover:text-white"
+              >
+                View Resume →
+              </a>
+            </div>
+          </div>
+        </FadeUp>
+      </section>
     </>
   );
 }
