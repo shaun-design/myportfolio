@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -15,13 +15,14 @@ function FadeUp({
   delay?: number;
   className?: string;
 }) {
+  const reduced = useReducedMotion();
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 32 }}
+      initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 32 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7, ease, delay }}
+      transition={{ duration: reduced ? 0 : 0.7, ease, delay: reduced ? 0 : delay }}
     >
       {children}
     </motion.div>
@@ -35,6 +36,7 @@ function StaggerChildren({
   children: React.ReactNode;
   className?: string;
 }) {
+  const reduced = useReducedMotion();
   return (
     <motion.div
       className={className}
@@ -43,7 +45,7 @@ function StaggerChildren({
       viewport={{ once: true, margin: "-80px" }}
       variants={{
         hidden: {},
-        visible: { transition: { staggerChildren: 0.1 } },
+        visible: { transition: { staggerChildren: reduced ? 0 : 0.1 } },
       }}
     >
       {children}
@@ -52,12 +54,13 @@ function StaggerChildren({
 }
 
 function StaggerItem({ children, className }: { children: React.ReactNode; className?: string }) {
+  const reduced = useReducedMotion();
   return (
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 28 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
+        hidden: { opacity: reduced ? 1 : 0, y: reduced ? 0 : 28 },
+        visible: { opacity: 1, y: 0, transition: { duration: reduced ? 0 : 0.6, ease } },
       }}
     >
       {children}
@@ -66,15 +69,16 @@ function StaggerItem({ children, className }: { children: React.ReactNode; class
 }
 
 export function HomeContent() {
+  const reduced = useReducedMotion();
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
 
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0px", "-60px"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0px", "-30px"]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const imageY = useTransform(scrollYProgress, [0, 1], reduced ? ["0px", "0px"] : ["0px", "-60px"]);
+  const textY = useTransform(scrollYProgress, [0, 1], reduced ? ["0px", "0px"] : ["0px", "-30px"]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], reduced ? [1, 1] : [1, 0]);
 
   return (
     <>
@@ -91,25 +95,25 @@ export function HomeContent() {
               <motion.div style={{ y: textY, opacity: heroOpacity }}>
                 <motion.h1
                   className="mb-6 whitespace-nowrap text-[38px] font-extrabold leading-[1.0] tracking-[-0.03em] text-white md:text-[64px] lg:text-[70px]"
-                  initial={{ opacity: 0, y: 24 }}
+                  initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 24 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease, delay: 0.1 }}
+                  transition={{ duration: reduced ? 0 : 0.8, ease, delay: reduced ? 0 : 0.1 }}
                 >
                   Shaun Herron
                 </motion.h1>
                 <motion.p
                   className="mb-8 text-[22px] font-extrabold leading-[1.3] text-white/60 md:text-[36px] lg:text-[40px]"
-                  initial={{ opacity: 0, y: 24 }}
+                  initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 24 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease, delay: 0.2 }}
+                  transition={{ duration: reduced ? 0 : 0.8, ease, delay: reduced ? 0 : 0.2 }}
                 >
                   I design the AI products and systems teams actually build on.
                 </motion.p>
                 <motion.div
                   className="mb-10 flex flex-wrap gap-2"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, ease, delay: 0.35 }}
+                  transition={{ duration: reduced ? 0 : 0.7, ease, delay: reduced ? 0 : 0.35 }}
                 >
                   <span className="rounded-full border border-white/20 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-white/70">
                     Design Systems at Scale
@@ -123,9 +127,9 @@ export function HomeContent() {
                 </motion.div>
                 <motion.div
                   className="flex flex-wrap items-center gap-4 pb-10 lg:pb-0"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, ease, delay: 0.45 }}
+                  transition={{ duration: reduced ? 0 : 0.7, ease, delay: reduced ? 0 : 0.45 }}
                 >
                   <a
                     href="#work"
@@ -146,9 +150,9 @@ export function HomeContent() {
               <motion.div
                 className="flex justify-center lg:justify-start"
                 style={{ y: imageY }}
-                initial={{ opacity: 0, y: 40, scale: 0.97 }}
+                initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 40, scale: reduced ? 1 : 0.97 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 1, ease, delay: 0.3 }}
+                transition={{ duration: reduced ? 0 : 1, ease, delay: reduced ? 0 : 0.3 }}
               >
                 <div className="relative w-full max-w-[580px] overflow-hidden rounded-2xl shadow-2xl shadow-black/60">
                   <Image
@@ -257,7 +261,7 @@ export function HomeContent() {
                   <div className="transition-[filter] duration-200 group-hover:brightness-110">
                     <Image src={card.img} alt={card.alt} width={448} height={458} className="w-full" />
                   </div>
-                  <div className="flex flex-1 flex-col bg-[#1a1a1a] px-6 pb-8 pt-6">
+                  <div className="flex flex-1 flex-col bg-[#1a1a1a] px-6 pb-12 pt-6">
                     <div className="mb-4">
                       <span className="rounded-full bg-white/10 px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/60">
                         {card.badge}
