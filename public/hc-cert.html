@@ -29,6 +29,7 @@
     }
 
     .page-outer { padding: 1rem 1.5rem 4rem; }
+    @media (max-width: 640px) { .page-outer { padding: 0.75rem 0.75rem 3rem; } }
 
     /* Neutral rec-box — uses .wrap prefix for specificity over fragment */
     .wrap .rec-box     { background:var(--color-background-primary); border:1px solid var(--color-border-tertiary); color:var(--color-text-primary); margin-top:0; margin-bottom:48px; }
@@ -153,7 +154,8 @@
 .disclaimer{font-size:12px;line-height:1.6;color:var(--color-text-secondary);margin-top:12px}
 .disclaimer strong{font-weight:650;color:var(--color-text-primary)}
 .schools-section{border-top:1px solid var(--color-border-tertiary);padding:15px}
-.schools-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.schools-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -15px;padding:0 15px}
+.schools-table{border-collapse:collapse;font-size:11.5px;min-width:620px;width:100%}
 .schools-table th{font-size:10px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;padding:0 10px 8px;text-align:left;border-bottom:1px solid var(--color-border-tertiary);white-space:nowrap}
 .schools-table td{padding:8px 10px;border-bottom:1px solid var(--color-border-tertiary);color:var(--color-text-secondary);vertical-align:top;line-height:1.5}
 .schools-table tr:last-child td{border-bottom:none}
@@ -178,6 +180,14 @@
   .toolbar{padding:10px}
   .tb-row{align-items:flex-start}
   .tb-break{display:block;width:100%;height:0}
+  .sort-select{font-size:14px;padding:9px 38px 9px 10px;width:100%}
+  .summary-grid{grid-template-columns:1fr}
+  .rec-grid{grid-template-columns:1fr}
+  .detail-grid{grid-template-columns:1fr}
+  .d-section{border-right:none;border-bottom:1px solid var(--color-border-tertiary)}
+  .d-section:last-child{border-bottom:none}
+  .schools-section{padding:12px}
+  .schools-scroll{margin:0 -12px;padding:0 12px}
 }
 </style>
 <style>
@@ -430,7 +440,7 @@ function buildCard(c){
     </div>
     <div class="schools-section">
       <div class="d-heading">Top Online Programs</div>
-      <table class="schools-table" role="table">
+      <div class="schools-scroll"><table class="schools-table" role="table">
         <thead><tr>
           <th>School</th><th>Duration</th><th>Cost</th><th>Financial Aid</th><th>Accreditation</th><th>All 50 States</th>
         </tr></thead>
@@ -441,8 +451,8 @@ function buildCard(c){
           <td>${s.aid}</td>
           <td>${s.accred}</td>
           <td>${s.states==='all'?'<span class="badge-ok">✓ Yes</span>':'<span class="badge-warn">Verify</span>'}</td>
-        </tr>`).join('')}</tbody>
-      </table>
+        </tr>`).join('')}        </tbody>
+      </table></div>
       <div class="schools-note">The AAPC, AHIMA, and ACDIS certifications are nationally recognized in all 50 states — your school's accreditation does not restrict where you can work. Accreditation affects federal financial aid (FAFSA) eligibility and credit transfer. Programs marked "Verify" have state enrollment restrictions due to state authorization requirements; confirm your state is supported before enrolling.</div>
     </div>
   </div>
