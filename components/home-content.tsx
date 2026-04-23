@@ -85,6 +85,7 @@ export function HomeContent() {
       {/* Hero */}
       <section
         ref={heroRef}
+        data-stardust
         className="flex min-h-screen items-center overflow-hidden text-white"
         style={{ backgroundColor: "#0a0a0a" }}
       >
@@ -227,7 +228,7 @@ export function HomeContent() {
                 href: "https://teachai.simpleshaun.com",
                 img: "/teach-ai-card.svg",
                 alt: "TeachAI illustration",
-                badge: "Shipped",
+                badges: ["AI-Assisted", "Shipped"],
                 category: "AI-Powered Coaching Platform",
                 title: "TeachAI",
                 desc: "Reduced teacher feedback cycles from days to minutes. AI surfaces coaching insights immediately; coaches retain full oversight.",
@@ -236,7 +237,7 @@ export function HomeContent() {
                 href: "https://insightcapture.simpleshaun.com",
                 img: "/insight-capture-card.svg",
                 alt: "Insight Capture illustration",
-                badge: "Shipped",
+                badges: ["AI-Assisted", "Shipped"],
                 category: "Insights Capture & Research Tool",
                 title: "Insight Capture",
                 desc: "Eliminated custom dev requests by giving schools self-service authoring tools to build forms, collect data, and run their own reports.",
@@ -245,7 +246,7 @@ export function HomeContent() {
                 href: "https://designsystem.simpleshaun.com",
                 img: "/design-system-card.svg",
                 alt: "Design System illustration",
-                badge: "AI-Assisted",
+                badges: ["AI-Assisted", "Shipped"],
                 category: "Scalable Component Architecture",
                 title: "Design System",
                 desc: "Eliminated visual drift across a contractor-heavy codebase — then used AI to transform design tokens into Storybook components directly.",
@@ -264,40 +265,43 @@ export function HomeContent() {
                   </a>
                   <div className="flex flex-1 flex-col bg-[#1a1a1a] px-6 pb-8 pt-6">
                     <div className="mb-4 flex flex-wrap items-center gap-2">
-                      <span className="rounded-full bg-white/10 px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/60">
-                        {card.badge}
-                      </span>
-                      {!card.open && (
-                        <span className="rounded-full border border-white/15 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/50">
-                          Protected
+                      {card.badges.map((badge) => (
+                        <span key={badge} className="rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/60">
+                          {badge}
                         </span>
-                      )}
+                      ))}
                     </div>
                     <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/40">
                       {card.category}
                     </p>
                     <h3 className="mb-3 text-[22px] font-bold text-white">{card.title}</h3>
                     <p className="mb-6 text-[14px] leading-[1.6] text-white">{card.desc}</p>
-                    <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] font-semibold">
-                      <a
-                        href={card.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-white transition-colors hover:text-white/60"
-                      >
-                        View Case Study →
-                      </a>
-                      {!card.open && (
-                        <>
-                          <span className="text-white/20">·</span>
-                          <a
-                            href={`mailto:simpleshaundesign@gmail.com?subject=${encodeURIComponent(`Case study access: ${card.title}`)}&body=${encodeURIComponent(`Hi Shaun,\n\nI'd like to request access to your "${card.title}" case study.\n\nThanks!`)}`}
-                            className="text-white/55 transition-colors hover:text-white"
-                          >
-                            Request Access ↗
-                          </a>
-                        </>
-                      )}
+                    <div className="mt-auto">
+                      <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] font-semibold">
+                        <a
+                          href={card.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white transition-colors hover:text-white/60"
+                        >
+                          View Case Study →
+                        </a>
+                        {!card.open && (
+                          <>
+                            <span className="text-white/20">·</span>
+                            <a
+                              href={`mailto:simpleshaundesign@gmail.com?subject=${encodeURIComponent(`Case study access: ${card.title}`)}&body=${encodeURIComponent(`Hi Shaun,\n\nI'd like to request access to your "${card.title}" case study.\n\nThanks!`)}`}
+                              className="flex items-center gap-1.5 text-white/55 transition-colors hover:text-white"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-3 shrink-0">
+                                <path fillRule="evenodd" d="M8 1a3.5 3.5 0 0 0-3.5 3.5V7A1.5 1.5 0 0 0 3 8.5v4A1.5 1.5 0 0 0 4.5 14h7a1.5 1.5 0 0 0 1.5-1.5v-4A1.5 1.5 0 0 0 11 7V4.5A3.5 3.5 0 0 0 8 1Zm2 6V4.5a2 2 0 1 0-4 0V7h4Z" clipRule="evenodd" />
+                              </svg>
+                              Request Access ↗
+                            </a>
+                          </>
+                        )}
+                      </div>
+                      <p className="text-[11px] font-medium text-white/50">Made with Figma + Claude Code</p>
                     </div>
                   </div>
                 </div>
@@ -380,7 +384,7 @@ export function HomeContent() {
       </section>
 
       {/* CTA */}
-      <section style={{ backgroundColor: "#0F0F0F" }} className="px-6 py-24">
+      <section data-stardust style={{ backgroundColor: "#0F0F0F" }} className="px-6 py-24">
         <FadeUp>
           <div className="mx-auto flex max-w-6xl flex-col items-center justify-center text-center">
             <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.08em] text-white/35">

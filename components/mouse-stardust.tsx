@@ -83,6 +83,16 @@ export function MouseStardust() {
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // Clip drawing to sections marked with data-stardust
+      const stardustSections = document.querySelectorAll("[data-stardust]");
+      ctx.save();
+      ctx.beginPath();
+      for (const el of stardustSections) {
+        const r = el.getBoundingClientRect();
+        ctx.rect(r.left, r.top, r.width, r.height);
+      }
+      ctx.clip();
+
       // Stars with mouse parallax
       for (const star of stars) {
         star.alpha += star.delta;
@@ -143,6 +153,7 @@ export function MouseStardust() {
         ctx.shadowBlur = 0;
       }
 
+      ctx.restore();
       ctx.globalAlpha = 1;
       rafId = requestAnimationFrame(draw);
     }
