@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion, useInView } from "framer-motion";
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -68,6 +68,335 @@ function StaggerItem({ children, className }: { children: React.ReactNode; class
   );
 }
 
+const DEMO_SCENARIOS = [
+  {
+    prompt: "Flag students who seem disengaged this week",
+    responseTitle: "3 Students Flagged",
+    responseItems: [
+      "Marcus — low participation Tue–Thu",
+      "Amara — 2 missing exit tickets",
+      "Devon — engagement dropped 40%",
+    ],
+  },
+  {
+    prompt: "Draft feedback for Marcus on his essay",
+    responseTitle: "Feedback Draft Ready",
+    responseItems: [
+      "Strong thesis, clear argument structure",
+      "Expand the counter-argument section",
+      "Good use of evidence in paragraph 2",
+    ],
+  },
+  {
+    prompt: "Summarize trends from last week's exit tickets",
+    responseTitle: "Exit Ticket Summary",
+    responseItems: [
+      "68% of students confident on fractions",
+      "12 students flagged for reteach",
+      "Engagement peaked Tuesday",
+    ],
+  },
+];
+
+const IDEA_CHIPS = [
+  "Analyze engagement & wait time",
+  "Check lesson plan alignment",
+  "Equity check · student participation",
+  "Improve my questioning technique",
+];
+
+function TeachAIChips() {
+  const reduced = useReducedMotion();
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    if (reduced) return;
+    const t = setInterval(() => setActiveIdx((i) => (i + 1) % IDEA_CHIPS.length), 1600);
+    return () => clearInterval(t);
+  }, [reduced]);
+
+  return (
+    <>
+      {IDEA_CHIPS.map((prompt, i) => (
+        <motion.div
+          key={prompt}
+          className="mb-2 flex items-center gap-2 rounded-[10px] border px-3 py-2.5"
+          animate={
+            activeIdx === i
+              ? { backgroundColor: "#eaf8fa", borderColor: "#9ed4dc", scale: 1.01 }
+              : { backgroundColor: "#ffffff", borderColor: "#e0e5ed", scale: 1 }
+          }
+          transition={{ duration: 0.3 }}
+        >
+          <div className="h-5 w-[3px] shrink-0 rounded-sm bg-[rgba(13,191,171,0.8)]" />
+          <span className="text-[12px] font-medium text-[#0d8085]">{prompt}</span>
+        </motion.div>
+      ))}
+    </>
+  );
+}
+
+function TeachAIDemoBox() {
+  const reduced = useReducedMotion();
+  const [phase, setPhase] = useState<"idle" | "typing" | "pause">("idle");
+  const [scenarioIdx, setScenarioIdx] = useState(0);
+  const [charIdx, setCharIdx] = useState(0);
+
+  const prompt = DEMO_SCENARIOS[scenarioIdx].prompt;
+  const typedText = prompt.slice(0, charIdx);
+
+  useEffect(() => {
+    if (reduced) return;
+    const t = setTimeout(() => setPhase("typing"), 1000);
+    return () => clearTimeout(t);
+  }, [scenarioIdx, reduced]);
+
+  useEffect(() => {
+    if (phase !== "typing") return;
+    if (charIdx < prompt.length) {
+      const t = setTimeout(() => setCharIdx((c) => c + 1), 48);
+      return () => clearTimeout(t);
+    }
+    setPhase("pause");
+  }, [phase, charIdx, prompt]);
+
+  useEffect(() => {
+    if (phase !== "pause") return;
+    const t = setTimeout(() => {
+      setPhase("idle");
+      setCharIdx(0);
+      setScenarioIdx((i) => (i + 1) % DEMO_SCENARIOS.length);
+    }, 1800);
+    return () => clearTimeout(t);
+  }, [phase]);
+
+  const isActive = phase === "typing" || phase === "pause";
+
+  return (
+    <div>
+      <div
+        className={`rounded-xl border px-4 py-3 transition-all duration-300 ${
+          isActive
+            ? "border-[#0a7a8f] bg-[#daf7fd] ring-2 ring-[#0a7a8f]/20"
+            : "border-[#d1ded9] bg-[#daf7fd]"
+        }`}
+      >
+        {phase === "idle" ? (
+          <span className="text-[12px] text-[#012e39]/40">Describe what you&apos;d like feedback on...</span>
+        ) : (
+          <span className="text-[12px] text-[#012e39]">
+            {typedText}
+            {phase === "typing" && (
+              <motion.span
+                className="ml-px inline-block h-3 w-px bg-[#012e39]"
+                animate={{ opacity: [1, 0] }}
+                transition={{ duration: 0.5, repeat: Infinity }}
+              />
+            )}
+          </span>
+        )}
+      </div>
+      <p className="py-3 text-[11px] text-[#858f9e]">
+        You need a written message or at least one attachment to continue.
+      </p>
+    </div>
+  );
+}
+
+function CountUp({ to, suffix = "", decimals = 0, active }: { to: number; suffix?: string; decimals?: number; active: boolean }) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!active) { setValue(0); return; }
+    let step = 0;
+    const steps = 50;
+    const timer = setInterval(() => {
+      step++;
+      const eased = 1 - Math.pow(1 - step / steps, 3);
+      setValue(parseFloat((to * eased).toFixed(decimals)));
+      if (step >= steps) { setValue(to); clearInterval(timer); }
+    }, 1000 / steps);
+    return () => clearInterval(timer);
+  }, [active, to, decimals]);
+  return <>{value.toFixed(decimals)}{suffix}</>;
+}
+
+function HeroUI() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const reduced = useReducedMotion();
+  const active = isInView && !reduced;
+  const [activeCard, setActiveCard] = useState(0);
+
+  useEffect(() => {
+    if (!active) return;
+    let interval: ReturnType<typeof setInterval>;
+    const timeout = setTimeout(() => {
+      interval = setInterval(() => setActiveCard((i) => (i + 1) % 3), 1800);
+    }, 2400);
+    return () => { clearTimeout(timeout); clearInterval(interval); };
+  }, [active]);
+
+  const stats = [
+    { label: "Student Talk Time", to: 38, suffix: "%", color: "#007890" },
+    { label: "Avg. Wait Time", to: 2.1, suffix: "s", color: "#b8860b", decimals: 1 },
+    { label: "Obj. Alignment", to: 4, suffix: " / 5", color: "#2f8f6e" },
+    { label: "Questions Asked", to: 24, suffix: "", color: "#007890" },
+  ];
+  const bars = [
+    { label: "Higher-order questions", pct: 58, display: "58%", color: "#2f8f6e" },
+    { label: "On-task student behavior", pct: 87, display: "87%", color: "#007890" },
+    { label: "Cold-call equity (gender)", pct: 62, display: "62% / 38%", color: "#b8860b" },
+  ];
+  const insights = [
+    { color: "#2f8f6e", text: "Your think-pair-share at 14:22 was a standout moment · every group was engaged within 45 seconds. That structure is working." },
+    { color: "#2f8f6e", text: "58% of your questions pushed students to apply or analyze · well above the 40% research benchmark. Your questioning game is strong." },
+    { color: "#b8860b", text: "Wait time averaged 2.1s. Stretching this to 3–5s is one of the highest-leverage moves available · and you\'re already close." },
+    { color: "#b8860b", text: "Male students were called on 62% of the time. A simple randomizer can help shift this without any extra planning." },
+  ];
+  const tryCards = [
+    { bg: "#e3f3f5", border: "rgba(0,120,144,0.2)", icon: "/teachai-icon-pause.svg", titleColor: "#0a5c6a", title: "3-Second Pause", desc: "After your next question, silently count to 3 before taking any responses. That pause changes everything." },
+    { bg: "#f1eff9", border: "rgba(90,77,140,0.18)", icon: "/teachai-icon-random.svg", titleColor: "#5a4d8c", title: "Try a Randomizer", desc: "Use Wheel of Names or ClassDojo for cold calls · one class, no prep, instant equity boost." },
+    { bg: "#ecf6f0", border: "rgba(45,107,79,0.18)", icon: "/teachai-icon-ticket.svg", titleColor: "#2d6b4f", title: "2-Minute Exit Ticket", desc: "End with: \"What\'s one thing slope means in real life?\" Quick data, big insight." },
+  ];
+  const actionChips = [
+    { label: "Export report", icon: "/teachai-icon-export.svg" },
+    { label: "Show timestamps", icon: "/teachai-icon-timestamps.svg" },
+    { label: "Coaching tips", icon: "/teachai-icon-coaching.svg" },
+  ];
+
+  return (
+    <div ref={ref} className="flex w-full max-w-[646px] items-start gap-[10px]">
+      {/* AI badge */}
+      <div
+        className="flex size-[36px] shrink-0 items-center justify-center rounded-[18px] border border-white/65"
+        style={{ background: "linear-gradient(145deg, #9adce6 0%, #6ec4d2 100%)", boxShadow: "0 1px 2px rgba(102,189,207,0.35)" }}
+      >
+        <span className="text-[11px] font-extrabold tracking-[0.02em] text-[#0a3a42]">AI</span>
+      </div>
+
+      {/* Bubble + action chips */}
+      <div className="flex min-w-0 flex-1 flex-col gap-[8px]">
+        <div
+          className="border border-[rgba(0,120,144,0.1)] bg-white p-[25px]"
+          style={{ borderRadius: "20px 20px 20px 6px", boxShadow: "0 2px 7px rgba(0,90,108,0.09), 0 1px 1.5px rgba(0,90,108,0.05)" }}
+        >
+          <p className="mb-[10px] text-[13.2px] leading-[1.7] text-[#1a2c2a]">
+            There&apos;s a lot to celebrate in this lesson. I looked at your{" "}
+            <strong className="font-bold">47-minute algebra lesson</strong>{" "}
+            alongside your lesson plan · here&apos;s a snapshot of what stood out:
+          </p>
+
+          <div className="rounded-[12px] border border-[#dce8e6] bg-[#f4f8f7] p-[18px]" style={{ boxShadow: "0 1px 1px rgba(0,90,108,0.07)" }}>
+            {/* Card header */}
+            <div className="mb-4 flex items-center gap-[10px]">
+              <Image src="/teachai-icon-snapshot.svg" alt="" width={16} height={16} />
+              <span className="text-[12.8px] font-bold text-[#005f72]">Lesson Snapshot · Algebra Nov 14</span>
+            </div>
+
+            {/* Stat grid */}
+            <div className="mb-4 grid grid-cols-2 gap-[10px]">
+              {stats.map((s) => (
+                <div key={s.label} className="rounded-[8px] border border-[rgba(0,120,144,0.25)] bg-[rgba(0,120,144,0.1)] px-[13px] py-[12px]">
+                  <p className="mb-1 text-[10.5px] text-[#6b7f7c]">{s.label}</p>
+                  <p className="text-[18px] font-bold leading-[32px]" style={{ color: s.color }}>
+                    <CountUp to={s.to} suffix={s.suffix} decimals={s.decimals ?? 0} active={active} />
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Progress bars */}
+            <div className="mb-4 flex flex-col gap-[10px]">
+              {bars.map((bar, i) => (
+                <div key={bar.label}>
+                  <div className="mb-1 flex justify-between text-[11px]">
+                    <span className="text-[#1a2c2a]">{bar.label}</span>
+                    <span style={{ color: bar.color }}>{bar.display}</span>
+                  </div>
+                  <div className="h-[6px] overflow-hidden rounded-full bg-[rgba(0,120,144,0.14)]">
+                    <motion.div
+                      className="h-full rounded-full"
+                      style={{ backgroundColor: bar.color }}
+                      initial={{ width: "0%" }}
+                      animate={active ? { width: `${bar.pct}%` } : { width: "0%" }}
+                      transition={{ duration: 1.0, delay: 0.4 + i * 0.15, ease: "easeOut" }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Insights */}
+            <div className="mb-4 flex flex-col gap-[6px]">
+              {insights.map((ins, i) => (
+                <motion.div
+                  key={i}
+                  className="flex items-start gap-[10px] text-[12px] leading-[1.6] text-[#1a2c2a]"
+                  initial={{ opacity: 0, x: -6 }}
+                  animate={active ? { opacity: 1, x: 0 } : { opacity: 0, x: -6 }}
+                  transition={{ duration: 0.35, delay: 1.0 + i * 0.1 }}
+                >
+                  <div className="mt-[6px] size-[6px] shrink-0 rounded-[3px]" style={{ backgroundColor: ins.color }} />
+                  <span>{ins.text}</span>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Try Tomorrow */}
+            <motion.div
+              className="hidden rounded-[14px] border border-[#dce8e6] bg-[#f4f8f7] p-[15px] md:block"
+              initial={{ opacity: 0 }}
+              animate={active ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 0.4, delay: 1.5 }}
+            >
+              <div className="mb-[14px] flex items-center gap-[10px]">
+                <Image src="/teachai-icon-tomorrow.svg" alt="" width={18} height={18} />
+                <span className="text-[12.6px] font-bold text-[#005f72]">Try These Tomorrow · Quick Wins</span>
+              </div>
+              <div className="grid grid-cols-3 gap-[10px]">
+                {tryCards.map((card, i) => (
+                  <motion.div
+                    key={card.title}
+                    className="rounded-[10px] border p-[12px]"
+                    style={{ backgroundColor: card.bg, borderColor: card.border }}
+                    initial={{ opacity: 0, y: 8, scale: 1 }}
+                    animate={active ? { opacity: 1, y: 0, scale: activeCard === i ? 1.03 : 1 } : { opacity: 0, y: 8, scale: 1 }}
+                    transition={{
+                      opacity: { duration: 0.35, delay: 1.65 + i * 0.1 },
+                      y: { duration: 0.35, delay: 1.65 + i * 0.1 },
+                      scale: { duration: 0.3 },
+                    }}
+                  >
+                    <Image src={card.icon} alt="" width={20} height={20} className="mb-[6px]" />
+                    <p className="mb-[4px] text-[11px] font-bold" style={{ color: card.titleColor }}>{card.title}</p>
+                    <p className="text-[10px] leading-[1.6] text-[#6b7f7c]">{card.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Action chips */}
+        <div className="flex gap-[6px]">
+          {actionChips.map((chip, i) => (
+            <motion.div
+              key={chip.label}
+              className="flex cursor-default items-center gap-[6px] rounded-full border border-[#007890] bg-white px-3 py-1.5"
+              initial={{ opacity: 0 }}
+              animate={active ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 0.3, delay: 2.0 + i * 0.08 }}
+            >
+              <Image src={chip.icon} alt="" width={14} height={14} />
+              <span className="text-[10.5px] font-bold text-[#007890]">{chip.label}</span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function HomeContent() {
   const reduced = useReducedMotion();
   const heroRef = useRef<HTMLElement>(null);
@@ -91,7 +420,7 @@ export function HomeContent() {
       >
         <div className="container !px-4 py-20 sm:!px-8 md:py-28 lg:!px-6">
           <div className="mx-auto max-w-6xl lg:-translate-y-[40px]">
-            <div className="grid items-center gap-8 lg:grid-cols-[1fr_460px] lg:gap-16">
+            <div className="grid items-center gap-8 lg:grid-cols-[1fr_646px] lg:gap-12">
               {/* Left: Text content */}
               <motion.div style={{ y: textY, opacity: heroOpacity }}>
                 <motion.h1
@@ -155,16 +484,7 @@ export function HomeContent() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: reduced ? 0 : 1, ease, delay: reduced ? 0 : 0.3 }}
               >
-                <div className="relative w-full max-w-[580px] overflow-hidden rounded-2xl shadow-2xl shadow-black/60">
-                  <Image
-                    src="/hero-ui.png"
-                    alt="AI coaching platform UI showing lesson snapshot with student talk time, wait time, and coaching tips"
-                    width={700}
-                    height={900}
-                    className="w-full"
-                    priority
-                  />
-                </div>
+                <HeroUI />
               </motion.div>
             </div>
           </div>
@@ -315,17 +635,7 @@ export function HomeContent() {
                     <p className="mb-1.5 text-[18px] font-bold leading-[1.2] tracking-[-0.005em] text-[#1a1f26]">What would you like feedback on?</p>
                     <p className="mb-5 text-[12px] leading-[1.55] text-[#70788a]">Attach evidence from your lesson and tell us your focus.</p>
                     <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-[#7a8599]">Try an idea</p>
-                    {[
-                      "Analyze engagement & wait time",
-                      "Check lesson plan alignment",
-                      "Equity check · student participation",
-                      "Improve my questioning technique",
-                    ].map((prompt) => (
-                      <div key={prompt} className="mb-2 flex items-center gap-2 rounded-[10px] border border-[#e0e5ed] bg-white px-3 py-2.5">
-                        <div className="h-5 w-[3px] shrink-0 rounded-sm bg-[rgba(13,191,171,0.8)]" />
-                        <span className="text-[12px] font-medium text-[#0d8085]">{prompt}</span>
-                      </div>
-                    ))}
+                    <TeachAIChips />
                     <p className="mb-2.5 mt-4 text-[10px] font-semibold uppercase tracking-[0.08em] text-[#7a8599]">Add materials (optional)</p>
                     <div className="mb-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
                       {[
@@ -342,10 +652,7 @@ export function HomeContent() {
                         </div>
                       ))}
                     </div>
-                    <div className="rounded-xl border border-[#d1ded9] bg-[#daf7fd] px-4 py-3">
-                      <span className="text-[12px] text-[#012e39]">Describe what you'd like feedback on...</span>
-                    </div>
-                    <p className="py-3 text-[11px] text-[#858f9e]">You need a written message or at least one attachment to continue.</p>
+                    <TeachAIDemoBox />
                   </div>
                 </div>
               </FadeUp>
