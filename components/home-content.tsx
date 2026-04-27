@@ -210,6 +210,116 @@ export function HomeContent() {
         </div>
       </section>
 
+      {/* TeachAI Feature */}
+      <section
+        className="overflow-hidden"
+        style={{ background: "linear-gradient(24deg, rgb(0,26,34) 3.6%, rgb(0,77,92) 32.1%, rgb(10,122,143) 67.9%)" }}
+      >
+        <div className="container py-20 md:py-28">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+              {/* Left: Text */}
+              <FadeUp className="min-w-0">
+                {/* Tags */}
+                <div className="mb-5 flex flex-wrap gap-2">
+                  <span className="rounded-full border border-white/20 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-white/70">
+                    AI-Assisted
+                  </span>
+                  <span className="rounded-full border border-white/20 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-white/70">
+                    Shipped
+                  </span>
+                </div>
+                {/* Eyebrow */}
+                <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-white/70">
+                  AI-Powered Coaching Platform
+                </p>
+                {/* Headline */}
+                <h2 className="mb-5 text-[44px] font-extrabold leading-none tracking-[-0.025em] text-[#f7f7fc] md:text-[56px] lg:text-[64px]">
+                  TeachAI
+                </h2>
+                {/* Subhead */}
+                <p className="mb-4 text-[20px] font-bold leading-[1.3] tracking-[-0.01em] text-[#e0e3ed] md:text-[22px]">
+                  Reduced teacher feedback cycles from days to minutes.
+                </p>
+                {/* Body */}
+                <p className="text-[16px] leading-[1.65] text-white/80">
+                  AI surfaces coaching insights immediately; coaches retain full oversight.
+                </p>
+                {/* Divider */}
+                <div className="my-8 h-px w-full max-w-[400px] bg-white/8" />
+                {/* CTAs */}
+                <div className="mb-8 flex flex-wrap items-center gap-4">
+                  <a
+                    href="https://teachai.simpleshaun.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-[10px] bg-[#f7f7fc] px-6 py-3 text-[14px] font-semibold text-[#121217] transition-opacity hover:opacity-90"
+                  >
+                    View Case Study →
+                  </a>
+                  <a
+                    href={`mailto:simpleshaundesign@gmail.com?subject=${encodeURIComponent("Case study access: TeachAI")}&body=${encodeURIComponent("Hi Shaun,\n\nI'd like to request access to your \"TeachAI\" case study.\n\nThanks!")}`}
+                    className="text-[14px] font-semibold text-[#c4c4c4] transition-colors hover:text-white"
+                  >
+                    Request Access ↗
+                  </a>
+                </div>
+                {/* Made with */}
+                <p className="text-[12px] text-white/80">Made with Figma + Claude Code</p>
+              </FadeUp>
+
+              {/* Right: UI mockup */}
+              <FadeUp delay={0.15}>
+                <div className="relative w-full overflow-hidden rounded-2xl shadow-2xl shadow-black/60">
+                  {/* App header */}
+                  <div className="flex items-center gap-2.5 border-b border-[#e5e8ed] bg-white px-[18px] py-3.5">
+                    <div className="flex size-[30px] items-center justify-center rounded-lg bg-[#0a7a8f] text-[13px] text-white">✦</div>
+                    <span className="text-[13px] font-bold text-[#0f5961]">TeachAI</span>
+                  </div>
+                  {/* App body */}
+                  <div className="bg-[#f2f5f7] px-5 pb-5 pt-5">
+                    <p className="mb-1.5 text-[18px] font-bold leading-[1.2] tracking-[-0.005em] text-[#1a1f26]">What would you like feedback on?</p>
+                    <p className="mb-5 text-[12px] leading-[1.55] text-[#70788a]">Attach evidence from your lesson and tell us your focus.</p>
+                    <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-[#7a8599]">Try an idea</p>
+                    {[
+                      "Analyze engagement & wait time",
+                      "Check lesson plan alignment",
+                      "Equity check · student participation",
+                      "Improve my questioning technique",
+                    ].map((prompt) => (
+                      <div key={prompt} className="mb-2 flex items-center gap-2 rounded-[10px] border border-[#e0e5ed] bg-white px-3 py-2.5">
+                        <div className="h-5 w-[3px] shrink-0 rounded-sm bg-[rgba(13,191,171,0.8)]" />
+                        <span className="text-[12px] font-medium text-[#0d8085]">{prompt}</span>
+                      </div>
+                    ))}
+                    <p className="mb-2.5 mt-4 text-[10px] font-semibold uppercase tracking-[0.08em] text-[#7a8599]">Add materials (optional)</p>
+                    <div className="mb-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                      {[
+                        { icon: "▷", label: "Add video" },
+                        { icon: "≡", label: "Lesson plan" },
+                        { icon: "✓", label: "Exit tickets" },
+                        { icon: "⊡", label: "Student work" },
+                        { icon: "⊟", label: "Standards" },
+                        { icon: "+", label: "Other" },
+                      ].map(({ icon, label }) => (
+                        <div key={label} className="flex items-center gap-1.5 rounded-lg border border-[#d6dbe5] bg-white px-3 py-2 text-[11px] text-[#616b80]">
+                          <span>{icon}</span>
+                          <span className="font-medium">{label}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="rounded-xl border border-[#d1ded9] bg-[#daf7fd] px-4 py-3">
+                      <span className="text-[12px] text-[#012e39]">Describe what you'd like feedback on...</span>
+                    </div>
+                    <p className="py-3 text-[11px] text-[#858f9e]">You need a written message or at least one attachment to continue.</p>
+                  </div>
+                </div>
+              </FadeUp>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Selected Work */}
       <section id="work" className="border-b bg-black">
         <div className="container py-20 md:py-28">
@@ -224,15 +334,6 @@ export function HomeContent() {
 
           <StaggerChildren className="grid gap-6 lg:grid-cols-3">
             {[
-              {
-                href: "https://teachai.simpleshaun.com",
-                img: "/teach-ai-card.svg",
-                alt: "TeachAI illustration",
-                badges: ["AI-Assisted", "Shipped"],
-                category: "AI-Powered Coaching Platform",
-                title: "TeachAI",
-                desc: "Reduced teacher feedback cycles from days to minutes. AI surfaces coaching insights immediately; coaches retain full oversight.",
-              },
               {
                 href: "https://insightcapture.simpleshaun.com",
                 img: "/insight-capture-card.svg",
@@ -251,6 +352,16 @@ export function HomeContent() {
                 title: "Design System",
                 desc: "Eliminated visual drift across a contractor-heavy codebase — then used AI to transform design tokens into Storybook components directly.",
                 open: true,
+              },
+              {
+                href: "#",
+                img: "/teach-ai-card.svg",
+                alt: "Parent Scheduling illustration",
+                badges: ["AI-Assisted"],
+                category: "Scheduling UX · Tutoring Platform",
+                title: "Parent Scheduling",
+                desc: "Removed the phone-tag from tutoring bookings. Parents find availability, book sessions, and manage recurrence in one self-serve flow — no front office required.",
+                comingSoon: true,
               },
             ].map((card) => (
               <StaggerItem key={card.title}>
@@ -278,26 +389,32 @@ export function HomeContent() {
                     <p className="mb-6 text-[14px] leading-[1.6] text-white">{card.desc}</p>
                     <div className="mt-auto">
                       <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] font-semibold">
-                        <a
-                          href={card.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-white transition-colors hover:text-white/60"
-                        >
-                          View Case Study →
-                        </a>
-                        {!card.open && (
+                        {card.comingSoon ? (
+                          <span className="text-white/35">Coming Soon</span>
+                        ) : (
                           <>
-                            <span className="text-white/20">·</span>
                             <a
-                              href={`mailto:simpleshaundesign@gmail.com?subject=${encodeURIComponent(`Case study access: ${card.title}`)}&body=${encodeURIComponent(`Hi Shaun,\n\nI'd like to request access to your "${card.title}" case study.\n\nThanks!`)}`}
-                              className="flex items-center gap-1.5 text-white/55 transition-colors hover:text-white"
+                              href={card.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-white transition-colors hover:text-white/60"
                             >
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-3 shrink-0">
-                                <path fillRule="evenodd" d="M8 1a3.5 3.5 0 0 0-3.5 3.5V7A1.5 1.5 0 0 0 3 8.5v4A1.5 1.5 0 0 0 4.5 14h7a1.5 1.5 0 0 0 1.5-1.5v-4A1.5 1.5 0 0 0 11 7V4.5A3.5 3.5 0 0 0 8 1Zm2 6V4.5a2 2 0 1 0-4 0V7h4Z" clipRule="evenodd" />
-                              </svg>
-                              Request Access ↗
+                              View Case Study →
                             </a>
+                            {!card.open && (
+                              <>
+                                <span className="text-white/20">·</span>
+                                <a
+                                  href={`mailto:simpleshaundesign@gmail.com?subject=${encodeURIComponent(`Case study access: ${card.title}`)}&body=${encodeURIComponent(`Hi Shaun,\n\nI'd like to request access to your "${card.title}" case study.\n\nThanks!`)}`}
+                                  className="flex items-center gap-1.5 text-white/55 transition-colors hover:text-white"
+                                >
+                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="size-3 shrink-0">
+                                    <path fillRule="evenodd" d="M8 1a3.5 3.5 0 0 0-3.5 3.5V7A1.5 1.5 0 0 0 3 8.5v4A1.5 1.5 0 0 0 4.5 14h7a1.5 1.5 0 0 0 1.5-1.5v-4A1.5 1.5 0 0 0 11 7V4.5A3.5 3.5 0 0 0 8 1Zm2 6V4.5a2 2 0 1 0-4 0V7h4Z" clipRule="evenodd" />
+                                  </svg>
+                                  Request Access ↗
+                                </a>
+                              </>
+                            )}
                           </>
                         )}
                       </div>
