@@ -171,6 +171,45 @@ export function HomeContent() {
         </div>
       </section>
 
+      {/* Logo marquee */}
+      <section className="overflow-hidden border-b border-black/8 bg-white py-10">
+        <p className="mb-7 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-black/35">
+          Designed for
+        </p>
+        <div className="flex w-max animate-marquee">
+          {[
+            { src: "/logo-1-google.png", alt: "Google" },
+            { src: "/logo-2-amazon.png", alt: "Amazon" },
+            { src: "/logo-3-microsoft.png", alt: "Microsoft" },
+            { src: "/logo-4-xbox.png", alt: "Xbox" },
+            { src: "/logo-5-starbucks.png", alt: "Starbucks" },
+            { src: "/logo-6-cbs.png", alt: "CBS" },
+            { src: "/logo-7-mtv.png", alt: "MTV" },
+            { src: "/logo-8-rollingstone.png", alt: "Rolling Stone" },
+            { src: "/logo-9-realnetworks.png", alt: "RealNetworks" },
+            { src: "/logo-1-google.png", alt: "Google" },
+            { src: "/logo-2-amazon.png", alt: "Amazon" },
+            { src: "/logo-3-microsoft.png", alt: "Microsoft" },
+            { src: "/logo-4-xbox.png", alt: "Xbox" },
+            { src: "/logo-5-starbucks.png", alt: "Starbucks" },
+            { src: "/logo-6-cbs.png", alt: "CBS" },
+            { src: "/logo-7-mtv.png", alt: "MTV" },
+            { src: "/logo-8-rollingstone.png", alt: "Rolling Stone" },
+            { src: "/logo-9-realnetworks.png", alt: "RealNetworks" },
+          ].map((logo, i) => (
+            <div key={i} className="mx-10 flex items-center">
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                width={160}
+                height={48}
+                className="h-16 w-auto object-contain opacity-40"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Impact bar */}
       <section className="border-b bg-white">
         <div className="container py-14 md:py-16">
