@@ -471,7 +471,7 @@ export function HomeContent() {
                     href="#process"
                     className="text-[15px] font-semibold text-white/60 transition-colors hover:text-white"
                   >
-                    Read Process
+                    Read Process →
                   </a>
                 </motion.div>
               </motion.div>
@@ -697,7 +697,7 @@ export function HomeContent() {
               },
               {
                 href: "#",
-                img: "/teach-ai-card.svg",
+                img: "/parent-scheduling-card.svg",
                 alt: "Parent Scheduling illustration",
                 badges: ["AI-Assisted"],
                 category: "Scheduling UX · Tutoring Platform",
@@ -776,7 +776,7 @@ export function HomeContent() {
       </section>
 
       {/* Bio */}
-      <section className="border-b bg-[#1a1a1a]">
+      <section className="border-b bg-[#201e1a]">
         <div className="container py-20 md:py-24">
           <FadeUp>
             <div className="flex flex-col items-center justify-center gap-12 md:flex-row md:gap-20">
