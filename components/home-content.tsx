@@ -266,9 +266,9 @@ function HeroUI() {
 
   return (
     <div ref={ref} className="flex w-full max-w-[646px] items-start gap-[10px]">
-      {/* AI badge */}
+      {/* AI badge — hidden on mobile */}
       <div
-        className="flex size-[36px] shrink-0 items-center justify-center rounded-[18px] border border-white/65"
+        className="hidden size-[36px] shrink-0 items-center justify-center rounded-[18px] border border-white/65 md:flex"
         style={{ background: "linear-gradient(145deg, #9adce6 0%, #6ec4d2 100%)", boxShadow: "0 1px 2px rgba(102,189,207,0.35)" }}
       >
         <span className="text-[11px] font-extrabold tracking-[0.02em] text-[#0a3a42]">AI</span>
@@ -277,8 +277,8 @@ function HeroUI() {
       {/* Bubble + action chips */}
       <div className="flex min-w-0 flex-1 flex-col gap-[8px]">
         <div
-          className="border border-[rgba(0,120,144,0.1)] bg-white p-[25px]"
-          style={{ borderRadius: "20px 20px 20px 6px", boxShadow: "0 2px 7px rgba(0,90,108,0.09), 0 1px 1.5px rgba(0,90,108,0.05)" }}
+          className="rounded-[20px] border border-[rgba(0,120,144,0.1)] bg-white p-[25px]"
+          style={{ boxShadow: "0 2px 7px rgba(0,90,108,0.09), 0 1px 1.5px rgba(0,90,108,0.05)" }}
         >
           <p className="mb-[10px] text-[13.2px] leading-[1.7] text-[#1a2c2a]">
             There&apos;s a lot to celebrate in this lesson. I looked at your{" "}
@@ -377,8 +377,8 @@ function HeroUI() {
           </div>
         </div>
 
-        {/* Action chips */}
-        <div className="flex gap-[6px]">
+        {/* Action chips — hidden on mobile */}
+        <div className="hidden gap-[6px] md:flex">
           {actionChips.map((chip, i) => (
             <motion.div
               key={chip.label}
