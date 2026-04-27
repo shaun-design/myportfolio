@@ -462,7 +462,7 @@ export function HomeContent() {
                   transition={{ duration: reduced ? 0 : 0.7, ease, delay: reduced ? 0 : 0.45 }}
                 >
                   <a
-                    href="#work"
+                    href="#teachai"
                     className="rounded-lg bg-white px-6 py-3 text-[15px] font-semibold text-black transition-opacity hover:opacity-90"
                   >
                     View Projects
@@ -494,7 +494,7 @@ export function HomeContent() {
       {/* Logo marquee */}
       <section className="overflow-hidden border-b border-black/8 bg-white" style={{ paddingTop: 64, paddingBottom: 64 }}>
         <p className="mb-7 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-black/35">
-          Designed for
+          Clients include
         </p>
         <div className="flex animate-marquee" style={{ willChange: "transform", width: "max-content" }}>
           {[1, 2].map((set) => (
@@ -549,7 +549,7 @@ export function HomeContent() {
                 ),
               },
               {
-                label: "Currency",
+                label: "Orchestration",
                 text: (
                   <><strong className="font-bold text-black">AI-assisted</strong> design-to-code pipelines via Claude Code and Storybook</>
                 ),
@@ -566,6 +566,7 @@ export function HomeContent() {
 
       {/* TeachAI Feature */}
       <section
+        id="teachai"
         className="overflow-hidden"
         style={{ background: "linear-gradient(24deg, rgb(0,26,34) 3.6%, rgb(0,77,92) 32.1%, rgb(10,122,143) 67.9%)" }}
       >
@@ -707,14 +708,20 @@ export function HomeContent() {
             ].map((card) => (
               <StaggerItem key={card.title}>
                 <div className="group flex flex-col overflow-hidden rounded-2xl transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/60">
-                  <a
-                    href={card.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block transition-[filter] duration-200 group-hover:brightness-110"
-                  >
-                    <Image src={card.img} alt={card.alt} width={448} height={458} className="w-full" />
-                  </a>
+                  {card.comingSoon ? (
+                    <div className="block">
+                      <Image src={card.img} alt={card.alt} width={448} height={458} className="w-full" />
+                    </div>
+                  ) : (
+                    <a
+                      href={card.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block transition-[filter] duration-200 group-hover:brightness-110"
+                    >
+                      <Image src={card.img} alt={card.alt} width={448} height={458} className="w-full" />
+                    </a>
+                  )}
                   <div className="flex flex-1 flex-col bg-[#1a1a1a] px-6 pb-8 pt-6">
                     <div className="mb-4 flex flex-wrap items-center gap-2">
                       {card.badges.map((badge) => (
@@ -727,7 +734,7 @@ export function HomeContent() {
                       {card.category}
                     </p>
                     <h3 className="mb-3 text-[22px] font-bold text-white">{card.title}</h3>
-                    <p className="mb-6 text-[14px] leading-[1.6] text-white">{card.desc}</p>
+                    <p className="mb-6 text-[14px] leading-[1.6] text-white/75">{card.desc}</p>
                     <div className="mt-auto">
                       <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] font-semibold">
                         {card.comingSoon ? (
@@ -759,7 +766,6 @@ export function HomeContent() {
                           </>
                         )}
                       </div>
-                      <p className="text-[11px] font-medium text-white/50">Made with Figma + Claude Code</p>
                     </div>
                   </div>
                 </div>
@@ -793,7 +799,7 @@ export function HomeContent() {
                 </h2>
                 <div className="h-0.5 w-12 bg-white/15" />
                 <p className="text-[16px] leading-[1.7] text-white/70">
-                  {`I'm Shaun — a Senior Product Designer with 15+ years of experience building products that actually get used. I specialize in design systems and AI-assisted workflows, which means I move fast without cutting corners. Most recently I've been deep in EdTech, designing tools for teachers, coaches, and school leaders where the stakes are real and the feedback loops matter. I've also designed for Google, Amazon, Microsoft, and others along the way. I care about craft, I care about the people I work with, and I'm looking for a team that feels the same.`}
+                  {`Hey, I'm Shaun! I'm a designer with about 15 years in — mostly focused on design systems and AI-assisted workflows lately. I just wrapped up a stretch deep in EdTech, building tools for teachers, coaches, and school leaders, which I loved. Before that I shipped with teams at Google, Amazon, Microsoft, and others. Right now I'm looking for my next thing — ideally a team that really cares about craft and the people they're building for.`}
                 </p>
                 <div className="flex items-center gap-4">
                   <a
@@ -827,7 +833,7 @@ export function HomeContent() {
             </p>
           </FadeUp>
 
-          <div className="mx-auto max-w-2xl">
+          <div className="mx-auto max-w-4xl">
             <FadeUp delay={0.05}>
               <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-black/40">
                 Understand &amp; Define
@@ -847,7 +853,7 @@ export function HomeContent() {
                     <p className="mb-6 grow text-[13px] leading-[1.7] text-black/50">{card.desc}</p>
                     <div className="border-t border-black/10 pt-4">
                       <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-black/40">
-                        <span className="text-[#4F6AF5]">◆</span> AI Assist
+                        <span className="text-[#4F6AF5]">◆</span> AI-Assisted
                       </p>
                       <p className="text-[12px] leading-[1.6] text-black/55">{card.ai}</p>
                     </div>
@@ -875,7 +881,7 @@ export function HomeContent() {
                     <p className="mb-6 grow text-[13px] leading-[1.7] text-black/50">{card.desc}</p>
                     <div className="border-t border-black/10 pt-4">
                       <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-black/40">
-                        <span className="text-[#4F6AF5]">◆</span> AI Assist
+                        <span className="text-[#4F6AF5]">◆</span> AI-Assisted
                       </p>
                       <p className="text-[12px] leading-[1.6] text-black/55">{card.ai}</p>
                     </div>
