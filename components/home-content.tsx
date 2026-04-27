@@ -355,7 +355,7 @@ export function HomeContent() {
       </section>
 
       {/* Selected Work */}
-      <section id="work" className="border-b bg-black">
+      <section id="work" className="border-b border-black bg-black">
         <div className="container py-20 md:py-28">
           <FadeUp>
             <h2 className="mb-3 text-center text-[36px] font-extrabold tracking-[-0.02em] text-white md:text-[44px]">
@@ -459,6 +459,51 @@ export function HomeContent() {
               </StaggerItem>
             ))}
           </StaggerChildren>
+        </div>
+      </section>
+
+      {/* Bio */}
+      <section className="border-b bg-[#1a1a1a]">
+        <div className="container py-20 md:py-24">
+          <FadeUp>
+            <div className="flex flex-col items-center justify-center gap-12 md:flex-row md:gap-20">
+              <div className="relative shrink-0 overflow-hidden rounded-xl" style={{ width: 280, height: 368 }}>
+                <Image
+                  src="/shaun-headshot.jpg"
+                  alt="Shaun Herron"
+                  fill
+                  className="object-cover object-top"
+                  priority
+                />
+              </div>
+              <div className="flex max-w-[560px] flex-col gap-6">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">
+                  About
+                </p>
+                <h2 className="text-[36px] font-semibold leading-tight text-white">
+                  Shaun Herron
+                </h2>
+                <div className="h-0.5 w-12 bg-white/15" />
+                <p className="text-[16px] leading-[1.7] text-white/70">
+                  {`I'm Shaun — a Senior Product Designer with 15+ years of experience building products that actually get used. I specialize in design systems and AI-assisted workflows, which means I move fast without cutting corners. Most recently I've been deep in EdTech, designing tools for teachers, coaches, and school leaders where the stakes are real and the feedback loops matter. I've also designed for Google, Amazon, Microsoft, and others along the way. I care about craft, I care about the people I work with, and I'm looking for a team that feels the same.`}
+                </p>
+                <div className="flex items-center gap-4">
+                  <a
+                    href="mailto:simpleshaundesign@gmail.com"
+                    className="rounded-md bg-white px-5 py-2.5 text-[14px] font-medium text-black transition-opacity hover:opacity-90"
+                  >
+                    Get in Touch
+                  </a>
+                  <a
+                    href="/resume"
+                    className="text-[14px] font-medium text-white/55 transition-colors hover:text-white"
+                  >
+                    View Resume →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </FadeUp>
         </div>
       </section>
 
