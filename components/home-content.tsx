@@ -774,12 +774,13 @@ export function HomeContent() {
         <div className="container py-20 md:py-24">
           <FadeUp>
             <div className="flex flex-col items-center justify-center gap-12 md:flex-row md:gap-20">
-              <div className="relative shrink-0 overflow-hidden rounded-xl" style={{ width: 280, height: 368 }}>
+              <div className="relative shrink-0 overflow-hidden rounded-full" style={{ width: 280, height: 280 }}>
                 <Image
                   src="/shaun-headshot.jpg"
                   alt="Shaun Herron"
                   fill
-                  className="object-cover object-top"
+                  className="object-cover"
+                  style={{ objectPosition: "50% 45%" }}
                   priority
                 />
               </div>
