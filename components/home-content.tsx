@@ -465,7 +465,7 @@ export function HomeContent() {
                     href="#teachai"
                     className="rounded-lg bg-white px-6 py-3 text-[15px] font-semibold text-black transition-opacity hover:opacity-90"
                   >
-                    View Projects
+                    View Featured Work
                   </a>
                   <a
                     href="#process"
@@ -500,15 +500,15 @@ export function HomeContent() {
           {[1, 2].map((set) => (
             <div key={set} className="flex shrink-0 items-center">
               {[
-                { src: "/logo-1-google.png", alt: "Google" },
-                { src: "/logo-2-amazon.png", alt: "Amazon" },
-                { src: "/logo-3-microsoft.png", alt: "Microsoft" },
-                { src: "/logo-4-xbox.png", alt: "Xbox" },
-                { src: "/logo-5-starbucks.png", alt: "Starbucks" },
-                { src: "/logo-6-cbs.png", alt: "CBS" },
-                { src: "/logo-7-mtv.png", alt: "MTV" },
-                { src: "/logo-8-rollingstone.png", alt: "Rolling Stone" },
-                { src: "/logo-9-realnetworks.png", alt: "RealNetworks" },
+                { src: "/logo-1-google.svg",       alt: "Google",       h: "h-9"  }, // 3:1 wordmark
+                { src: "/logo-2-amazon.svg",        alt: "Amazon",       h: "h-9", nudge: "translate-y-1" }, // 3:1 wordmark
+                { src: "/logo-3-microsoft.svg",     alt: "Microsoft",    h: "h-7"  }, // 4.7:1 long wordmark
+                { src: "/logo-4-xbox.svg",           alt: "Xbox",         h: "h-8"  }, // 3.5:1 sphere + type
+                { src: "/logo-5-starbucks.svg",     alt: "Starbucks",    h: "h-14" }, // 1:1 dense circular emblem
+                { src: "/logo-6-cbs.svg",           alt: "CBS",          h: "h-9"  }, // 3.5:1 eye mark
+                { src: "/logo-7-mtv.svg",           alt: "MTV",          h: "h-10" }, // 1.6:1 heavy letterforms
+                { src: "/logo-8-rollingstone.svg",  alt: "Rolling Stone", h: "h-7" }, // 5.2:1 wide editorial type
+                { src: "/logo-9-realnetworks.svg",  alt: "RealNetworks", h: "h-6"  }, // 9.9:1 very wide wordmark
               ].map((logo) => (
                 <div key={logo.alt} className="mx-10 flex items-center">
                   <Image
@@ -516,7 +516,7 @@ export function HomeContent() {
                     alt={logo.alt}
                     width={160}
                     height={64}
-                    className="h-16 w-auto object-contain opacity-40"
+                    className={`${logo.h} w-auto object-contain brightness-0 opacity-[0.38]${"nudge" in logo ? ` ${logo.nudge}` : ""}`}
                   />
                 </div>
               ))}
@@ -526,8 +526,8 @@ export function HomeContent() {
       </section>
 
       {/* Impact bar */}
-      <section className="border-b bg-white">
-        <div className="container py-14 md:py-16">
+      <section className="border-b bg-[#f5f5f3]">
+        <div className="container py-10 md:py-12">
           <StaggerChildren className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
@@ -556,7 +556,7 @@ export function HomeContent() {
               },
             ].map(({ label, text }) => (
               <StaggerItem key={label}>
-                <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-black/40">{label}</p>
+                <p className="mb-3 inline-block rounded-full bg-black/[0.07] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-black/60">{label}</p>
                 <p className="text-[15px] leading-[1.6] text-black/80">{text}</p>
               </StaggerItem>
             ))}
@@ -825,6 +825,11 @@ export function HomeContent() {
       <section id="process" className="border-b bg-[#f2f2f0]">
         <div className="container py-20 md:py-28">
           <FadeUp>
+            <div className="mb-5 flex justify-center">
+              <span className="rounded-full border border-black/15 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-black/50">
+                My Process
+              </span>
+            </div>
             <h2 className="mb-5 text-center text-[36px] font-extrabold tracking-[-0.02em] text-black md:text-[44px]">
               The Rigor of Craft
             </h2>
