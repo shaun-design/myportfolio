@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Radius Finder</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+      --accent: #3b82f6;
+      --accent-dark: #2563eb;
+      --color-text-primary: #f1f5f9;
+      --color-text-secondary: #94a3b8;
+      --color-text-tertiary: #64748b;
+      --color-border-secondary: #334155;
+      --color-border-tertiary: #1e293b;
+      --color-bg-primary: #0d1117;
+      --color-bg-secondary: #010203;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--color-bg-secondary); font-family: var(--font-sans); color: var(--color-text-primary); }
+    html { scrollbar-gutter: stable; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* ── Nav ── */
+    .top-nav { background: #0d1117; border-bottom: 1px solid #1e293b; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+    .top-nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; gap: 4px; height: 60px; }
+    .nav-link { font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: #94a3b8; text-decoration: none; padding: 6px 12px; border-radius: 8px; transition: color .15s, background .15s; }
+    .nav-link:hover { color: #f1f5f9; background: #1e293b; }
+    .nav-link.active { color: #f1f5f9; background: #1e293b; }
+
+    /* ── Layout ── */
+    .page-outer { padding: calc(60px + 2rem) 1.5rem 5rem; max-width: 1280px; margin: 0 auto; }
+    .page-title { font-size: 24px; font-weight: 700; letter-spacing: -.02em; color: var(--color-text-primary); margin-bottom: 6px; }
+    .page-sub { font-size: 13px; line-height: 1.65; color: var(--color-text-secondary); max-width: 80ch; margin-bottom: 36px; }
+
+    /* ── Section header ── */
+    .section-hdr { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; }
+    .section-icon { font-size: 18px; line-height: 1; }
+    .section-title { font-size: 15px; font-weight: 700; color: var(--color-text-primary); letter-spacing: -.01em; }
+    .section-note { font-size: 12px; color: var(--color-text-tertiary); margin: 0 0 24px; padding-left: 2px; line-height: 1.6; }
+
+    /* ── Table shell ── */
+    .tbl-outer { border: 1px solid var(--color-border-tertiary); border-radius: 14px; overflow: hidden; background: var(--color-bg-primary); margin-bottom: 48px; }
+    .tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead tr { background: var(--color-bg-secondary); }
+    thead th {
+      font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--color-text-tertiary); padding: 10px 13px; text-align: left;
+      border-bottom: 1px solid var(--color-border-tertiary); white-space: nowrap;
+    }
+    thead th:first-child { padding-left: 16px; }
+
+    /* ── Data rows ── */
+    tbody tr.data-row { border-bottom: 1px solid var(--color-border-tertiary); cursor: pointer; transition: background .1s; }
+    tbody tr.data-row:last-child { border-bottom: none; }
+    tbody tr.data-row:hover { background: #0d1f3a; }
+    tbody tr.data-row.open { background: #080f1e; }
+    tbody tr.data-row.open td:first-child { border-left: 2px solid var(--accent); }
+    td { padding: 11px 13px; vertical-align: middle; }
+    td:first-child { padding-left: 16px; }
+
+    .hosp-name { font-size: 13px; font-weight: 700; color: var(--color-text-primary); line-height: 1.25; }
+    .hosp-sys { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+
+    /* ── Pills ── */
+    .pill { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 999px; font-size: 10px; font-weight: 600; line-height: 1.2; white-space: nowrap; }
+    .p-full    { background: #052e16; color: #86efac; }
+    .p-er      { background: #2d0a0a; color: #fca5a5; }
+    .p-psych   { background: #1a2a00; color: #bef264; }
+    .p-regional{ background: #0c1e35; color: #93c5fd; }
+    .p-critical{ background: #1a1040; color: #c4b5fd; }
+    .p-specialty{ background: #2d1600; color: #fcd34d; }
+
+    /* Distance badge */
+    .dist-badge { font-size: 13px; font-weight: 700; color: #60a5fa; white-space: nowrap; }
+    .dist-sub { font-size: 10px; color: var(--color-text-tertiary); margin-top: 1px; white-space: nowrap; }
+
+    /* Links */
+    .link-col a { display: block; font-size: 11px; color: #60a5fa; text-decoration: none; white-space: nowrap; line-height: 1.8; }
+    .link-col a:hover { text-decoration: underline; }
+    .link-col a.web { color: var(--color-text-secondary); }
+    .link-col a.web:hover { color: var(--color-text-primary); }
+
+    .phone-cell { font-size: 12px; color: var(--color-text-secondary); white-space: nowrap; }
+    .addr-cell { font-size: 11px; color: var(--color-text-secondary); line-height: 1.5; }
+
+    /* ── Expand ── */
+    .expand-col { width: 36px; padding: 0 !important; text-align: center; border-left: 1px solid var(--color-border-tertiary); }
+    .expand-btn { display: flex; align-items: center; justify-content: center; width: 36px; min-height: 46px; background: none; border: none; cursor: pointer; }
+    .expand-btn span { display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--color-border-secondary); background: var(--color-bg-secondary); color: var(--color-text-secondary); font-size: 13px; font-weight: 600; transition: background .12s, border-color .12s; }
+    tbody tr.data-row:hover .expand-btn span { border-color: #334155; background: #1e293b; }
+    tbody tr.data-row.open .expand-btn span { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* ── Detail panel ── */
+    tr.detail-row { display: none; }
+    tr.detail-row.open { display: table-row; }
+    tr.detail-row td { padding: 0; background: #080f1e; border-bottom: 1px solid var(--color-border-tertiary); }
+    .detail-inner { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--color-border-tertiary); }
+    .d-section { padding: 13px 15px; border-right: 1px solid var(--color-border-tertiary); }
+    .d-section:last-child { border-right: none; }
+    .d-heading { font-size: 10px; font-weight: 700; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 9px; }
+    .d-lbl { font-size: 11px; font-weight: 600; color: var(--color-text-secondary); margin-bottom: 2px; }
+    .d-val { font-size: 12px; color: var(--color-text-primary); line-height: 1.55; margin-bottom: 7px; }
+    .d-val:last-child { margin-bottom: 0; }
+    .d-val a { color: #60a5fa; text-decoration: none; }
+    .d-val a:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    .tbl-footer { padding: 10px 16px; border-top: 1px solid var(--color-border-tertiary); background: var(--color-bg-secondary); }
+    .disclaimer { font-size: 11px; line-height: 1.6; color: var(--color-text-tertiary); }
+
+    /* ── Divider ── */
+    .region-divider { display: flex; align-items: center; gap: 16px; margin: 8px 0 36px; }
+    .region-divider::before, .region-divider::after { content: ''; flex: 1; height: 1px; background: var(--color-border-tertiary); }
+    .region-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--color-text-tertiary); white-space: nowrap; }
+
+    @media (max-width: 800px) {
+      .page-outer { padding: 1rem .75rem 4rem; }
+      .detail-inner { grid-template-columns: 1fr; }
+      .d-section { border-right: none; border-bottom: 1px solid var(--color-border-tertiary); }
+      .d-section:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Main navigation">
+    <div class="top-nav-inner">
+      <a href="index.html" class="nav-link">Coding Jobs</a>
+      <a href="hospital-careers.html" class="nav-link">Healthcare Jobs</a>
+      <a href="hospital-radius.html" class="nav-link active">Hospital Finder</a>
+    </div>
+  </nav>
+
+  <div class="page-outer">
+    <h1 class="page-title">Hospital Radius Finder</h1>
+    <p class="page-sub">Full-service hospitals, regional medical centers, emergency hospitals, and specialty facilities sorted by distance. Two tables — Texas (30 mi from Quinlan) and Maine (50 mi from Home). Click any row for services, notes, and links.</p>
+
+    <!-- ═══════════════════ TEXAS TABLE ═══════════════════ -->
+    <div class="section-hdr">
+      <span class="section-icon">🤠</span>
+      <span class="section-title">Texas — 30-Mile Radius</span>
+    </div>
+    <p class="section-note">Origin: 215 N Easement, Quinlan, TX 75474 · Sorted nearest to farthest · 7 facilities confirmed</p>
+    <div class="tbl-outer">
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr>
+            <th>Hospital</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Distance</th>
+            <th>Type</th>
+            <th>Links</th>
+            <th></th>
+          </tr></thead>
+          <tbody id="tbl-tx"></tbody>
+        </table>
+      </div>
+      <div class="tbl-footer">
+        <div class="disclaimer">Distances are approximate driving estimates from 215 N Easement, Quinlan TX 75474. Terrell State Hospital is psychiatric only — not a general acute care facility. Data current as of 2025.</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ MAINE TABLE ═══════════════════ -->
+    <div class="section-hdr">
+      <span class="section-icon">🦞</span>
+      <span class="section-title">Maine — 50-Mile Radius</span>
+    </div>
+    <p class="section-note">Origin: Home, ME (Knox County) · Sorted nearest to farthest · 8 facilities confirmed</p>
+    <div class="tbl-outer">
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr>
+            <th>Hospital</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Distance</th>
+            <th>Type</th>
+            <th>Links</th>
+            <th></th>
+          </tr></thead>
+          <tbody id="tbl-me"></tbody>
+        </table>
+      </div>
+      <div class="tbl-footer">
+        <div class="disclaimer">Distances are approximate driving estimates from Home, ME (Knox County). Maine's rural geography means drive times may be longer than straight-line distance suggests. Data current as of 2025.</div>
+      </div>
+    </div>
+
+  </div><!-- /page-outer -->
+
+<script>
+/* ─── DATA ─── */
+
+const txHospitals = [
+  {
+    name: 'Hunt Regional EMC — Quinlan',
+    system: 'Hunt Regional Healthcare',
+    addr: '738 E Quinlan Pkwy\nQuinlan, TX 75474',
+    phone: '(903) 408-4800',
+    dist: '~0.5 mi',
+    drivetime: '2 min',
+    type: 'Emergency', typeCls: 'p-er',
+    mapUrl: 'https://maps.google.com/?q=738+E+Quinlan+Pkwy+Quinlan+TX+75474',
+    webUrl: 'https://www.huntregional.org',
+    webLabel: 'huntregional.org',
+    about: '24/7 emergency medical center serving Quinlan and Lake Tawakoni area. Multidisciplinary trauma team, cardiac life support nursing staff. Rapid admission pipeline to the main Greenville hospital for inpatient care. Also offers outpatient imaging, CT, X-ray, and lab services.',
+    services: 'Emergency care, imaging/radiology (CT, X-ray), laboratory services, outpatient clinics. Staffed 24 hours/day, 7 days/week.',
+    notes: 'Closest facility to Quinlan. Not a full inpatient hospital — transfers to Hunt Regional Medical Center in Greenville when admission is needed. Excellent first-response option.'
+  },
+  {
+    name: 'Hunt Regional Medical Center',
+    system: 'Hunt Regional Healthcare',
+    addr: '4215 Joe Ramsey Blvd E\nGreenville, TX 75401',
+    phone: '(903) 408-5000',
+    dist: '~22 mi',
+    drivetime: '~28 min',
+    type: 'Regional', typeCls: 'p-regional',
+    mapUrl: 'https://maps.google.com/?q=4215+Joe+Ramsey+Blvd+E+Greenville+TX+75401',
+    webUrl: 'https://www.huntregional.org',
+    webLabel: 'huntregional.org',
+    about: 'Full-service regional hospital anchoring Hunt Regional Healthcare. Opened 1971, serves Hunt County and surrounding areas. Formerly Presbyterian Hospital of Greenville.',
+    services: 'Surgery center, digital imaging, behavioral health, Lou & Jack Finney Cancer Center (Texas Oncology), home care, infusion therapy, Level III NICU, mobile mammography, wound care, rehabilitation, women & infant care. Open 24 hours.',
+    notes: 'Largest hospital in the immediate region. Inpatient admission destination for patients transferred from the Quinlan EMC. Strong oncology, surgical, and maternal care programs.'
+  },
+  {
+    name: 'Texas Health Presbyterian — Kaufman',
+    system: 'Texas Health Resources',
+    addr: '850 Ed Hall Dr\nKaufman, TX 75142',
+    phone: '(972) 932-7200',
+    dist: '~22 mi',
+    drivetime: '~28 min',
+    type: 'Full-Service', typeCls: 'p-full',
+    mapUrl: 'https://maps.google.com/?q=850+Ed+Hall+Dr+Kaufman+TX+75142',
+    webUrl: 'https://www.texashealth.org/Locations/texas-health-kaufman',
+    webLabel: 'texashealth.org',
+    about: 'Nationally recognized community hospital serving Kaufman, Crandall, Forney, Gun Barrel City, Mabank, Terrell and surrounding areas for 40+ years.',
+    services: 'Full acute care, emergency services, surgery, imaging, women\'s services, diagnostic labs, rehabilitation. Nationally recognized for quality improvement.',
+    notes: 'Convenient option if traveling south or west from Quinlan. Cashless payments only as of March 2025 (no cash accepted). Free parking on campus.'
+  },
+  {
+    name: 'Terrell State Hospital',
+    system: 'Texas HHS / State-Operated',
+    addr: '1200 E Brin St\nTerrell, TX 75160',
+    phone: '(972) 524-6452',
+    dist: '~23 mi',
+    drivetime: '~30 min',
+    type: 'Psychiatric', typeCls: 'p-psych',
+    mapUrl: 'https://maps.google.com/?q=1200+E+Brin+St+Terrell+TX+75160',
+    webUrl: 'https://www.hhs.texas.gov/services/mental-health-substance-use/state-hospitals/terrell-state-hospital',
+    webLabel: 'hhs.texas.gov',
+    about: 'State-operated psychiatric hospital under Texas HHS. 316-bed JCAHO-accredited, Medicare-certified psychiatric facility. Serves a 22-county region in northeast Texas.',
+    services: 'Inpatient psychiatric care, mental health treatment for adults, child and adolescent unit. Mental illness and intellectual disability services. Visits must be arranged through the patient\'s social worker.',
+    notes: 'Psychiatric only — not a general acute care or emergency facility. Included for completeness. Welcome Center: (972) 551-8785. Visitors to adult patients must be 14+.'
+  },
+  {
+    name: 'Renaissance Hospital Terrell',
+    system: 'Renaissance Healthcare',
+    addr: '1551 State Hwy 34 S\nTerrell, TX 75160',
+    phone: '(972) 563-7611',
+    dist: '~23 mi',
+    drivetime: '~30 min',
+    type: 'Full-Service', typeCls: 'p-full',
+    mapUrl: 'https://maps.google.com/?q=1551+State+Hwy+34+S+Terrell+TX+75160',
+    webUrl: 'https://www.ahd.com/free_profile/450683/Renaissance_Hospital_-_Terrell/Terrell/Texas/',
+    webLabel: 'AHD profile',
+    about: 'General acute care hospital in Terrell, TX. NPI-registered general acute care facility serving Kaufman County and surrounding areas.',
+    services: 'General acute care, inpatient services, surgery, emergency care.',
+    notes: 'Smaller community hospital. Useful alternative to Texas Health Kaufman for Terrell-area residents. Verify current service offerings directly — call ahead for specific specialty availability.'
+  },
+  {
+    name: 'Texas Health Hospital Rockwall',
+    system: 'Texas Health Resources',
+    addr: '3150 Horizon Rd\nRockwall, TX 75032',
+    phone: '(469) 698-1000',
+    dist: '~25 mi',
+    drivetime: '~32 min',
+    type: 'Full-Service', typeCls: 'p-full',
+    mapUrl: 'https://maps.google.com/?q=3150+Horizon+Rd+Rockwall+TX+75032',
+    webUrl: 'https://www.texashealth.org/Locations/texas-health-rockwall',
+    webLabel: 'texashealth.org',
+    about: 'Joint venture between Texas Health Resources and physician investors. 2024 expansion doubled hospital size. Serves Rockwall, Kaufman, and Hunt Counties plus eastern Dallas and southern Collin County.',
+    services: 'Full acute care, Level 1 NICU (added 2024), Cardiac Cath Lab, expanded Labor & Delivery, OR, ER, bariatric surgery, orthopedic spine, da Vinci robotic surgery, endoscopy, pulmonary function testing, cardiac rehab. 24/7 emergency.',
+    notes: 'One of the stronger full-service options in the 30-mile zone. Cardiac Cath Lab and Level 1 NICU added in 2024 expansion significantly upgraded capabilities. Also has a separate North Rockwall emergency room location.'
+  },
+  {
+    name: 'BSW Emergency Hospital — Rockwall',
+    system: 'Baylor Scott & White Health',
+    addr: '1975 Alpha Rd, Ste 100\nRockwall, TX 75087',
+    phone: '(214) 294-6200',
+    dist: '~26 mi',
+    drivetime: '~34 min',
+    type: 'Emergency', typeCls: 'p-er',
+    mapUrl: 'https://maps.google.com/?q=1975+Alpha+Rd+Rockwall+TX+75087',
+    webUrl: 'https://www.bswhealth.com/locations/emergency-room/rockwall',
+    webLabel: 'bswhealth.com',
+    about: 'Neighborhood emergency hospital at I-30 and TL Townsend Drive, north of Lake Ray Hubbard. 24/7 emergency care with physician seen in minutes. Most patients treated and released same day.',
+    services: 'Full emergency care, lab testing, imaging. Inpatient observation rooms available. Transfers to Baylor Scott & White Medical Center Lake Pointe (Rowlett, ~20 min away) when needed.',
+    notes: 'Open 24/7. DNV/NIAHO accredited. Good ER option if Texas Health Rockwall is at capacity. Transfers complex cases to BSW Lake Pointe in Rowlett across the Lake Ray Hubbard bridge.'
+  },
+];
+
+const meHospitals = [
+  {
+    name: 'MaineHealth Waldo Hospital',
+    system: 'MaineHealth',
+    addr: '118 Northport Ave\nBelfast, ME 04915',
+    phone: '(207) 338-2500',
+    dist: '~15 mi',
+    drivetime: '~20 min',
+    type: 'Regional', typeCls: 'p-regional',
+    mapUrl: 'https://maps.google.com/?q=118+Northport+Ave+Belfast+ME+04915',
+    webUrl: 'https://www.mainehealth.org/mainehealth-waldo-hospital',
+    webLabel: 'mainehealth.org',
+    about: 'Full-service community hospital (formerly Waldo County General Hospital) serving Waldo County and surrounding Knox County communities. Part of the MaineHealth system.',
+    services: '24/7 emergency care, inpatient medical/surgical, imaging, laboratory, outpatient clinics including primary care and specialty services. MaineHealth Pediatrics Belfast opening May 2025.',
+    notes: 'Closest full-service hospital to Home, ME. Has an active relationship with the Rockport/Rockland mid-coast community. MaineHealth network facilitates transfers to Pen Bay or Portland MMC when needed.'
+  },
+  {
+    name: 'MaineHealth Pen Bay Hospital',
+    system: 'MaineHealth',
+    addr: '6 Glen Cove Dr\nRockport, ME 04856',
+    phone: '(207) 301-8000',
+    dist: '~20 mi',
+    drivetime: '~28 min',
+    type: 'Full-Service', typeCls: 'p-full',
+    mapUrl: 'https://maps.google.com/?q=6+Glen+Cove+Dr+Rockport+ME+04856',
+    webUrl: 'https://www.mainehealth.org/mainehealth-pen-bay-hospital',
+    webLabel: 'mainehealth.org',
+    about: 'Formerly known as Pen Bay Medical Center. Full-service hospital on the mid-coast serving Knox, Lincoln, and Waldo Counties. Part of MaineHealth.',
+    services: '24/7 emergency, inpatient surgical and medical, oncology, orthopedics, cardiac care, women\'s health, imaging (CT, MRI, ultrasound), lab, rehabilitation. Walk-In Care — Rockland also available.',
+    notes: 'Strong mid-coast regional hospital. Recently added Alisyn Zuber, PA to Walk-In Care Rockland. Partnership with Rockport Public Library for community health library. Highly rated for patient experience.'
+  },
+  {
+    name: 'NL Sebasticook Valley Hospital',
+    system: 'Northern Light Health',
+    addr: '99 Grove St\nPittsfield, ME 04967',
+    phone: '(207) 487-5141',
+    dist: '~35 mi',
+    drivetime: '~45 min',
+    type: 'Regional', typeCls: 'p-regional',
+    mapUrl: 'https://maps.google.com/?q=99+Grove+St+Pittsfield+ME+04967',
+    webUrl: 'https://northernlighthealth.org/Our-System/Sebasticook-Valley-Hospital',
+    webLabel: 'northernlighthealth.org',
+    about: 'Community hospital in Pittsfield serving Somerset County and surrounding areas. Part of the Northern Light Health network.',
+    services: 'Emergency care, inpatient medical/surgical, imaging, lab, outpatient clinics. Northern Light Health network enables transfers to Eastern Maine Medical Center in Bangor when needed.',
+    notes: 'Smaller community hospital serving a rural population. Part of NL Health network which includes EMMC Bangor as the regional tertiary center. Useful for Somerset County residents.'
+  },
+  {
+    name: 'NL Inland Hospital',
+    system: 'Northern Light Health',
+    addr: '200 Kennedy Memorial Dr\nWaterville, ME 04901',
+    phone: '(207) 861-3000',
+    dist: '~40 mi',
+    drivetime: '~50 min',
+    type: 'Full-Service', typeCls: 'p-full',
+    mapUrl: 'https://maps.google.com/?q=200+Kennedy+Memorial+Dr+Waterville+ME+04901',
+    webUrl: 'https://northernlighthealth.org/Our-System/Inland-Hospital',
+    webLabel: 'northernlighthealth.org',
+    about: 'Full-service community hospital in Waterville serving Kennebec County and surrounding central Maine region. Part of Northern Light Health.',
+    services: 'Emergency care, inpatient medical and surgical services, ICU, imaging, lab, rehabilitation, outpatient specialty clinics. 24/7 emergency department.',
+    notes: 'Primary hospital for the Waterville/central Maine area. NL Health network coordinates with EMMC Bangor for complex cases. Previously collaborated with Aroostook Medical Center on rural access initiatives.'
+  },
+  {
+    name: 'MaineGeneral Medical Center',
+    system: 'MaineGeneral Health',
+    addr: '35 Medical Center Pkwy\nAugusta, ME 04330',
+    phone: '(207) 626-1000',
+    dist: '~45 mi',
+    drivetime: '~55 min',
+    type: 'Full-Service', typeCls: 'p-full',
+    mapUrl: 'https://maps.google.com/?q=35+Medical+Center+Pkwy+Augusta+ME+04330',
+    webUrl: 'https://www.mainegeneral.org',
+    webLabel: 'mainegeneral.org',
+    about: 'Major regional medical center (Alfond Center for Health) in Augusta serving Kennebec County and central Maine. State capital\'s primary hospital. Nationally recognized for patient experience.',
+    services: 'Full acute care, 24/7 emergency, cardiac surgery, cancer care, orthopedics, neurology, women\'s health, Level II NICU, ICU, surgical services, imaging, rehabilitation. Includes MaineGeneral Medical Center - Thayer (24/7 free-standing ED, non-birthing).',
+    notes: 'One of the strongest hospitals within the 50-mile radius. State capital location. Outstanding patient experience award recognition. Good option for complex or specialty care needs.'
+  },
+  {
+    name: 'St. Joseph Hospital',
+    system: 'St. Joseph Healthcare (Covenant Health)',
+    addr: '900 Broadway\nBangor, ME 04401',
+    phone: '(207) 907-1000',
+    dist: '~48 mi',
+    drivetime: '~60 min',
+    type: 'Full-Service', typeCls: 'p-full',
+    mapUrl: 'https://maps.google.com/?q=900+Broadway+Bangor+ME+04401',
+    webUrl: 'https://www.stjoeshealth.org',
+    webLabel: 'stjoeshealth.org',
+    about: 'Catholic community hospital in Bangor, operated under Covenant Health. Recognized for Outstanding Patient Experience. Smaller than EMMC but strong community reputation.',
+    services: 'Emergency care, inpatient medical/surgical, cancer care, orthopedics, imaging, lab, women\'s health, outpatient specialty services.',
+    notes: 'Nationally recognized for outstanding patient experience. Sits at the outer edge of the 50-mile radius from Home, ME. Good alternative to EMMC for Bangor-area care with a more personal feel.'
+  },
+  {
+    name: 'NL Eastern Maine Medical Center',
+    system: 'Northern Light Health',
+    addr: '489 State St\nBangor, ME 04401',
+    phone: '(207) 973-7000',
+    dist: '~48 mi',
+    drivetime: '~60 min',
+    type: 'Critical Care', typeCls: 'p-critical',
+    mapUrl: 'https://maps.google.com/?q=489+State+St+Bangor+ME+04401',
+    webUrl: 'https://northernlighthealth.org/Our-System/Eastern-Maine-Medical-Center',
+    webLabel: 'northernlighthealth.org',
+    about: 'Northern Light Eastern Maine Medical Center (EMMC) — the primary tertiary referral center for central, eastern, and northern Maine. Founded 1892. Regionally ranked by US News & World Report.',
+    services: 'Full tertiary care, Level II Trauma Center, cardiac surgery, comprehensive cancer center, neurosurgery, advanced imaging, Level III NICU, transplant services, behavioral health, 24/7 emergency with full specialty backup.',
+    notes: 'Largest and most capable hospital in the region — the destination for complex trauma, cardiac events, and specialty care referrals from across central and eastern Maine. At the outer edge of the 50-mile radius but worth the drive for serious cases. US News regionally ranked.'
+  },
+  {
+    name: 'NL Maine Coast Hospital',
+    system: 'Northern Light Health',
+    addr: '50 Union St\nEllsworth, ME 04605',
+    phone: '(207) 664-5311',
+    dist: '~50 mi',
+    drivetime: '~65 min',
+    type: 'Regional', typeCls: 'p-regional',
+    mapUrl: 'https://maps.google.com/?q=50+Union+St+Ellsworth+ME+04605',
+    webUrl: 'https://northernlighthealth.org/Our-System/Maine-Coast-Hospital',
+    webLabel: 'northernlighthealth.org',
+    about: 'Community hospital in Ellsworth serving Hancock County and the eastern mid-coast including the Bar Harbor/Acadia area. Part of Northern Light Health.',
+    services: 'Emergency care, inpatient medical/surgical, imaging, lab, outpatient specialty clinics. Serves as the gateway hospital for eastern coastal Maine.',
+    notes: 'At the outer edge of the 50-mile radius. Primarily serves Hancock County and Down East communities. NL Health network transfers to EMMC Bangor for complex cases. Useful for travel toward Bar Harbor and Acadia National Park.'
+  },
+];
+
+/* ─── RENDER ─── */
+function toggleRow(id) {
+  const row    = document.getElementById(id);
+  const detail = document.getElementById('detail-' + id);
+  const btn    = document.getElementById('btn-' + id);
+  const isOpen = detail.classList.contains('open');
+  detail.classList.toggle('open');
+  row.classList.toggle('open');
+  btn.textContent = isOpen ? '+' : '−';
+}
+
+function buildTable(data, tbodyId) {
+  const tbody = document.getElementById(tbodyId);
+  let html = '';
+  data.forEach((h, i) => {
+    const id = `${tbodyId}-${i}`;
+    const addrFormatted = h.addr.replace('\n', '<br>');
+    html += `
+    <tr class="data-row" id="${id}" onclick="toggleRow('${id}')">
+      <td>
+        <div class="hosp-name">${h.name}</div>
+        <div class="hosp-sys">${h.system}</div>
+      </td>
+      <td class="addr-cell">${addrFormatted}</td>
+      <td class="phone-cell">${h.phone}</td>
+      <td>
+        <div class="dist-badge">${h.dist}</div>
+        <div class="dist-sub">${h.drivetime} drive</div>
+      </td>
+      <td><span class="pill ${h.typeCls}">${h.type}</span></td>
+      <td class="link-col">
+        <a href="${h.mapUrl}" target="_blank">→ Google Maps</a>
+        <a href="${h.webUrl}" target="_blank" class="web">${h.webLabel}</a>
+      </td>
+      <td class="expand-col">
+        <button class="expand-btn" tabindex="-1" aria-label="Toggle ${h.name}">
+          <span id="btn-${id}">+</span>
+        </button>
+      </td>
+    </tr>
+    <tr class="detail-row" id="detail-${id}">
+      <td colspan="7">
+        <div class="detail-inner">
+          <div class="d-section">
+            <div class="d-heading">About this hospital</div>
+            <div class="d-val">${h.about}</div>
+          </div>
+          <div class="d-section">
+            <div class="d-heading">Services offered</div>
+            <div class="d-val">${h.services}</div>
+          </div>
+          <div class="d-section">
+            <div class="d-heading">Notes &amp; tips</div>
+            <div class="d-val">${h.notes}</div>
+            <div class="d-lbl">Website</div>
+            <div class="d-val"><a href="${h.webUrl}" target="_blank">${h.webLabel}</a></div>
+            <div class="d-lbl">Directions</div>
+            <div class="d-val"><a href="${h.mapUrl}" target="_blank">Open in Google Maps →</a></div>
+          </div>
+        </div>
+      </td>
+    </tr>`;
+  });
+  tbody.innerHTML = html;
+}
+
+buildTable(txHospitals, 'tbl-tx');
+buildTable(meHospitals, 'tbl-me');
+</script>
+</body>
+</html>
