@@ -27,8 +27,9 @@
       font-family: var(--font-sans);
       color: var(--color-text-primary);
     }
+    html { scrollbar-gutter: stable; }
 
-    .page-outer { padding: 1rem 1.5rem 4rem; }
+    .page-outer { padding: calc(60px + 1rem) 1.5rem 4rem; max-width: 1280px; margin: 0 auto; }
     @media (max-width: 640px) { .page-outer { padding: 0.75rem 0.75rem 3rem; } }
 
     /* Neutral rec-box — uses .wrap prefix for specificity over fragment */
@@ -44,8 +45,8 @@
 </head>
 <body>
   <style>
-    .top-nav { background: #0d1117; border-bottom: 1px solid #1e293b; position: sticky; top: 0; z-index: 100; }
-    .top-nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; gap: 4px; height: 60px; }
+    .top-nav { background: #0d1117; border-bottom: 1px solid #1e293b; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+    .top-nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; gap: 4px; height: 60px; }
     .nav-link { font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-size: 13px; font-weight: 600; color: #94a3b8; text-decoration: none; padding: 6px 12px; border-radius: 8px; transition: color .15s, background .15s; }
     .nav-link:hover { color: #f1f5f9; background: #1e293b; }
     .nav-link.active { color: #f1f5f9; background: #1e293b; }

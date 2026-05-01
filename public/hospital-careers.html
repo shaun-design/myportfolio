@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hospital Career Pathways</title>
+  <title>Allied Health Career Explorer</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ─── Design tokens (matches simpleshaun.com/hc-cert.html) ─── */
     :root {
       --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
       --accent: #3b82f6;
@@ -29,74 +30,76 @@
       font-family: var(--font-sans);
       color: var(--color-text-primary);
     }
+    html { scrollbar-gutter: stable; }
 
-    .page-outer { padding: 2rem 1.5rem 4rem; max-width: 1200px; margin: 0 auto; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* ─── Top nav ─── */
+    .top-nav { background: #0d1117; border-bottom: 1px solid #1e293b; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+    .top-nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; gap: 4px; height: 60px; }
+    .nav-link { font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: #94a3b8; text-decoration: none; padding: 6px 12px; border-radius: 8px; transition: color .15s, background .15s; }
+    .nav-link:hover { color: #f1f5f9; background: #1e293b; }
+    .nav-link.active { color: #f1f5f9; background: #1e293b; }
+
+    /* ─── Page layout ─── */
+    .page-outer { padding: calc(60px + 2rem) 1.5rem 5rem; max-width: 1280px; margin: 0 auto; }
 
     .page-title {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--color-text-primary);
-      letter-spacing: -.02em;
+      font-size: 24px; font-weight: 700;
+      letter-spacing: -.02em; color: var(--color-text-primary);
       margin-bottom: 6px;
     }
     .page-sub {
-      font-size: 13px;
+      font-size: 13px; line-height: 1.65;
       color: var(--color-text-secondary);
-      line-height: 1.6;
-      margin-bottom: 28px;
-      max-width: 72ch;
+      max-width: 80ch; margin-bottom: 36px;
     }
 
-    /* Section header */
+    /* ─── Section header ─── */
     .section-hdr {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      display: flex; align-items: center; gap: 10px;
       margin: 0 0 10px;
     }
     .section-icon { font-size: 18px; line-height: 1; }
     .section-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--color-text-primary);
-      letter-spacing: -.01em;
+      font-size: 15px; font-weight: 700;
+      color: var(--color-text-primary); letter-spacing: -.01em;
+    }
+    .section-note {
+      font-size: 12px; color: var(--color-text-tertiary);
+      margin: 0 0 24px; padding-left: 2px; line-height: 1.6;
     }
 
-    /* Table outer */
+    /* ─── Table shell ─── */
     .tbl-outer {
       border: 1px solid var(--color-border-tertiary);
-      border-radius: 14px;
-      overflow: hidden;
+      border-radius: 14px; overflow: hidden;
       background: var(--color-bg-primary);
-      margin-bottom: 32px;
+      margin-bottom: 40px;
     }
     .tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: var(--font-sans);
-      font-size: 13px;
-    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
 
     thead tr { background: var(--color-bg-secondary); }
     thead th {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
       color: var(--color-text-tertiary);
-      padding: 10px 13px;
-      text-align: left;
+      padding: 10px 13px; text-align: left;
       border-bottom: 1px solid var(--color-border-tertiary);
       white-space: nowrap;
     }
     thead th:first-child { padding-left: 16px; min-width: 190px; }
 
+    /* ─── Data rows ─── */
     tbody tr.data-row {
       border-bottom: 1px solid var(--color-border-tertiary);
-      cursor: pointer;
-      transition: background .1s;
+      cursor: pointer; transition: background .1s;
     }
     tbody tr.data-row:last-child { border-bottom: none; }
     tbody tr.data-row:hover { background: #0d1f3a; }
@@ -107,112 +110,108 @@
     td:first-child { padding-left: 16px; }
 
     .job-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--color-text-primary);
-      line-height: 1.25;
+      font-size: 13px; font-weight: 700;
+      color: var(--color-text-primary); line-height: 1.25;
     }
     .job-dept {
-      font-size: 11px;
-      color: var(--color-text-secondary);
-      margin-top: 2px;
+      font-size: 11px; color: var(--color-text-secondary); margin-top: 2px;
     }
 
-    /* Pills */
+    /* ─── Pill / badge system ─── */
     .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      font-size: 10px;
-      font-weight: 600;
-      line-height: 1.2;
-      white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 8px; border-radius: 999px;
+      font-size: 10px; font-weight: 600; line-height: 1.2; white-space: nowrap;
     }
-    .p-yes     { background: #052e16; color: #86efac; }
-    .p-no      { background: #2d0a0a; color: #fca5a5; }
-    .p-some    { background: #2d1600; color: #fcd34d; }
-    .p-cert    { background: #0c1e35; color: #93c5fd; }
-    .p-license { background: #1a1040; color: #c4b5fd; }
-    .p-none    { background: #1e293b; color: #64748b; }
-    .ttj-now   { background: #052e16; color: #86efac; }
-    .ttj-soon  { background: #2d1600; color: #fcd34d; }
-    .ttj-later { background: #0c1e35; color: #93c5fd; }
-    .ttj-long  { background: #1a1040; color: #c4b5fd; }
-    .cost-free { background: #1e293b; color: #64748b; }
-    .cost-low  { background: #052e16; color: #86efac; }
-    .cost-mid  { background: #2d1600; color: #fcd34d; }
-    .cost-high { background: #1a1040; color: #c4b5fd; }
+    /* Time pills */
+    .p-otj    { background: #052e16; color: #86efac; }
+    .p-weeks  { background: #0c2a0a; color: #a3e6a0; }
+    .p-months3{ background: #2d1600; color: #fcd34d; }
+    .p-months6{ background: #1a2a00; color: #bef264; }
+    .p-year   { background: #0c1e35; color: #93c5fd; }
+    .p-years2 { background: #1a1040; color: #c4b5fd; }
+    /* Cost pills */
+    .cost-free  { background: #1e293b; color: #64748b; }
+    .cost-cheap { background: #052e16; color: #86efac; }
+    .cost-mid   { background: #2d1600; color: #fcd34d; }
+    .cost-high  { background: #1a1040; color: #c4b5fd; }
+    /* Entry level / cert pills */
+    .p-yes      { background: #052e16; color: #86efac; }
+    .p-no       { background: #2d0a0a; color: #fca5a5; }
+    .p-some     { background: #2d1600; color: #fcd34d; }
+    .p-cert     { background: #0c1e35; color: #93c5fd; }
+    .p-license  { background: #1a1040; color: #c4b5fd; }
+    /* Time to job pills */
+    .ttj-now    { background: #052e16; color: #86efac; }
+    .ttj-soon   { background: #2d1600; color: #fcd34d; }
+    .ttj-later  { background: #0c1e35; color: #93c5fd; }
+    .ttj-long   { background: #1a1040; color: #c4b5fd; }
 
-    .ic { font-size: 12px; }
+    /* Special badges */
+    .tag-new {
+      background: #0c1e35; color: #93c5fd;
+      font-size: 9px; padding: 2px 5px; border-radius: 4px;
+      font-weight: 700; letter-spacing: .05em;
+      vertical-align: middle; margin-left: 4px;
+    }
+    .tag-gem {
+      background: #1a1040; color: #c4b5fd;
+      font-size: 9px; padding: 2px 6px; border-radius: 4px;
+      font-weight: 700; letter-spacing: .04em;
+      vertical-align: middle; margin-left: 4px;
+    }
 
+    /* ─── Pay & ladder cells ─── */
     .pay-main {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--color-text-primary);
-      white-space: nowrap;
+      font-size: 13px; font-weight: 600;
+      color: var(--color-text-primary); white-space: nowrap;
     }
     .pay-annual {
-      font-size: 14px;
-      font-weight: 700;
-      color: #60a5fa;
-      white-space: nowrap;
+      font-size: 14px; font-weight: 700;
+      color: #60a5fa; white-space: nowrap;
       letter-spacing: -.01em;
     }
     .pay-sub {
-      font-size: 11px;
-      color: var(--color-text-secondary);
-      white-space: nowrap;
+      font-size: 11px; color: var(--color-text-secondary);
+      margin-top: 2px; white-space: nowrap;
     }
+    .ladder-text {
+      font-size: 11px; color: var(--color-text-secondary); line-height: 1.5;
+    }
+    .ic { font-size: 12px; }
 
-    /* Expand toggle */
+    /* ─── Expand toggle ─── */
     .expand-col {
-      width: 36px;
-      padding: 0 !important;
+      width: 36px; padding: 0 !important;
       text-align: center;
       border-left: 1px solid var(--color-border-tertiary);
     }
     .expand-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      min-height: 46px;
-      background: none;
-      border: none;
-      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; min-height: 46px;
+      background: none; border: none; cursor: pointer;
     }
     .expand-btn span {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 50%;
       border: 1.5px solid var(--color-border-secondary);
       background: var(--color-bg-secondary);
       color: var(--color-text-secondary);
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 13px; font-weight: 600;
       transition: background .12s, border-color .12s;
     }
     tbody tr.data-row:hover .expand-btn span {
-      border-color: #334155;
-      background: #1e293b;
+      border-color: #334155; background: #1e293b;
     }
     tbody tr.data-row.open .expand-btn span {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
+      background: var(--accent); border-color: var(--accent); color: #fff;
     }
 
-    /* Detail row */
+    /* ─── Detail panel ─── */
     tr.detail-row { display: none; }
     tr.detail-row.open { display: table-row; }
     tr.detail-row td {
-      padding: 0;
-      background: #080f1e;
+      padding: 0; background: #080f1e;
       border-bottom: 1px solid var(--color-border-tertiary);
     }
     .detail-inner {
@@ -226,47 +225,34 @@
     }
     .d-section:last-child { border-right: none; }
     .d-heading {
-      font-size: 10px;
-      font-weight: 700;
+      font-size: 10px; font-weight: 700;
       color: var(--color-text-tertiary);
-      text-transform: uppercase;
-      letter-spacing: .08em;
+      text-transform: uppercase; letter-spacing: .08em;
       margin-bottom: 9px;
     }
     .d-lbl {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--color-text-secondary);
-      margin-bottom: 2px;
+      font-size: 11px; font-weight: 600;
+      color: var(--color-text-secondary); margin-bottom: 2px;
     }
     .d-val {
-      font-size: 12px;
-      color: var(--color-text-primary);
-      line-height: 1.55;
-      margin-bottom: 8px;
+      font-size: 12px; color: var(--color-text-primary);
+      line-height: 1.55; margin-bottom: 7px;
     }
     .d-val:last-child { margin-bottom: 0; }
 
-    /* Footer */
+    /* ─── Table footer ─── */
     .tbl-footer {
       padding: 10px 16px;
       border-top: 1px solid var(--color-border-tertiary);
       background: var(--color-bg-secondary);
     }
     .disclaimer {
-      font-size: 11px;
-      line-height: 1.6;
-      color: var(--color-text-tertiary);
+      font-size: 11px; line-height: 1.6; color: var(--color-text-tertiary);
     }
 
-    .sr-only {
-      position: absolute; width: 1px; height: 1px;
-      padding: 0; overflow: hidden;
-      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
-    }
-
+    /* ─── Responsive ─── */
     @media (max-width: 800px) {
-      .page-outer { padding: 1rem .75rem 3rem; }
+      .page-outer { padding: 1rem .75rem 4rem; }
       .detail-inner { grid-template-columns: 1fr; }
       .d-section { border-right: none; border-bottom: 1px solid var(--color-border-tertiary); }
       .d-section:last-child { border-bottom: none; }
@@ -274,13 +260,6 @@
   </style>
 </head>
 <body>
-  <style>
-    .top-nav { background: #0d1117; border-bottom: 1px solid #1e293b; position: sticky; top: 0; z-index: 100; }
-    .top-nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; gap: 4px; height: 60px; }
-    .nav-link { font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-size: 13px; font-weight: 600; color: #94a3b8; text-decoration: none; padding: 6px 12px; border-radius: 8px; transition: color .15s, background .15s; }
-    .nav-link:hover { color: #f1f5f9; background: #1e293b; }
-    .nav-link.active { color: #f1f5f9; background: #1e293b; }
-  </style>
   <nav class="top-nav" aria-label="Main navigation">
     <div class="top-nav-inner">
       <a href="hc-cert.html" class="nav-link">Coding Jobs</a>
@@ -289,247 +268,691 @@
   </nav>
   <div class="page-outer">
 
-    <h1 class="page-title">Hospital Entry + Career Path Roles</h1>
-    <p class="page-sub">No prior medical experience required for Tier 1. Certification path roles include your CPB + CPC target track. Click any row to expand role notes and where to search on hospital careers portals.</p>
+  <h1 class="page-title">Allied Health Career Explorer</h1>
+  <p class="page-sub">Three tables covering the full spectrum of hospital and allied health roles — from "hire me tomorrow with no cert" to $155K career ceilings. All data current as of 2025. Click any row to expand role notes, work-while-learning details, certification info, and where to search.</p>
 
-    <!-- SECTION 1 -->
-    <div class="section-hdr">
-      <span class="section-icon">🏥</span>
-      <span class="section-title">Hospital Entry Roles</span>
+  <!-- ═══════════════════════════════════════════════════════════
+       TABLE 1 — Hospital Entry + Cert Path Roles
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="section-hdr">
+    <span class="section-icon">🏥</span>
+    <span class="section-title">Hospital Entry Roles</span>
+  </div>
+  <p class="section-note">No prior medical experience required. Getting inside a hospital on any role accelerates your path to revenue cycle and clinical positions.</p>
+  <div class="tbl-outer">
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr>
+          <th>Role</th>
+          <th>Entry Level</th>
+          <th>Cert Required</th>
+          <th>Pay (Hourly)</th>
+          <th>Pay (Annual)</th>
+          <th>Training</th>
+          <th>Cost</th>
+          <th>Time to Job</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="tbl-hospital"></tbody>
+      </table>
     </div>
-    <div class="tbl-outer">
-      <div class="tbl-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>Role</th>
-              <th>Entry Level</th>
-              <th>Cert Required</th>
-              <th>Pay (Hourly)</th>
-              <th>Pay (Annual)</th>
-              <th>Training Required</th>
-              <th>Cost</th>
-              <th>Time to Job</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="tbl1"></tbody>
-        </table>
-      </div>
-      <div class="tbl-footer">
-        <div class="disclaimer">No certification required for entry roles. Getting inside a hospital system on any role accelerates your path to revenue cycle positions as you complete CPB/CPC.</div>
-      </div>
+    <div class="tbl-footer">
+      <div class="disclaimer">No certification required for most entry roles. Mention any in-progress CPB/CPC enrollment in cover letters — many postings list it as "preferred," meaning they'll hire someone actively studying.</div>
     </div>
+  </div>
 
-    <!-- SECTION 2 -->
-    <div class="section-hdr">
-      <span class="section-icon">🎯</span>
-      <span class="section-title">Certification / Career Path Roles</span>
+  <div class="section-hdr">
+    <span class="section-icon">🎯</span>
+    <span class="section-title">Certification / Career Path Roles</span>
+  </div>
+  <p class="section-note">These roles require formal certification or licensing. CPB + CPC (your Phase 1 target) open billing, coding, and revenue cycle analyst tracks.</p>
+  <div class="tbl-outer">
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr>
+          <th>Role</th>
+          <th>Entry Level</th>
+          <th>Cert Required</th>
+          <th>Pay (Hourly)</th>
+          <th>Pay (Annual)</th>
+          <th>Training</th>
+          <th>Cost</th>
+          <th>Time to Job</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="tbl-certpath"></tbody>
+      </table>
     </div>
-    <div class="tbl-outer">
-      <div class="tbl-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>Role</th>
-              <th>Entry Level</th>
-              <th>Cert Required</th>
-              <th>Pay (Hourly)</th>
-              <th>Pay (Annual)</th>
-              <th>Training Required</th>
-              <th>Cost</th>
-              <th>Time to Job</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="tbl2"></tbody>
-        </table>
-      </div>
-      <div class="tbl-footer">
-        <div class="disclaimer">Salary data: Glassdoor, ZipRecruiter, AAPC 2025 Salary Survey. DFW market may run slightly lower. CPC exam $425 + $222/yr AAPC membership. CPB $425, shared membership when pursuing both. Dual bootcamps $1,500–$3,300. PTA/Rad Tech program costs vary by school and state.</div>
-      </div>
+    <div class="tbl-footer">
+      <div class="disclaimer">Salary data: Glassdoor, ZipRecruiter, AAPC 2025. DFW market may run slightly lower. CPC exam $425 + $222/yr AAPC membership. CPB $425, shared membership when pursuing both. Dual bootcamps $1,500–$3,300. PTA/Rad Tech program costs vary by school.</div>
     </div>
+  </div>
 
-  </div><!-- /page-outer -->
+  <!-- ═══════════════════════════════════════════════════════════
+       TABLE 2 — Short-cert EKG-like roles
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="section-hdr">
+    <span class="section-icon">⚡</span>
+    <span class="section-title">Short-Cert Roles · Similar to EKG Tech · Sorted Fastest to Slowest</span>
+  </div>
+  <p class="section-note">All earn a real cert in under 2 years, all hire into hospitals, all ladder into something better. Green time pills = fastest.</p>
+  <div class="tbl-outer">
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr>
+          <th>Role</th>
+          <th>Cert time</th>
+          <th>Cert cost</th>
+          <th>Pay (hourly)</th>
+          <th>Pay (annual)</th>
+          <th>Ladders into</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="tbl-shortcert"></tbody>
+      </table>
+    </div>
+    <div class="tbl-footer">
+      <div class="disclaimer">Salary data: BLS 2024, Indeed, ZipRecruiter, Glassdoor. Cert costs are exam fees only — program tuition is separate. Click any row for work-while-learning details and certification notes.</div>
+    </div>
+  </div>
 
-  <script>
-    const s1 = [
-      {
-        title: 'Patient Transporter', dept: 'Patient Services / Transport',
-        entry: { lbl: 'Yes', cls: 'p-yes', ic: '✓' },
-        cert:  { lbl: 'No',  cls: 'p-no',  ic: '✗' },
-        hr: '$15–20', ann: '$30K–40K',
-        train: 'On-the-job (few days)', cost: '$0', costCls: 'cost-free',
-        ttj: 'Immediate (1–4 wks)', ttjCls: 'ttj-now',
-        about: 'Moves patients between rooms, departments, and imaging. No clinical skills required. Physically active role that gets you inside hospital operations from day one.',
-        search: 'Search "Patient Transporter" or "Transport Aide" under Patient Services or Operations.'
-      },
-      {
-        title: 'Rehab Aide / PT Aide', dept: 'Physical Therapy / Rehab',
-        entry: { lbl: 'Yes', cls: 'p-yes', ic: '✓' },
-        cert:  { lbl: 'No',  cls: 'p-no',  ic: '✗' },
-        hr: '$15–18', ann: '$30K–38K',
-        train: 'On-the-job (1–2 weeks)', cost: '$0', costCls: 'cost-free',
-        ttj: 'Immediate (2–4 wks)', ttjCls: 'ttj-now',
-        about: 'Assists physical therapists with patient setup, equipment, and exercise support. No PT license needed. Strategic if you\'re considering the PTA path — you\'ll see the job daily.',
-        search: 'Search "Rehab Aide", "PT Aide", or "Physical Therapy Aide" under Rehabilitation Services.'
-      },
-      {
-        title: 'Patient Access Rep', dept: 'Patient Financial Services',
-        entry: { lbl: 'Yes', cls: 'p-yes', ic: '✓' },
-        cert:  { lbl: 'No',  cls: 'p-no',  ic: '✗' },
-        hr: '$16–22', ann: '$32K–45K',
-        train: 'On-the-job (2–4 weeks)', cost: '$0', costCls: 'cost-free',
-        ttj: 'Immediate (2–4 wks)', ttjCls: 'ttj-now',
-        about: 'Front desk of the revenue cycle. Verify insurance, collect copays, register patients. High volume of openings across all hospital systems. Best foot-in-the-door for billing/coding path.',
-        search: 'Search "Patient Access Representative" or "Patient Services Representative" under Patient Financial Services.'
-      },
-      {
-        title: 'Environmental Services (EVS)', dept: 'Facilities / EVS',
-        entry: { lbl: 'Yes', cls: 'p-yes', ic: '✓' },
-        cert:  { lbl: 'No',  cls: 'p-no',  ic: '✗' },
-        hr: '$14–18', ann: '$28K–36K',
-        train: 'On-the-job (few days)', cost: '$0', costCls: 'cost-free',
-        ttj: 'Immediate (1–3 wks)', ttjCls: 'ttj-now',
-        about: 'Hospital housekeeping and sanitation. Among the fastest to hire roles in any hospital system. Gets you on payroll with full benefits immediately — then you can transfer internally.',
-        search: 'Search "Environmental Services", "EVS Technician", or "Housekeeper" under Facilities or Support Services.'
-      },
-      {
-        title: 'Imaging Assistant', dept: 'Radiology / Imaging',
-        entry: { lbl: 'Yes', cls: 'p-yes', ic: '✓' },
-        cert:  { lbl: 'No (CPR sometimes preferred)', cls: 'p-no', ic: '✗' },
-        hr: '$16–22', ann: '$32K–45K',
-        train: 'On-the-job (2–4 weeks)', cost: '$0', costCls: 'cost-free',
-        ttj: 'Immediate (2–6 wks)', ttjCls: 'ttj-now',
-        about: 'Assists radiology techs with patient positioning, room prep, and workflow support. No ARRT license needed. Strategic role if you\'re considering Rad Tech — you\'ll see the job every day.',
-        search: 'Search "Imaging Assistant", "Radiology Aide", or "Radiology Assistant" under Diagnostic Imaging or Radiology.'
-      },
-      {
-        title: 'Patient Care Tech (PCT)', dept: 'Nursing / Med-Surg',
-        entry: { lbl: 'Sometimes', cls: 'p-some', ic: '⚠' },
-        cert:  { lbl: 'Sometimes CNA', cls: 'p-some', ic: '⚠' },
-        hr: '$17–24', ann: '$35K–50K',
-        train: 'Short training or CNA cert', cost: '$500–2K', costCls: 'cost-low',
-        ttj: '0–3 months', ttjCls: 'ttj-soon',
-        about: 'Assists nurses with vitals, ADLs, EKGs, and phlebotomy depending on facility. Some hospitals hire without CNA and train in-house. Others require CNA. Read each posting carefully.',
-        search: 'Search "Patient Care Tech", "PCT", or "Nursing Assistant" under Nursing or Med-Surg.'
-      },
-    ];
+  <!-- ═══════════════════════════════════════════════════════════
+       TABLE 3 — Deep cuts
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="section-hdr">
+    <span class="section-icon">💎</span>
+    <span class="section-title">Deep Cuts · Niche, Overlooked, and High-Ceiling Roles</span>
+  </div>
+  <p class="section-note">Lesser-known roles with strong pay, low competition, or unusually fast paths. 💎 GEM = hidden gem worth researching seriously.</p>
+  <div class="tbl-outer">
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr>
+          <th>Role</th>
+          <th>Cert time</th>
+          <th>Cert cost</th>
+          <th>Pay (hourly)</th>
+          <th>Pay (annual)</th>
+          <th>Ladders into</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="tbl-deepcuts"></tbody>
+      </table>
+    </div>
+    <div class="tbl-footer">
+      <div class="disclaimer">Salary data: BLS 2024–2025, ASRT Wage Survey, Indeed, ZipRecruiter, Glassdoor. 💎 GEM = high pay, low competition, or unusually strong demand relative to awareness. Add-on certs (CT, Mammo, CSFA) require a base credential first — see expansion for details.</div>
+    </div>
+  </div>
 
-    const s2 = [
-      {
-        title: 'Medical Billing (CPB)', dept: 'Revenue Cycle / Business Office',
-        entry: { lbl: 'Needs cert', cls: 'p-no', ic: '✗' },
-        cert:  { lbl: 'CPB (AAPC)', cls: 'p-cert', ic: '✓' },
-        hr: '$18–28', ann: '$38K–60K',
-        train: 'Self-study or course (3–5 mo)', cost: '$2K–4K', costCls: 'cost-mid',
-        ttj: '3–6 months', ttjCls: 'ttj-soon',
-        about: 'Billing-focused credential from AAPC. Claims submission, denial management, payment posting, payer rules. CPB in-progress is often accepted — mention enrollment in cover letter. Phase 1 target alongside CPC.',
-        search: 'Search "Medical Billing Specialist", "Billing Specialist I", or "Revenue Cycle Representative" under Revenue Cycle or Business Office.'
-      },
-      {
-        title: 'Medical Coding (CPC)', dept: 'HIM / Outpatient Coding',
-        entry: { lbl: 'Needs cert', cls: 'p-no', ic: '✗' },
-        cert:  { lbl: 'CPC (AAPC)', cls: 'p-cert', ic: '✓' },
-        hr: '$20–30', ann: '$40K–65K',
-        train: 'Self-study or course (4–6 mo)', cost: '$2K–4K', costCls: 'cost-mid',
-        ttj: '3–6 months', ttjCls: 'ttj-soon',
-        about: 'AAPC\'s flagship coding credential. Assigns CPT, ICD-10-CM, and HCPCS codes for outpatient/physician services. CPC-A (apprentice) earned without 2 yrs exp — still hireable at many facilities.',
-        search: 'Search "Medical Coder", "Outpatient Coder", or "CPC" under Health Information Management or Outpatient Coding.'
-      },
-      {
-        title: 'Revenue Cycle Analyst', dept: 'Revenue Integrity / Finance',
-        entry: { lbl: 'Needs cert + exp', cls: 'p-no', ic: '✗' },
-        cert:  { lbl: 'CPC + CPB (AAPC)', cls: 'p-cert', ic: '✓' },
-        hr: '$29–38', ann: '$61K–80K',
-        train: '6–12 mo study + field exp', cost: '$2K–5K', costCls: 'cost-mid',
-        ttj: '6–12 months', ttjCls: 'ttj-later',
-        about: 'Where design and systems thinking becomes a genuine differentiator. Denial trend analysis, dashboards, workflow gap identification. Requires CPC+CPB plus real billing/coding experience. The ceiling target role.',
-        search: 'Search "Revenue Cycle Analyst" or "Revenue Integrity Analyst" under Finance or Revenue Cycle.'
-      },
-      {
-        title: 'Physical Therapist Assistant (PTA)', dept: 'Physical Therapy / Rehab',
-        entry: { lbl: 'No', cls: 'p-no', ic: '✗' },
-        cert:  { lbl: 'License (CAPTE program)', cls: 'p-license', ic: '✓' },
-        hr: '$25–35', ann: '$55K–70K',
-        train: '2-year degree + clinicals', cost: '$10K–30K', costCls: 'cost-high',
-        ttj: '~2 years', ttjCls: 'ttj-long',
-        about: 'Associate degree from CAPTE-accredited program required. Works under a licensed PT — assists with treatment plans, therapeutic exercises, patient education. Strong job security and stable demand.',
-        search: 'Search "Physical Therapist Assistant" or "PTA" under Rehabilitation Services. Requires program completion first.'
-      },
-      {
-        title: 'Radiologic Technologist (Rad Tech)', dept: 'Diagnostic Imaging / Radiology',
-        entry: { lbl: 'No', cls: 'p-no', ic: '✗' },
-        cert:  { lbl: 'License (ARRT exam)', cls: 'p-license', ic: '✓' },
-        hr: '$28–38', ann: '$60K–80K',
-        train: '2-year program + clinicals', cost: '$10K–30K', costCls: 'cost-high',
-        ttj: '~2 years', ttjCls: 'ttj-long',
-        about: 'ARRT license required. Operates X-ray, CT, MRI, and fluoroscopy equipment. Strong salary, stable demand, clear advancement into CT/MRI specialization. Programs available in Rockwall TX and Phoenix AZ areas.',
-        search: 'Search "Radiologic Technologist", "Rad Tech", or "Radiographer" under Diagnostic Imaging. Requires program completion first.'
-      },
-    ];
+</div><!-- /page-outer -->
 
-    function buildTable(data, tbodyId, colCount) {
-      const tbody = document.getElementById(tbodyId);
-      let html = '';
-      data.forEach((j, i) => {
-        const id = `${tbodyId}-${i}`;
-        html += `
-        <tr class="data-row" id="${id}" onclick="toggleRow('${id}')">
-          <td>
-            <div class="job-title">${j.title}</div>
-            <div class="job-dept">${j.dept}</div>
-          </td>
-          <td><span class="pill ${j.entry.cls}"><span class="ic">${j.entry.ic}</span>${j.entry.lbl}</span></td>
-          <td><span class="pill ${j.cert.cls}"><span class="ic">${j.cert.ic}</span>${j.cert.lbl}</span></td>
-          <td><div class="pay-main">${j.hr}</div></td>
-          <td><div class="pay-annual">${j.ann}</div></td>
-          <td><div class="pay-sub">${j.train}</div></td>
-          <td><span class="pill ${j.costCls}">${j.cost}</span></td>
-          <td><span class="pill ${j.ttjCls}">${j.ttj}</span></td>
-          <td class="expand-col">
-            <button class="expand-btn" tabindex="-1" aria-label="Toggle details for ${j.title}">
-              <span id="btn-${id}">+</span>
-            </button>
-          </td>
-        </tr>
-        <tr class="detail-row" id="detail-${id}">
-          <td colspan="9">
-            <div class="detail-inner">
-              <div class="d-section">
-                <div class="d-heading">About this role</div>
-                <div class="d-val">${j.about}</div>
-              </div>
-              <div class="d-section">
-                <div class="d-heading">Pay &amp; training</div>
-                <div class="d-lbl">Hourly range</div><div class="d-val">${j.hr}</div>
-                <div class="d-lbl">Annual range</div><div class="d-val">${j.ann}</div>
-                <div class="d-lbl">Program cost</div><div class="d-val">${j.cost === '$0' ? 'No program needed — on-the-job training' : j.cost}</div>
-                <div class="d-lbl">Train time</div><div class="d-val">${j.train}</div>
-              </div>
-              <div class="d-section">
-                <div class="d-heading">Where to search</div>
-                <div class="d-val">${j.search}</div>
-              </div>
-            </div>
-          </td>
-        </tr>`;
-      });
-      tbody.innerHTML = html;
-    }
+<script>
+/* ─────────────────────────────────────────────────
+   DATA
+───────────────────────────────────────────────── */
 
-    function toggleRow(id) {
-      const row    = document.getElementById(id);
-      const detail = document.getElementById('detail-' + id);
-      const btn    = document.getElementById('btn-' + id);
-      const isOpen = detail.classList.contains('open');
-      detail.classList.toggle('open');
-      row.classList.toggle('open');
-      btn.textContent = isOpen ? '+' : '−';
-    }
+/* TABLE 1a — Hospital Entry */
+const hospitalEntry = [
+  {
+    title:'Patient Transporter', dept:'Patient Services / Transport',
+    entry:{lbl:'Yes',cls:'p-yes',ic:'✓'}, cert:{lbl:'No',cls:'p-no',ic:'✗'},
+    hr:'$15–20', ann:'$30K–40K', train:'On-the-job (few days)', cost:'$0', costCls:'cost-free',
+    ttj:'Immediate (1–4 wks)', ttjCls:'ttj-now',
+    about:'Moves patients between rooms, departments, and imaging. No clinical skills required. Gets you inside hospital operations from day one.',
+    work:'Yes — this is same-week hiring at most hospital systems. No cert, no program, no cost.',
+    cert_detail:'None required.',
+    search:'Search "Patient Transporter" or "Transport Aide" under Patient Services or Operations.'
+  },
+  {
+    title:'Rehab Aide / PT Aide', dept:'Physical Therapy / Rehab',
+    entry:{lbl:'Yes',cls:'p-yes',ic:'✓'}, cert:{lbl:'No',cls:'p-no',ic:'✗'},
+    hr:'$15–18', ann:'$30K–38K', train:'On-the-job (1–2 weeks)', cost:'$0', costCls:'cost-free',
+    ttj:'Immediate (2–4 wks)', ttjCls:'ttj-now',
+    about:'Assists physical therapists with patient setup, equipment, and exercise support. No PT license needed. Strategic if you\'re considering the PTA path — you\'ll see the job daily.',
+    work:'Yes — hired immediately, trained on the job.',
+    cert_detail:'None required. CPR/BLS helpful.',
+    search:'Search "Rehab Aide", "PT Aide", or "Physical Therapy Aide" under Rehabilitation Services.'
+  },
+  {
+    title:'Patient Access Rep', dept:'Patient Financial Services',
+    entry:{lbl:'Yes',cls:'p-yes',ic:'✓'}, cert:{lbl:'No',cls:'p-no',ic:'✗'},
+    hr:'$16–22', ann:'$32K–45K', train:'On-the-job (2–4 weeks)', cost:'$0', costCls:'cost-free',
+    ttj:'Immediate (2–4 wks)', ttjCls:'ttj-now',
+    about:'Front desk of the revenue cycle. Verifies insurance, collects copays, registers patients. High volume of openings. Best foot-in-the-door for billing/coding path.',
+    work:'Yes — no cert needed. Mention CPB/CPC enrollment in cover letter.',
+    cert_detail:'None required. CPB in-progress is a strong plus.',
+    search:'Search "Patient Access Representative" or "Patient Services Representative" under Patient Financial Services.'
+  },
+  {
+    title:'Environmental Services (EVS)', dept:'Facilities / EVS',
+    entry:{lbl:'Yes',cls:'p-yes',ic:'✓'}, cert:{lbl:'No',cls:'p-no',ic:'✗'},
+    hr:'$14–18', ann:'$28K–36K', train:'On-the-job (few days)', cost:'$0', costCls:'cost-free',
+    ttj:'Immediate (1–3 wks)', ttjCls:'ttj-now',
+    about:'Hospital housekeeping and sanitation. Fastest to hire of any hospital role. Gets you on payroll with full benefits immediately — internal transfer to revenue cycle is common.',
+    work:'Yes — same-week hiring, no barriers.',
+    cert_detail:'None required.',
+    search:'Search "Environmental Services", "EVS Technician", or "Housekeeper" under Facilities or Support Services.'
+  },
+  {
+    title:'Imaging Assistant', dept:'Radiology / Imaging',
+    entry:{lbl:'Yes',cls:'p-yes',ic:'✓'}, cert:{lbl:'No (CPR sometimes preferred)',cls:'p-no',ic:'✗'},
+    hr:'$16–22', ann:'$32K–45K', train:'On-the-job (2–4 weeks)', cost:'$0', costCls:'cost-free',
+    ttj:'Immediate (2–6 wks)', ttjCls:'ttj-now',
+    about:'Assists radiology techs with patient positioning, room prep, and workflow. No ARRT license needed. Strategic role if you\'re considering Rad Tech, CT, or MRI — you\'ll watch the job every day.',
+    work:'Yes — on-the-job training, no barriers.',
+    cert_detail:'None required. CPR/BLS helpful.',
+    search:'Search "Imaging Assistant", "Radiology Aide", or "Radiology Assistant" under Diagnostic Imaging.'
+  },
+  {
+    title:'Patient Care Tech (PCT)', dept:'Nursing / Med-Surg',
+    entry:{lbl:'Sometimes',cls:'p-some',ic:'⚠'}, cert:{lbl:'Sometimes CNA',cls:'p-some',ic:'⚠'},
+    hr:'$17–24', ann:'$35K–50K', train:'Short training or CNA cert', cost:'$500–2K', costCls:'cost-cheap',
+    ttj:'0–3 months', ttjCls:'ttj-soon',
+    about:'Assists nurses with vitals, ADLs, EKGs, and phlebotomy. Some hospitals hire without CNA and train in-house. Others require CNA. Read each posting carefully.',
+    work:'Moderate — check the specific posting. Some hospitals sponsor the training.',
+    cert_detail:'CNA (state-approved program + NNAAP exam in Texas) — some postings waive this.',
+    search:'Search "Patient Care Tech", "PCT", or "Nursing Assistant" under Nursing or Med-Surg.'
+  },
+];
 
-    buildTable(s1, 'tbl1');
-    buildTable(s2, 'tbl2');
-  </script>
+/* TABLE 1b — Cert Path Roles */
+const certPath = [
+  {
+    title:'Medical Billing (CPB)', dept:'Revenue Cycle / Business Office',
+    entry:{lbl:'Needs cert',cls:'p-no',ic:'✗'}, cert:{lbl:'CPB (AAPC)',cls:'p-cert',ic:'✓'},
+    hr:'$18–28', ann:'$38K–60K', train:'Self-study or course (3–5 mo)', cost:'$2K–4K', costCls:'cost-mid',
+    ttj:'3–6 months', ttjCls:'ttj-soon',
+    about:'Billing-focused credential from AAPC. Claims submission, denial management, payment posting, payer rules. CPB in-progress is often accepted. Phase 1 target alongside CPC.',
+    work:'Yes — entirely self-paced and remote. Study nights and weekends while working full-time.',
+    cert_detail:'CPB (AAPC). Exam $425 + $222/yr membership. Many bootcamp programs $1,500–$3,300 include both CPC and CPB.',
+    search:'Search "Medical Billing Specialist" or "Revenue Cycle Representative" under Revenue Cycle or Business Office.'
+  },
+  {
+    title:'Medical Coding (CPC)', dept:'HIM / Outpatient Coding',
+    entry:{lbl:'Needs cert',cls:'p-no',ic:'✗'}, cert:{lbl:'CPC (AAPC)',cls:'p-cert',ic:'✓'},
+    hr:'$20–30', ann:'$40K–65K', train:'Self-study or course (4–6 mo)', cost:'$2K–4K', costCls:'cost-mid',
+    ttj:'3–6 months', ttjCls:'ttj-soon',
+    about:'AAPC flagship coding credential. Assigns CPT, ICD-10-CM, and HCPCS codes for outpatient/physician services. CPC-A (apprentice) earned without 2 yrs experience — still hireable. Phase 1 target.',
+    work:'Yes — self-paced, fully remote study. Pair with CPB for maximum entry impact.',
+    cert_detail:'CPC (AAPC). Exam $425 + $222/yr membership. Dual CPC+CPB bootcamps available.',
+    search:'Search "Medical Coder", "Outpatient Coder", or "CPC" under HIM or Outpatient Coding.'
+  },
+  {
+    title:'Revenue Cycle Analyst', dept:'Revenue Integrity / Finance',
+    entry:{lbl:'Needs cert + exp',cls:'p-no',ic:'✗'}, cert:{lbl:'CPC + CPB (AAPC)',cls:'p-cert',ic:'✓'},
+    hr:'$29–38', ann:'$61K–80K', train:'6–12 mo study + field exp', cost:'$2K–5K', costCls:'cost-mid',
+    ttj:'6–12 months', ttjCls:'ttj-later',
+    about:'The role where design and systems thinking becomes a genuine differentiator. Denial trend analysis, dashboards, workflow gap identification. Requires CPC+CPB plus real billing experience. The ceiling target.',
+    work:'Moderate — billing/coding study is self-paced, but requires actual field experience before most postings consider you.',
+    cert_detail:'CPC + CPB (AAPC). Combined exam cost ~$650–$900 plus membership.',
+    search:'Search "Revenue Cycle Analyst" or "Revenue Integrity Analyst" under Finance or Revenue Cycle.'
+  },
+  {
+    title:'Physical Therapist Assistant (PTA)', dept:'Physical Therapy / Rehab',
+    entry:{lbl:'No',cls:'p-no',ic:'✗'}, cert:{lbl:'License (CAPTE program)',cls:'p-license',ic:'✓'},
+    hr:'$25–35', ann:'$55K–70K', train:'2-year degree + clinicals', cost:'$10K–30K', costCls:'cost-high',
+    ttj:'~2 years', ttjCls:'ttj-long',
+    about:'Associate degree from CAPTE-accredited program required. Works under a licensed PT — assists with treatment plans, therapeutic exercises, patient education.',
+    work:'Limited — heavy clinical hours in year 2. Part-time work possible in year 1.',
+    cert_detail:'PTA license (NPTE-PTA exam). Requires CAPTE-accredited AAS.',
+    search:'Search "Physical Therapist Assistant" or "PTA" under Rehabilitation Services. Requires program completion first.'
+  },
+  {
+    title:'Radiologic Technologist (Rad Tech)', dept:'Diagnostic Imaging / Radiology',
+    entry:{lbl:'No',cls:'p-no',ic:'✗'}, cert:{lbl:'License (ARRT exam)',cls:'p-license',ic:'✓'},
+    hr:'$28–38', ann:'$60K–80K', train:'2-year program + clinicals', cost:'$10K–30K', costCls:'cost-high',
+    ttj:'~2 years', ttjCls:'ttj-long',
+    about:'ARRT license required. Operates X-ray, CT, MRI, and fluoroscopy equipment. Strong salary, stable demand, clear advancement into CT/MRI specialization. Programs in Rockwall TX and Phoenix AZ areas.',
+    work:'Limited — significant clinical hours required throughout program.',
+    cert_detail:'ARRT(R). Requires accredited AAS program. Exam ~$200–350.',
+    search:'Search "Radiologic Technologist", "Rad Tech", or "Radiographer" under Diagnostic Imaging.'
+  },
+];
+
+/* TABLE 2 — Short-cert EKG-like roles */
+const shortCert = [
+  {
+    title:'Phlebotomy Technician', dept:'Lab / Blood Draw', tag:'',
+    time:'3–8 weeks', timeCls:'p-weeks',
+    certCost:'$100–200', costCls:'cost-cheap',
+    hr:'$17–24', ann:'$37K–51K',
+    ladder:'Lab Tech → Medical Assistant → Nursing',
+    about:'Draws blood for tests, transfusions, and donations. One of the fastest certs in all of healthcare. Most programs are 40–120 hours total. Hospitals, labs, Quest Diagnostics, and LabCorp hire constantly.',
+    work:'Yes — training is short enough to complete on weekends or evenings. The job itself is often part-time or shift-based.',
+    cert:'CPT (NHA), RPT (ASCP), or CPT1 (AMCA). NHA is most common. Exam ~$105–155.',
+    search:'Search "Phlebotomist" or "Phlebotomy Technician" under Laboratory or Patient Services.'
+  },
+  {
+    title:'EKG Technician (CET)', dept:'Cardiology / Telemetry', tag:'',
+    time:'3–6 weeks', timeCls:'p-weeks',
+    certCost:'~$200', costCls:'cost-cheap',
+    hr:'$16–24', ann:'$35K–50K',
+    ladder:'CVT → Cardiac Sonographer / Echo Tech',
+    about:'Attaches electrodes, runs 12-lead EKGs, Holter monitors, and stress tests. Many hospitals train on-the-job — you may not need the cert upfront. Strategic entry if you want the cardiac imaging path.',
+    work:'Yes — very flexible. Many positions are part-time or shift-based. Cert program is a few weeks online/in-person.',
+    cert:'CET (NHA) — requires 10 EKGs documented or 1 year experience. Exam ~$117–155.',
+    search:'Search "EKG Technician", "Cardiac Monitor Tech", or "Telemetry Technician" under Cardiology or Nursing.'
+  },
+  {
+    title:'Sterile Processing Technician (SPT)', dept:'Surgical Services / Central Sterile', tag:'',
+    time:'4–8 weeks', timeCls:'p-weeks',
+    certCost:'$100–250', costCls:'cost-cheap',
+    hr:'$17–25', ann:'$38K–55K',
+    ladder:'Surgical Tech → OR Tech → Surgical First Assistant',
+    about:'Cleans, sterilizes, and tracks surgical instruments. Every hospital needs this department to function. 15% job growth. Often hires with no experience and trains you — sometimes employer-sponsored cert.',
+    work:'Yes — many hospitals hire without cert and pay for your training. Programs are 4–8 weeks.',
+    cert:'CRCST (IAHCSMM) or CBSPD. Exam ~$100–175. Many hospitals reimburse after 6 months.',
+    search:'Search "Sterile Processing Technician", "SPT", or "Central Sterile Tech" under Surgical Services.'
+  },
+  {
+    title:'Medical Assistant (CMA / CCMA)', dept:'Clinics / Physician Offices', tag:'',
+    time:'3–6 months', timeCls:'p-months3',
+    certCost:'$135–155', costCls:'cost-cheap',
+    hr:'$17–23', ann:'$38K–48K',
+    ladder:'LPN → RN → PA (with more school)',
+    about:'Both clinical (vitals, injections, EKGs, blood draws) and admin (scheduling, billing, records). Broad exposure to healthcare workflows. 16% job growth. More clinic/office than hospital but hospitals hire too.',
+    work:'Yes — many programs are 3–6 months, often hybrid or evening. Can work part-time during training.',
+    cert:'CCMA (NHA) or CMA (AAMA). Exam ~$135–155. Program cost $3K–$15K.',
+    search:'Search "Medical Assistant" or "Clinical Medical Assistant" under Ambulatory Care, Clinics, or Outpatient.'
+  },
+  {
+    title:'Pharmacy Technician (CPhT)', dept:'Pharmacy / Hospital Pharmacy', tag:'',
+    time:'3–6 months', timeCls:'p-months3',
+    certCost:'$129–149', costCls:'cost-cheap',
+    hr:'$16–22', ann:'$36K–48K',
+    ladder:'Pharmacy Tech Lead → Pharmacist (with PharmD)',
+    about:'Fills prescriptions, manages inventory, processes insurance. Hospital pharmacy is faster-paced and higher-paying than retail. Many hospitals hire and train without prior cert.',
+    work:'Yes — retail pharmacy (Walgreens, CVS) hires and trains on the job. Hospital pharmacy is more competitive but possible.',
+    cert:'CPhT (PTCB) or ExCPT (NHA). Exam ~$129–149. Texas requires TSBP registration.',
+    search:'Search "Pharmacy Technician" or "Pharm Tech" under Pharmacy. Hospital pharmacy pays ~20% more than retail.'
+  },
+  {
+    title:'Neurodiagnostic Tech (EEG Tech)', dept:'Neurology / Sleep Lab', tag:'',
+    time:'6–12 months', timeCls:'p-months6',
+    certCost:'$200–350', costCls:'cost-mid',
+    hr:'$20–30', ann:'$45K–62K',
+    ladder:'R.EEG.T → RPSGT (Sleep) → Epilepsy Monitoring',
+    about:'Runs EEG tests to detect brain activity, seizures, and neurological disorders. The brain equivalent of EKG. Less common than cardiology roles but lower competition and solid pay.',
+    work:'Moderate — programs are 6–12 months with clinical hours. Can work part-time during didactic portion.',
+    cert:'R.EEG.T (ABRET) — requires 1 year experience or accredited program. Exam ~$200–350.',
+    search:'Search "EEG Technician", "Neurodiagnostic Tech", or "Sleep Tech" under Neurology or Sleep Medicine.'
+  },
+  {
+    title:'Medical Scribe', dept:'Emergency Dept / Clinics', tag:'',
+    time:'On-the-job / 1–4 wks', timeCls:'p-otj',
+    certCost:'Free–$150', costCls:'cost-cheap',
+    hr:'$16–20', ann:'$33K–43K',
+    ladder:'Medical Coder → PA school / Med school prep',
+    about:'Documents physician notes and orders in real time inside the EHR. Sits with the doctor in every patient encounter. ScribeAmerica and Aquity Solutions hire constantly. Remote scribing also exists.',
+    work:'Yes — one of the most flexible healthcare jobs. Many positions are part-time by default. Remote scribing can be done from home.',
+    cert:'No formal cert required. CHDS (NHA) is optional. Training is 1–4 weeks paid on the job.',
+    search:'Search "Medical Scribe" or "Clinical Scribe" under Emergency Medicine. Also check ScribeAmerica.com directly.'
+  },
+  {
+    title:'Health Unit Coordinator (HUC)', dept:'Nursing Units / Med-Surg', tag:'',
+    time:'4–8 weeks', timeCls:'p-weeks',
+    certCost:'$75–150', costCls:'cost-cheap',
+    hr:'$17–23', ann:'$36K–48K',
+    ladder:'Patient Access → HIM Clerk → Medical Assistant',
+    about:'Administrative hub of a nursing unit. Handles orders, coordinates patient flow, manages paperwork, answers phones, communicates between nurses and physicians. Huge exposure to hospital operations.',
+    work:'Yes — programs are 4–8 weeks, often online. Many hospitals hire and train in-house with no prior cert.',
+    cert:'CHUC (NAHUC) — optional but helpful. Exam ~$75–150.',
+    search:'Search "Health Unit Coordinator", "Unit Secretary", or "Ward Clerk" under Nursing or Med-Surg floors.'
+  },
+  {
+    title:'EMT-Basic', dept:'Emergency Dept / EMS / Transport', tag:'',
+    time:'3–6 months', timeCls:'p-months3',
+    certCost:'~$300', costCls:'cost-cheap',
+    hr:'$17–23', ann:'$37K–52K',
+    ladder:'Paramedic → ER Tech → Flight Medic',
+    about:'First responders on ambulances but also hired inside hospitals as ER Techs. EMT-B training gives you clinical skills (vitals, airway, IVs) and opens doors to ER, ICU tech, and flight programs.',
+    work:'Moderate — programs are 120–150 hours over 3–6 months including clinical rotations. Evening and weekend programs exist.',
+    cert:'NREMT + Texas state licensure. Exam ~$80. Program cost $1K–$3K at community college.',
+    search:'Search "EMT", "Emergency Room Technician", or "ER Tech" under Emergency Services or Emergency Department.'
+  },
+  {
+    title:'CNA (Certified Nursing Assistant)', dept:'Nursing / Long-Term Care / Hospital', tag:'',
+    time:'4–12 weeks', timeCls:'p-weeks',
+    certCost:'$100–200', costCls:'cost-cheap',
+    hr:'$16–22', ann:'$33K–45K',
+    ladder:'LPN → RN (with more school)',
+    about:'Assists nurses with patient care — bathing, feeding, vitals, repositioning, ADLs. Most direct patient contact of any entry role. Texas requires state-approved program + NNAAP exam.',
+    work:'Yes — Texas CNA programs run 4–8 weeks. Many nursing homes and hospitals sponsor the training for free.',
+    cert:'NNAAP exam (Texas). State-approved program required first (~75 hours). Many employers pay for it.',
+    search:'Search "CNA" or "Nursing Assistant" under Nursing, Med-Surg, or Long-Term Care.'
+  },
+  {
+    title:'Patient Monitor Tech / Telemetry', dept:'Cardiac Telemetry / ICU', tag:'',
+    time:'4–8 weeks', timeCls:'p-weeks',
+    certCost:'$100–200', costCls:'cost-cheap',
+    hr:'$17–25', ann:'$36K–52K',
+    ladder:'EKG Tech → CVT → Cardiac Sonographer',
+    about:'Watches cardiac monitors for multiple patients simultaneously from a central station — identifies rhythm changes and alerts nursing staff. Many hospitals train in-house for free. Night shift pays $2–4/hr more.',
+    work:'Yes — many hospitals train internally for free. External cert programs are 4–8 weeks online.',
+    cert:'CRAT (CCI) or CCT — optional but helpful. Many hospitals train and certify in-house.',
+    search:'Search "Telemetry Technician", "Cardiac Monitor Tech", or "Patient Monitor Tech" under Cardiology or Telemetry.'
+  },
+  {
+    title:'Dental Assistant (CDA)', dept:'Dental / Hospital Dental', tag:'',
+    time:'3–12 months', timeCls:'p-months3',
+    certCost:'$150–400', costCls:'cost-cheap',
+    hr:'$17–23', ann:'$37K–50K',
+    ladder:'Dental Hygienist (AAS) → Office Manager',
+    about:'Assists dentists with procedures, prepares trays, takes X-rays, and handles patient care. Texas has specific X-ray certification requirements. High volume of private practice openings.',
+    work:'Yes — many programs are 3–12 months, evening or hybrid. Some dentists hire and train on the job.',
+    cert:'CDA (DANB). Texas also requires Radiation Health and Safety (RHS) exam for X-rays. Combined ~$150–400.',
+    search:'Search "Dental Assistant" under Dental Services. Mostly private practice and dental clinics.'
+  },
+  {
+    title:'Ophthalmic / Optometric Technician', dept:'Ophthalmology / Eye Clinics', tag:'',
+    time:'6–12 months', timeCls:'p-months6',
+    certCost:'$150–300', costCls:'cost-cheap',
+    hr:'$18–26', ann:'$38K–55K',
+    ladder:'COA → COT → Surgical Ophthalmic Tech',
+    about:'Works alongside ophthalmologists doing preliminary exams, vision testing, tonometry, imaging, and patient prep. Lower competition than most allied health roles. Strong job stability.',
+    work:'Yes — most training is on-the-job with employer-sponsored cert. COA exam taken after 1 year of experience.',
+    cert:'COA (Certified Ophthalmic Assistant) via JCAHPO. Requires 1 year experience. Exam ~$150–300.',
+    search:'Search "Ophthalmic Technician", "Optometric Assistant", or "Eye Tech" under Ophthalmology or Eye Care.'
+  },
+  {
+    title:'Surgical Tech (CST)', dept:'Operating Room / Surgical Services', tag:'',
+    time:'12–24 months', timeCls:'p-year',
+    certCost:'$175–250', costCls:'cost-mid',
+    hr:'$22–35', ann:'$50K–70K',
+    ladder:'Surgical First Assistant → OR Charge Tech',
+    about:'Works inside the OR passing instruments, maintaining sterile field, and assisting surgeons. High intensity, high demand. 6% growth. Programs include significant clinical hours in the OR.',
+    work:'Limited — 12–24 months with heavy clinical requirements. Part-time work possible during early didactic months.',
+    cert:'CST (NBSTSA). Requires accredited program completion. Exam ~$175.',
+    search:'Search "Surgical Technologist" or "Scrub Tech" under Surgical Services or Operating Room.'
+  },
+  {
+    title:'Respiratory Therapist (CRT/RRT)', dept:'Respiratory / ICU / ER', tag:'',
+    time:'~2 years', timeCls:'p-years2',
+    certCost:'$190–250', costCls:'cost-mid',
+    hr:'$25–38', ann:'$58K–78K',
+    ladder:'RRT → ACCS (critical care) → Pulmonary Function Tech',
+    about:'Treats patients with breathing problems — asthma, COPD, COVID, post-surgical. Works in ICU, ER, and NICU. One of the highest-demand allied health roles. AAS required.',
+    work:'Limited during clinical rotations. Part-time work possible in year 1.',
+    cert:'CRT then RRT (NBRC). AAS from accredited program required first. Exam ~$190–250.',
+    search:'Search "Respiratory Therapist" or "CRT" under Respiratory Care or Critical Care.'
+  },
+  {
+    title:'MRI Technologist', dept:'Radiology / Imaging', tag:'',
+    time:'~2 years', timeCls:'p-years2',
+    certCost:'$200–350', costCls:'cost-mid',
+    hr:'$36–52', ann:'$75K–95K',
+    ladder:'CT Tech → Senior MRI Tech → Imaging Manager',
+    about:'Operates MRI scanners to produce detailed images of soft tissue, brain, spine, and joints. No radiation exposure. High demand, shortage of qualified techs. Can enter via Rad Tech base cert + MRI specialty.',
+    work:'Limited during clinical hours in year 2. Year 1 is largely didactic.',
+    cert:'ARRT(MR). Can be added to existing ARRT(R) or via dedicated MRI program. Exam ~$200–350.',
+    search:'Search "MRI Technologist" or "MRI Tech" under Radiology or Diagnostic Imaging.'
+  },
+  {
+    title:'Nuclear Medicine Tech (NMT)', dept:'Radiology / Nuclear Medicine', tag:'',
+    time:'~2 years', timeCls:'p-years2',
+    certCost:'$200–350', costCls:'cost-mid',
+    hr:'$42–52', ann:'$88K–97K',
+    ladder:'PET Specialist → Radiopharmacy → Chief NMT',
+    about:'Prepares and administers radioactive drugs then images how they move through organs using PET and SPECT scanners. One of the highest-paying 2-year allied health paths. Works with oncology and cardiology.',
+    work:'Limited during clinical rotations. Similar constraints to Rad Tech.',
+    cert:'NMTCB or ARRT(N). Requires accredited program. Exam ~$200–350. AAS typically $8K–$20K.',
+    search:'Search "Nuclear Medicine Technologist" or "NMT" under Radiology or Nuclear Medicine.'
+  },
+];
+
+/* TABLE 3 — Deep cuts */
+const deepCuts = [
+  {
+    title:'Sleep Tech (Polysomnography)', dept:'Sleep Lab / Neurology', gem:true,
+    time:'6–12 months', timeCls:'p-months6',
+    certCost:'$185–250', costCls:'cost-cheap',
+    hr:'$28–38', ann:'$60K–75K',
+    ladder:'RPSGT → Sleep Lab Supervisor → Home Sleep Testing',
+    about:'Monitors patients overnight while they sleep — brain waves, breathing, oxygen, heart rhythm, leg movements. Diagnoses sleep apnea, narcolepsy, insomnia. Almost entirely night shift. Low competition, high demand, aging population + obesity crisis = exploding diagnoses.',
+    work:'Moderate. Programs are 6–12 months. Night shift nature makes it easier to study during the day. Some hospitals train internally.',
+    cert:'RPSGT (BRPT). Requires 18 months experience OR accredited program. Exam ~$185–250. CPSGT entry-level cert available with less experience.',
+    search:'Search "Sleep Technologist", "Polysomnographic Tech", or "Sleep Lab Tech" under Neurology, Sleep Medicine, or Pulmonology.'
+  },
+  {
+    title:'Dialysis Technician (CCHT)', dept:'Nephrology / Dialysis Centers', gem:false,
+    time:'3–12 months', timeCls:'p-months3',
+    certCost:'~$200', costCls:'cost-cheap',
+    hr:'$19–28', ann:'$42K–58K',
+    ladder:'Charge Tech → Dialysis Nurse (RN) → Clinical Manager',
+    about:'Operates dialysis machines that filter blood for patients with kidney failure. DaVita and Fresenius hire with zero experience — they run their own paid training academies. One of the few roles where the employer genuinely invests in you from day one.',
+    work:'Yes — DaVita and Fresenius run paid training programs. You can be hired with no experience and earn while learning. CCHT cert comes after 1 year of work.',
+    cert:'CCHT (NNCO) requires 1 year + 3,000 hours. CHT (BONENT) requires accredited program or 1 year exp. Exam ~$200.',
+    search:'Search "Dialysis Technician" — or apply directly at DaVita.com and FreseniusKidneyCare.com which both run internal training academies.'
+  },
+  {
+    title:'Radiation Therapist', dept:'Oncology / Radiation Therapy', gem:true,
+    time:'~2 years', timeCls:'p-years2',
+    certCost:'$200–350', costCls:'cost-mid',
+    hr:'$47–58', ann:'$100K–115K',
+    ladder:'Senior RT → Medical Dosimetrist → Radiation Oncology Manager',
+    about:'Administers radiation treatment to cancer patients using linear accelerators under a radiation oncologist\'s plan. BLS median $104K+. Highest-paying 2-year allied health program. High emotional weight working with cancer patients — extraordinarily meaningful work.',
+    work:'Limited during clinical rotations. Programs include significant hands-on clinical hours.',
+    cert:'ARRT(T) — requires accredited program. Exam ~$200–350. AAS typically $8K–$20K at community college.',
+    search:'Search "Radiation Therapist" or "RTT" under Radiation Oncology or Cancer Center.'
+  },
+  {
+    title:'Medical Lab Technician (MLT)', dept:'Clinical Laboratory / Pathology', gem:false,
+    time:'~2 years AAS', timeCls:'p-years2',
+    certCost:'$195–220', costCls:'cost-cheap',
+    hr:'$22–32', ann:'$48K–66K',
+    ladder:'MLT → Medical Lab Technologist (MT/MLS) → Lab Supervisor',
+    about:'Performs tests on blood, urine, tissue samples — chemistry, hematology, microbiology, blood bank. Mostly behind the scenes in the lab, minimal patient contact. Steady schedule at many facilities.',
+    work:'Moderate — AAS programs run 2 years with lab rotations. Some community college programs allow part-time enrollment.',
+    cert:'MLT(ASCP). Also AMT MLT exam. Requires AAS or equivalent. Exam ~$195–220.',
+    search:'Search "Medical Lab Technician", "MLT", or "Clinical Lab Tech" under Laboratory Services or Pathology.'
+  },
+  {
+    title:'Vascular Technologist (RVT)', dept:'Vascular Surgery / Imaging', gem:true,
+    time:'~2 years', timeCls:'p-years2',
+    certCost:'$225–300', costCls:'cost-mid',
+    hr:'$36–50', ann:'$76K–95K',
+    ladder:'RVT → Vascular Interventional Tech → Imaging Supervisor',
+    about:'Uses ultrasound to image arteries and veins — detecting blood clots, blockages, aneurysms. Related to cardiac sonography but focused on vessels. ASRT data shows 13.6% salary increase recently. High demand, aging population drives it.',
+    work:'Limited — clinical hours required. Can pursue via Rad Tech ARRT base cert + vascular specialty, or dedicated 2-year program.',
+    cert:'RVT (ARDMS) or RVS (CCI). Requires accredited program or experience pathway. Exam ~$225–300.',
+    search:'Search "Vascular Technologist", "RVT", or "Vascular Sonographer" under Vascular Surgery or Diagnostic Imaging.'
+  },
+  {
+    title:'Endoscopy Tech / GI Tech', dept:'Gastroenterology / GI Lab', gem:true,
+    time:'4–8 weeks on-the-job', timeCls:'p-weeks',
+    certCost:'$100–250', costCls:'cost-cheap',
+    hr:'$18–28', ann:'$40K–58K',
+    ladder:'Senior Endo Tech → Surgical Tech → GI Lab Supervisor',
+    about:'Assists gastroenterologists during colonoscopies, endoscopies, and other GI procedures. Most hospitals train in-house — no formal program required. Steady demand as colonoscopy screening guidelines expand. Almost nobody has heard of this role.',
+    work:'Yes — most GI labs train on the job over 4–8 weeks. No formal cert required to start.',
+    cert:'CGRN (American Board of Certification for Gastroenterology Nurses) — optional, requires 2 years exp. Exam ~$100–250.',
+    search:'Search "Endoscopy Technician", "GI Technician", or "Gastroenterology Tech" under Gastroenterology or Surgical Services.'
+  },
+  {
+    title:'Histotechnician / Histotech', dept:'Pathology / Lab', gem:true,
+    time:'1–2 years', timeCls:'p-year',
+    certCost:'$195–220', costCls:'cost-cheap',
+    hr:'$22–33', ann:'$48K–68K',
+    ladder:'HT → Histotechnologist (HTL) → Lab Supervisor → Pathology Manager',
+    about:'Prepares tissue samples for pathologists to examine — slicing, staining, mounting. Works in pathology labs. Chronically understaffed — a documented national shortage, which means strong job security and negotiating power.',
+    work:'Moderate — 1-year certificate programs exist. Some hospitals hire trainees and certify them on the job.',
+    cert:'HT(ASCP) — requires accredited program or 2 years experience + exam. Exam ~$195–220.',
+    search:'Search "Histotechnician", "Histotech", or "Tissue Tech" under Pathology or Laboratory Services.'
+  },
+  {
+    title:'Cytotechnologist (CT)', dept:'Pathology / Cytology Lab', gem:true,
+    time:'~2 years BS or post-bacc', timeCls:'p-years2',
+    certCost:'$195–220', costCls:'cost-cheap',
+    hr:'$34–50', ann:'$72K–95K',
+    ladder:'CT → Senior Cytotech → Pathology Lab Director',
+    about:'Examines cells under a microscope to detect cancer and precancerous changes — primarily Pap smears, fine needle aspirates, and body fluids. High pay, very low public awareness of the role. Your AAS from Bellevue College may be a foundation depending on credits.',
+    work:'Limited — formal accredited program required. BS typically needed but post-baccalaureate certificate programs exist.',
+    cert:'CT(ASCP) — requires accredited program. Exam ~$195–220.',
+    search:'Search "Cytotechnologist" or "Cytotech" under Pathology or Cytology.'
+  },
+  {
+    title:'CT Technologist', dept:'Radiology / CT Imaging', gem:true,
+    time:'Add-on cert to Rad Tech', timeCls:'p-months6',
+    certCost:'$200–250', costCls:'cost-cheap',
+    hr:'$38–55', ann:'$80K–105K',
+    ladder:'CT Tech → Senior CT → Imaging Supervisor → PACS Admin',
+    about:'Operates CT scanners to produce detailed cross-sectional images. One of the highest-demand imaging specialties — hospitals run CT 24/7. Night/weekend shift differential makes this one of the better-compensated allied health roles in total.',
+    work:'Add-on to Rad Tech AAS — complete Rad Tech first, then add CT specialty while working. Most techs do this within 1–2 years of graduating.',
+    cert:'ARRT(CT) — add-on specialty. Requires ARRT(R) base. Exam ~$200–250.',
+    search:'Search "CT Technologist" or "CT Tech" under Radiology. Most Rad Tech postings also want CT-capable candidates.'
+  },
+  {
+    title:'Mammography Tech (Mammo)', dept:'Radiology / Women\'s Imaging', gem:false,
+    time:'Add-on cert to Rad Tech', timeCls:'p-months6',
+    certCost:'$200–250', costCls:'cost-cheap',
+    hr:'$32–45', ann:'$68K–88K',
+    ladder:'Mammo Tech → Breast Imaging Specialist → Lead Tech',
+    about:'Specializes in breast X-ray imaging for screening and diagnosis. Requires existing ARRT(R) Rad Tech credential first — then a mammography add-on cert. Typically shorter hours and more predictable schedule.',
+    work:'Add-on to Rad Tech — AAS required first, then mammo specialty cert.',
+    cert:'ARRT(M) — mammography specialty add-on. Requires ARRT(R). Exam ~$200–250.',
+    search:'Search "Mammography Technologist" or "Mammo Tech" under Radiology or Women\'s Imaging.'
+  },
+  {
+    title:'Surgical First Assistant (CSFA)', dept:'Operating Room / Surgical Services', gem:false,
+    time:'Add-on to Surgical Tech', timeCls:'p-year',
+    certCost:'$200–300', costCls:'cost-mid',
+    hr:'$35–55', ann:'$75K–110K',
+    ladder:'CST → CSFA → Surgical PA (with more school)',
+    about:'Assists surgeons directly during procedures — retracting, suturing, controlling bleeding. A step above surgical tech. Requires existing CST credential plus a surgical first assisting program.',
+    work:'Add-on to Surgical Tech — CST required first, then a CSFA program (~1 year) while working as a CST.',
+    cert:'CSFA (NBSTSA) — requires CST + accredited surgical first assisting program. Exam ~$200–300.',
+    search:'Search "Surgical First Assistant" or "CSFA" under Surgical Services or Operating Room.'
+  },
+  {
+    title:'Perfusionist', dept:'Cardiac Surgery / OR', gem:true,
+    time:'~4–6 years total', timeCls:'p-years2',
+    certCost:'$300–500', costCls:'cost-high',
+    hr:'$65–85', ann:'$130K–160K',
+    ladder:'Staff Perfusionist → Lead Perfusionist → Program Director',
+    about:'Operates the heart-lung bypass machine during open heart surgery — keeping the patient alive while surgeons work on a stopped heart. One of the highest-paying allied health careers period. Median ~$155K. Requires BS plus accredited perfusion program. Very small, very exclusive field.',
+    work:'No — highly specialized clinical training required throughout. Included as a long-term ceiling awareness role.',
+    cert:'CCP (American Board of Cardiovascular Perfusion). Requires accredited program. Exam ~$300–500.',
+    search:'Search "Perfusionist" or "Cardiovascular Perfusionist" under Cardiac Surgery or Cardiothoracic Surgery.'
+  },
+];
+
+/* ─────────────────────────────────────────────────
+   RENDER FUNCTIONS
+───────────────────────────────────────────────── */
+
+function toggleRow(id) {
+  const row    = document.getElementById(id);
+  const detail = document.getElementById('detail-' + id);
+  const btn    = document.getElementById('btn-' + id);
+  const isOpen = detail.classList.contains('open');
+  detail.classList.toggle('open');
+  row.classList.toggle('open');
+  btn.textContent = isOpen ? '+' : '−';
+}
+
+/* Hospital tables (entry + cert path) — 9 columns */
+function buildHospitalTable(data, tbodyId) {
+  const tbody = document.getElementById(tbodyId);
+  let html = '';
+  data.forEach((j, i) => {
+    const id = `${tbodyId}-${i}`;
+    html += `
+    <tr class="data-row" id="${id}" onclick="toggleRow('${id}')">
+      <td>
+        <div class="job-title">${j.title}</div>
+        <div class="job-dept">${j.dept}</div>
+      </td>
+      <td><span class="pill ${j.entry.cls}"><span class="ic">${j.entry.ic}</span>${j.entry.lbl}</span></td>
+      <td><span class="pill ${j.cert.cls}"><span class="ic">${j.cert.ic}</span>${j.cert.lbl}</span></td>
+      <td><div class="pay-main">${j.hr}</div></td>
+      <td><div class="pay-annual">${j.ann}</div></td>
+      <td><div class="ladder-text">${j.train}</div></td>
+      <td><span class="pill ${j.costCls}">${j.cost}</span></td>
+      <td><span class="pill ${j.ttjCls}">${j.ttj}</span></td>
+      <td class="expand-col">
+        <button class="expand-btn" tabindex="-1" aria-label="Toggle ${j.title}">
+          <span id="btn-${id}">+</span>
+        </button>
+      </td>
+    </tr>
+    <tr class="detail-row" id="detail-${id}">
+      <td colspan="9">
+        <div class="detail-inner">
+          <div class="d-section">
+            <div class="d-heading">About this role</div>
+            <div class="d-val">${j.about}</div>
+          </div>
+          <div class="d-section">
+            <div class="d-heading">Can you work while learning?</div>
+            <div class="d-val">${j.work}</div>
+            <div class="d-lbl">Certification</div>
+            <div class="d-val">${j.cert_detail}</div>
+          </div>
+          <div class="d-section">
+            <div class="d-heading">Where to search</div>
+            <div class="d-val">${j.search}</div>
+          </div>
+        </div>
+      </td>
+    </tr>`;
+  });
+  tbody.innerHTML = html;
+}
+
+/* Short-cert + deep-cut tables — 7 columns */
+function buildGenericTable(data, tbodyId) {
+  const tbody = document.getElementById(tbodyId);
+  let html = '';
+  data.forEach((r, i) => {
+    const id = `${tbodyId}-${i}`;
+    const gemTag = r.gem ? '<span class="tag-gem">💎 GEM</span>' : '';
+    const newTag = r.tag === 'new' ? '<span class="tag-new">NEW</span>' : '';
+    html += `
+    <tr class="data-row" id="${id}" onclick="toggleRow('${id}')">
+      <td>
+        <div class="job-title">${r.title}${gemTag}${newTag}</div>
+        <div class="job-dept">${r.dept}</div>
+      </td>
+      <td><span class="pill ${r.timeCls}">${r.time}</span></td>
+      <td><span class="pill ${r.costCls}">${r.certCost}</span></td>
+      <td><div class="pay-main">${r.hr}</div></td>
+      <td><div class="pay-annual">${r.ann}</div></td>
+      <td><div class="ladder-text">${r.ladder}</div></td>
+      <td class="expand-col">
+        <button class="expand-btn" tabindex="-1" aria-label="Toggle ${r.title}">
+          <span id="btn-${id}">+</span>
+        </button>
+      </td>
+    </tr>
+    <tr class="detail-row" id="detail-${id}">
+      <td colspan="7">
+        <div class="detail-inner">
+          <div class="d-section">
+            <div class="d-heading">About this role</div>
+            <div class="d-val">${r.about}</div>
+          </div>
+          <div class="d-section">
+            <div class="d-heading">Can you work while learning?</div>
+            <div class="d-val">${r.work}</div>
+            <div class="d-lbl">Certification</div>
+            <div class="d-val">${r.cert}</div>
+          </div>
+          <div class="d-section">
+            <div class="d-heading">Where to search</div>
+            <div class="d-val">${r.search}</div>
+          </div>
+        </div>
+      </td>
+    </tr>`;
+  });
+  tbody.innerHTML = html;
+}
+
+/* ─── Init ─── */
+buildHospitalTable(hospitalEntry, 'tbl-hospital');
+buildHospitalTable(certPath,      'tbl-certpath');
+buildGenericTable(shortCert,      'tbl-shortcert');
+buildGenericTable(deepCuts,       'tbl-deepcuts');
+</script>
 </body>
 </html>
