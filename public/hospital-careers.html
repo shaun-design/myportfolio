@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Career Pathways</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+      --accent: #3b82f6;
+      --accent-dark: #2563eb;
+      --color-text-primary: #f1f5f9;
+      --color-text-secondary: #94a3b8;
+      --color-text-tertiary: #64748b;
+      --color-border-secondary: #334155;
+      --color-border-tertiary: #1e293b;
+      --color-bg-primary: #0d1117;
+      --color-bg-secondary: #010203;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--color-bg-secondary);
+      font-family: var(--font-sans);
+      color: var(--color-text-primary);
+    }
+
+    .page-outer { padding: 2rem 1.5rem 4rem; max-width: 1200px; margin: 0 auto; }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      letter-spacing: -.02em;
+      margin-bottom: 6px;
+    }
+    .page-sub {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin-bottom: 28px;
+      max-width: 72ch;
+    }
+
+    /* Section header */
+    .section-hdr {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 10px;
+    }
+    .section-icon { font-size: 18px; line-height: 1; }
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      letter-spacing: -.01em;
+    }
+
+    /* Table outer */
+    .tbl-outer {
+      border: 1px solid var(--color-border-tertiary);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--color-bg-primary);
+      margin-bottom: 32px;
+    }
+    .tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-sans);
+      font-size: 13px;
+    }
+
+    thead tr { background: var(--color-bg-secondary); }
+    thead th {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--color-text-tertiary);
+      padding: 10px 13px;
+      text-align: left;
+      border-bottom: 1px solid var(--color-border-tertiary);
+      white-space: nowrap;
+    }
+    thead th:first-child { padding-left: 16px; min-width: 190px; }
+
+    tbody tr.data-row {
+      border-bottom: 1px solid var(--color-border-tertiary);
+      cursor: pointer;
+      transition: background .1s;
+    }
+    tbody tr.data-row:last-child { border-bottom: none; }
+    tbody tr.data-row:hover { background: #0d1f3a; }
+    tbody tr.data-row.open { background: #080f1e; }
+    tbody tr.data-row.open td:first-child { border-left: 2px solid var(--accent); }
+
+    td { padding: 11px 13px; vertical-align: middle; }
+    td:first-child { padding-left: 16px; }
+
+    .job-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      line-height: 1.25;
+    }
+    .job-dept {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      margin-top: 2px;
+    }
+
+    /* Pills */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 600;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    .p-yes     { background: #052e16; color: #86efac; }
+    .p-no      { background: #2d0a0a; color: #fca5a5; }
+    .p-some    { background: #2d1600; color: #fcd34d; }
+    .p-cert    { background: #0c1e35; color: #93c5fd; }
+    .p-license { background: #1a1040; color: #c4b5fd; }
+    .p-none    { background: #1e293b; color: #64748b; }
+    .ttj-now   { background: #052e16; color: #86efac; }
+    .ttj-soon  { background: #2d1600; color: #fcd34d; }
+    .ttj-later { background: #0c1e35; color: #93c5fd; }
+    .ttj-long  { background: #1a1040; color: #c4b5fd; }
+    .cost-free { background: #1e293b; color: #64748b; }
+    .cost-low  { background: #052e16; color: #86efac; }
+    .cost-mid  { background: #2d1600; color: #fcd34d; }
+    .cost-high { background: #1a1040; color: #c4b5fd; }
+
+    .ic { font-size: 12px; }
+
+    .pay-main {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      white-space: nowrap;
+    }
+    .pay-annual {
+      font-size: 14px;
+      font-weight: 700;
+      color: #60a5fa;
+      white-space: nowrap;
+      letter-spacing: -.01em;
+    }
+    .pay-sub {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      white-space: nowrap;
+    }
+
+    /* Expand toggle */
+    .expand-col {
+      width: 36px;
+      padding: 0 !important;
+      text-align: center;
+      border-left: 1px solid var(--color-border-tertiary);
+    }
+    .expand-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      min-height: 46px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .expand-btn span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid var(--color-border-secondary);
+      background: var(--color-bg-secondary);
+      color: var(--color-text-secondary);
+      font-size: 13px;
+      font-weight: 600;
+      transition: background .12s, border-color .12s;
+    }
+    tbody tr.data-row:hover .expand-btn span {
+      border-color: #334155;
+      background: #1e293b;
+    }
+    tbody tr.data-row.open .expand-btn span {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Detail row */
+    tr.detail-row { display: none; }
+    tr.detail-row.open { display: table-row; }
+    tr.detail-row td {
+      padding: 0;
+      background: #080f1e;
+      border-bottom: 1px solid var(--color-border-tertiary);
+    }
+    .detail-inner {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--color-border-tertiary);
+    }
+    .d-section {
+      padding: 13px 15px;
+      border-right: 1px solid var(--color-border-tertiary);
+    }
+    .d-section:last-child { border-right: none; }
+    .d-heading {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 9px;
+    }
+    .d-lbl {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      margin-bottom: 2px;
+    }
+    .d-val {
+      font-size: 12px;
+      color: var(--color-text-primary);
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
+    .d-val:last-child { margin-bottom: 0; }
+
+    /* Footer */
+    .tbl-footer {
+      padding: 10px 16px;
+      border-top: 1px solid var(--color-border-tertiary);
+      background: var(--color-bg-secondary);
+    }
+    .disclaimer {
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--color-text-tertiary);
+    }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    @media (max-width: 800px) {
+      .page-outer { padding: 1rem .75rem 3rem; }
+      .detail-inner { grid-template-columns: 1fr; }
+      .d-section { border-right: none; border-bottom: 1px solid var(--color-border-tertiary); }
+      .d-section:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+  <style>
+    .top-nav { background: #0d1117; border-bottom: 1px solid #1e293b; position: sticky; top: 0; z-index: 100; }
+    .top-nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; gap: 4px; height: 60px; }
+    .nav-link { font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-size: 13px; font-weight: 600; color: #94a3b8; text-decoration: none; padding: 6px 12px; border-radius: 8px; transition: color .15s, background .15s; }
+    .nav-link:hover { color: #f1f5f9; background: #1e293b; }
+    .nav-link.active { color: #f1f5f9; background: #1e293b; }
+  </style>
+  <nav class="top-nav" aria-label="Main navigation">
+    <div class="top-nav-inner">
+      <a href="hc-cert.html" class="nav-link">Coding Jobs</a>
+      <a href="hospital-careers.html" class="nav-link active">Healthcare Jobs</a>
+    </div>
+  </nav>
+  <div class="page-outer">
+
+    <h1 class="page-title">Hospital Entry + Career Path Roles</h1>
+    <p class="page-sub">No prior medical experience required for Tier 1. Certification path roles include your CPB + CPC target track. Click any row to expand role notes and where to search on hospital careers portals.</p>
+
+    <!-- SECTION 1 -->
+    <div class="section-hdr">
+      <span class="section-icon">🏥</span>
+      <span class="section-title">Hospital Entry Roles</span>
+    </div>
+    <div class="tbl-outer">
+      <div class="tbl-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Entry Level</th>
+              <th>Cert Required</th>
+              <th>Pay (Hourly)</th>
+              <th>Pay (Annual)</th>
+              <th>Training Required</th>
+              <th>Cost</th>
+              <th>Time to Job</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbl1"></tbody>
+        </table>
+      </div>
+      <div class="tbl-footer">
+        <div class="disclaimer">No certification required for entry roles. Getting inside a hospital system on any role accelerates your path to revenue cycle positions as you complete CPB/CPC.</div>
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section-hdr">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Certification / Career Path Roles</span>
+    </div>
+    <div class="tbl-outer">
+      <div class="tbl-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Entry Level</th>
+              <th>Cert Required</th>
+              <th>Pay (Hourly)</th>
+              <th>Pay (Annual)</th>
+              <th>Training Required</th>
+              <th>Cost</th>
+              <th>Time to Job</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbl2"></tbody>
+        </table>
+      </div>
+      <div class="tbl-footer">
+        <div class="disclaimer">Salary data: Glassdoor, ZipRecruiter, AAPC 2025 Salary Survey. DFW market may run slightly lower. CPC exam $425 + $222/yr AAPC membership. CPB $425, shared membership when pursuing both. Dual bootcamps $1,500–$3,300. PTA/Rad Tech program costs vary by school and state.</div>
+      </div>
+    </div>
+
+  </div><!-- /page-outer -->
+
+  <script>
+    const s1 = [
+      {
+        title: 'Patient Transporter', dept: 'Patient Services / Transport',
+        entry: { lbl: 'Yes', cls: 'p-yes', ic: '✓' },
+        cert:  { lbl: 'No',  cls: 'p-no',  ic: '✗' },
+        hr: '$15–20', ann: '$30K–40K',
+        train: 'On-the-job (few days)', cost: '$0', costCls: 'cost-free',
+        ttj: 'Immediate (1–4 wks)', ttjCls: 'ttj-now',
+        about: 'Moves patients between rooms, departments, and imaging. No clinical skills required. Physically active role that gets you inside hospital operations from day one.',
+        search: 'Search "Patient Transporter" or "Transport Aide" under Patient Services or Operations.'
+      },
+      {
+        title: 'Rehab Aide / PT Aide', dept: 'Physical Therapy / Rehab',
+        entry: { lbl: 'Yes', cls: 'p-yes', ic: '✓' },
+        cert:  { lbl: 'No',  cls: 'p-no',  ic: '✗' },
+        hr: '$15–18', ann: '$30K–38K',
+        train: 'On-the-job (1–2 weeks)', cost: '$0', costCls: 'cost-free',
+        ttj: 'Immediate (2–4 wks)', ttjCls: 'ttj-now',
+        about: 'Assists physical therapists with patient setup, equipment, and exercise support. No PT license needed. Strategic if you\'re considering the PTA path — you\'ll see the job daily.',
+        search: 'Search "Rehab Aide", "PT Aide", or "Physical Therapy Aide" under Rehabilitation Services.'
+      },
+      {
+        title: 'Patient Access Rep', dept: 'Patient Financial Services',
+        entry: { lbl: 'Yes', cls: 'p-yes', ic: '✓' },
+        cert:  { lbl: 'No',  cls: 'p-no',  ic: '✗' },
+        hr: '$16–22', ann: '$32K–45K',
+        train: 'On-the-job (2–4 weeks)', cost: '$0', costCls: 'cost-free',
+        ttj: 'Immediate (2–4 wks)', ttjCls: 'ttj-now',
+        about: 'Front desk of the revenue cycle. Verify insurance, collect copays, register patients. High volume of openings across all hospital systems. Best foot-in-the-door for billing/coding path.',
+        search: 'Search "Patient Access Representative" or "Patient Services Representative" under Patient Financial Services.'
+      },
+      {
+        title: 'Environmental Services (EVS)', dept: 'Facilities / EVS',
+        entry: { lbl: 'Yes', cls: 'p-yes', ic: '✓' },
+        cert:  { lbl: 'No',  cls: 'p-no',  ic: '✗' },
+        hr: '$14–18', ann: '$28K–36K',
+        train: 'On-the-job (few days)', cost: '$0', costCls: 'cost-free',
+        ttj: 'Immediate (1–3 wks)', ttjCls: 'ttj-now',
+        about: 'Hospital housekeeping and sanitation. Among the fastest to hire roles in any hospital system. Gets you on payroll with full benefits immediately — then you can transfer internally.',
+        search: 'Search "Environmental Services", "EVS Technician", or "Housekeeper" under Facilities or Support Services.'
+      },
+      {
+        title: 'Imaging Assistant', dept: 'Radiology / Imaging',
+        entry: { lbl: 'Yes', cls: 'p-yes', ic: '✓' },
+        cert:  { lbl: 'No (CPR sometimes preferred)', cls: 'p-no', ic: '✗' },
+        hr: '$16–22', ann: '$32K–45K',
+        train: 'On-the-job (2–4 weeks)', cost: '$0', costCls: 'cost-free',
+        ttj: 'Immediate (2–6 wks)', ttjCls: 'ttj-now',
+        about: 'Assists radiology techs with patient positioning, room prep, and workflow support. No ARRT license needed. Strategic role if you\'re considering Rad Tech — you\'ll see the job every day.',
+        search: 'Search "Imaging Assistant", "Radiology Aide", or "Radiology Assistant" under Diagnostic Imaging or Radiology.'
+      },
+      {
+        title: 'Patient Care Tech (PCT)', dept: 'Nursing / Med-Surg',
+        entry: { lbl: 'Sometimes', cls: 'p-some', ic: '⚠' },
+        cert:  { lbl: 'Sometimes CNA', cls: 'p-some', ic: '⚠' },
+        hr: '$17–24', ann: '$35K–50K',
+        train: 'Short training or CNA cert', cost: '$500–2K', costCls: 'cost-low',
+        ttj: '0–3 months', ttjCls: 'ttj-soon',
+        about: 'Assists nurses with vitals, ADLs, EKGs, and phlebotomy depending on facility. Some hospitals hire without CNA and train in-house. Others require CNA. Read each posting carefully.',
+        search: 'Search "Patient Care Tech", "PCT", or "Nursing Assistant" under Nursing or Med-Surg.'
+      },
+    ];
+
+    const s2 = [
+      {
+        title: 'Medical Billing (CPB)', dept: 'Revenue Cycle / Business Office',
+        entry: { lbl: 'Needs cert', cls: 'p-no', ic: '✗' },
+        cert:  { lbl: 'CPB (AAPC)', cls: 'p-cert', ic: '✓' },
+        hr: '$18–28', ann: '$38K–60K',
+        train: 'Self-study or course (3–5 mo)', cost: '$2K–4K', costCls: 'cost-mid',
+        ttj: '3–6 months', ttjCls: 'ttj-soon',
+        about: 'Billing-focused credential from AAPC. Claims submission, denial management, payment posting, payer rules. CPB in-progress is often accepted — mention enrollment in cover letter. Phase 1 target alongside CPC.',
+        search: 'Search "Medical Billing Specialist", "Billing Specialist I", or "Revenue Cycle Representative" under Revenue Cycle or Business Office.'
+      },
+      {
+        title: 'Medical Coding (CPC)', dept: 'HIM / Outpatient Coding',
+        entry: { lbl: 'Needs cert', cls: 'p-no', ic: '✗' },
+        cert:  { lbl: 'CPC (AAPC)', cls: 'p-cert', ic: '✓' },
+        hr: '$20–30', ann: '$40K–65K',
+        train: 'Self-study or course (4–6 mo)', cost: '$2K–4K', costCls: 'cost-mid',
+        ttj: '3–6 months', ttjCls: 'ttj-soon',
+        about: 'AAPC\'s flagship coding credential. Assigns CPT, ICD-10-CM, and HCPCS codes for outpatient/physician services. CPC-A (apprentice) earned without 2 yrs exp — still hireable at many facilities.',
+        search: 'Search "Medical Coder", "Outpatient Coder", or "CPC" under Health Information Management or Outpatient Coding.'
+      },
+      {
+        title: 'Revenue Cycle Analyst', dept: 'Revenue Integrity / Finance',
+        entry: { lbl: 'Needs cert + exp', cls: 'p-no', ic: '✗' },
+        cert:  { lbl: 'CPC + CPB (AAPC)', cls: 'p-cert', ic: '✓' },
+        hr: '$29–38', ann: '$61K–80K',
+        train: '6–12 mo study + field exp', cost: '$2K–5K', costCls: 'cost-mid',
+        ttj: '6–12 months', ttjCls: 'ttj-later',
+        about: 'Where design and systems thinking becomes a genuine differentiator. Denial trend analysis, dashboards, workflow gap identification. Requires CPC+CPB plus real billing/coding experience. The ceiling target role.',
+        search: 'Search "Revenue Cycle Analyst" or "Revenue Integrity Analyst" under Finance or Revenue Cycle.'
+      },
+      {
+        title: 'Physical Therapist Assistant (PTA)', dept: 'Physical Therapy / Rehab',
+        entry: { lbl: 'No', cls: 'p-no', ic: '✗' },
+        cert:  { lbl: 'License (CAPTE program)', cls: 'p-license', ic: '✓' },
+        hr: '$25–35', ann: '$55K–70K',
+        train: '2-year degree + clinicals', cost: '$10K–30K', costCls: 'cost-high',
+        ttj: '~2 years', ttjCls: 'ttj-long',
+        about: 'Associate degree from CAPTE-accredited program required. Works under a licensed PT — assists with treatment plans, therapeutic exercises, patient education. Strong job security and stable demand.',
+        search: 'Search "Physical Therapist Assistant" or "PTA" under Rehabilitation Services. Requires program completion first.'
+      },
+      {
+        title: 'Radiologic Technologist (Rad Tech)', dept: 'Diagnostic Imaging / Radiology',
+        entry: { lbl: 'No', cls: 'p-no', ic: '✗' },
+        cert:  { lbl: 'License (ARRT exam)', cls: 'p-license', ic: '✓' },
+        hr: '$28–38', ann: '$60K–80K',
+        train: '2-year program + clinicals', cost: '$10K–30K', costCls: 'cost-high',
+        ttj: '~2 years', ttjCls: 'ttj-long',
+        about: 'ARRT license required. Operates X-ray, CT, MRI, and fluoroscopy equipment. Strong salary, stable demand, clear advancement into CT/MRI specialization. Programs available in Rockwall TX and Phoenix AZ areas.',
+        search: 'Search "Radiologic Technologist", "Rad Tech", or "Radiographer" under Diagnostic Imaging. Requires program completion first.'
+      },
+    ];
+
+    function buildTable(data, tbodyId, colCount) {
+      const tbody = document.getElementById(tbodyId);
+      let html = '';
+      data.forEach((j, i) => {
+        const id = `${tbodyId}-${i}`;
+        html += `
+        <tr class="data-row" id="${id}" onclick="toggleRow('${id}')">
+          <td>
+            <div class="job-title">${j.title}</div>
+            <div class="job-dept">${j.dept}</div>
+          </td>
+          <td><span class="pill ${j.entry.cls}"><span class="ic">${j.entry.ic}</span>${j.entry.lbl}</span></td>
+          <td><span class="pill ${j.cert.cls}"><span class="ic">${j.cert.ic}</span>${j.cert.lbl}</span></td>
+          <td><div class="pay-main">${j.hr}</div></td>
+          <td><div class="pay-annual">${j.ann}</div></td>
+          <td><div class="pay-sub">${j.train}</div></td>
+          <td><span class="pill ${j.costCls}">${j.cost}</span></td>
+          <td><span class="pill ${j.ttjCls}">${j.ttj}</span></td>
+          <td class="expand-col">
+            <button class="expand-btn" tabindex="-1" aria-label="Toggle details for ${j.title}">
+              <span id="btn-${id}">+</span>
+            </button>
+          </td>
+        </tr>
+        <tr class="detail-row" id="detail-${id}">
+          <td colspan="9">
+            <div class="detail-inner">
+              <div class="d-section">
+                <div class="d-heading">About this role</div>
+                <div class="d-val">${j.about}</div>
+              </div>
+              <div class="d-section">
+                <div class="d-heading">Pay &amp; training</div>
+                <div class="d-lbl">Hourly range</div><div class="d-val">${j.hr}</div>
+                <div class="d-lbl">Annual range</div><div class="d-val">${j.ann}</div>
+                <div class="d-lbl">Program cost</div><div class="d-val">${j.cost === '$0' ? 'No program needed — on-the-job training' : j.cost}</div>
+                <div class="d-lbl">Train time</div><div class="d-val">${j.train}</div>
+              </div>
+              <div class="d-section">
+                <div class="d-heading">Where to search</div>
+                <div class="d-val">${j.search}</div>
+              </div>
+            </div>
+          </td>
+        </tr>`;
+      });
+      tbody.innerHTML = html;
+    }
+
+    function toggleRow(id) {
+      const row    = document.getElementById(id);
+      const detail = document.getElementById('detail-' + id);
+      const btn    = document.getElementById('btn-' + id);
+      const isOpen = detail.classList.contains('open');
+      detail.classList.toggle('open');
+      row.classList.toggle('open');
+      btn.textContent = isOpen ? '+' : '−';
+    }
+
+    buildTable(s1, 'tbl1');
+    buildTable(s2, 'tbl2');
+  </script>
+</body>
+</html>
